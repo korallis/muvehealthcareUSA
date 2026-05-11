@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run typecheck
+      - run: bun run lint
+      - run: bun run test:ci
+      - run: bun run build
+        env:
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET || 'ci-test-secret-must-be-at-least-32-characters-long' }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgresql://test:test@localhost/test' }}
+          UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL || 'https://test.upstash.io' }}
+          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN || 'test-token' }}
+          MICROSOFT_GRAPH_TENANT_ID: ${{ secrets.MICROSOFT_GRAPH_TENANT_ID || 'test-tenant' }}
+          MICROSOFT_GRAPH_CLIENT_ID: ${{ secrets.MICROSOFT_GRAPH_CLIENT_ID || 'test-client' }}
+          MICROSOFT_GRAPH_CLIENT_SECRET: ${{ secrets.MICROSOFT_GRAPH_CLIENT_SECRET || 'test-secret' }}
+          NEXT_PUBLIC_BASE_URL: "https://muvehealthcaresitestaging.vercel.app"
+          BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN || 'test-blob-token' }}
