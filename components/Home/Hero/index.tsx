@@ -68,10 +68,10 @@ export default function Hero({
             transition={{ duration: 1, ease: "easeOut" }}
           >
             <Image
-              src={personImage || "/waist-up.png"}
+              src={personImage || "/nurse.svg"}
               alt="Person"
-              width={1000}
-              height={1000}
+              width={800}
+              height={800}
               className="object-contain"
               priority
             />
