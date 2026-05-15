@@ -23,10 +23,15 @@ export default function WorkWithUs() {
   ];
 
   return (
-    <div className="w-full font-sans">
+    <div className="w-full relative overflow-hidden"
+    style={{
+        background: "linear-gradient(180deg, #40E2B8 0%, #45E3BA 35%, #78EACD 58%, #A2F0DC 80%, #B3F3E3 91%, #B3F3E3 100%)",
+      }}
+    >
+
 
       {/* ── WORK WITH US ── */}
-      <section className="bg-[#3DDDB3] py-14 px-4">
+      <div className="py-14 px-4">
         <div className={`text-center mb-10 transition-all duration-700 ease-out
           ${mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"}`}>
           <h2 className="text-4xl font-extrabold text-[#0E1552] inline-flex items-center gap-3">
@@ -54,7 +59,7 @@ export default function WorkWithUs() {
                             transition-all duration-500 ease-out
                             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               >
-                <div className="w-full h-50 relative overflow-hidden">
+                <div className="w-full h-60 relative overflow-hidden">
                   <Image
                     src={cat.image}
                     alt={cat.title}
@@ -81,10 +86,10 @@ export default function WorkWithUs() {
             </svg>
           </button>
         </div>
-      </section>
+      </div>
 
       {/* ── IT STARTS HERE ── */}
-      <section className="bg-white py-14 px-4">
+      <div className="py-14 px-4">
         <div className={`text-center mb-10 transition-all duration-700 delay-300 ease-out
           ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <h2 className="text-4xl font-lexendBold text-[#0E1552] inline-flex items-center gap-3">
@@ -142,7 +147,7 @@ export default function WorkWithUs() {
             ))}
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }
