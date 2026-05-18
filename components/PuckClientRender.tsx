@@ -5,7 +5,7 @@ import { config } from "@/puck.config";
 import { usePathname } from "next/navigation";
 import LatestNewsSmart from "@/components/Faq/LatestNews";
 import EventsSmart from "@/components/Social/Events";
-import WorkWithUsSmart from "@/components/GetInTouch/WorkWithUs";
+// import WorkWithUsSmart from "@/components/GetInTouch/WorkWithUs";
 
 interface Job {
   id: string;
@@ -80,15 +80,15 @@ export default function PuckClientRender({
           />
         ),
       },
-      WorkWithUs: {
-        ...config.components.WorkWithUs,
-        render: (puckFields: Record<string, unknown>) => (
-          <WorkWithUsSmart
-            title={puckFields.title as string | undefined}
-            initialJobs={jobs as Job[]}
-          />
-        ),
-      },
+      // WorkWithUs: {
+      //   ...config.components.WorkWithUs,
+      //   render: (puckFields: Record<string, unknown>) => (
+      //     <WorkWithUsSmart
+      //       title={puckFields.title as string | undefined}
+      //       initialJobs={jobs as Job[]}
+      //     />
+      //   ),
+      // },
     },
   };
 
