@@ -1,0 +1,31 @@
+export const categories = [
+  {
+    id: 1,
+    title: "Allied Health",
+    description:
+      "Access a range of opportunities across allied healthcare. Competitive pay, great locations and roles tailored to your career ambitions.",
+    image: "/blog/blog.png",
+  },
+  {
+    id: 2,
+    title: "Locum Tenens",
+    description:
+      "Step into temporary roles with confidence. Flexible assignments, seamless onboarding and full support so you can focus on patient care.",
+    image: "/blog/blog.png",
+  },
+  {
+    id: 3,
+    title: "Travel",
+    description:
+      "Explore new locations while advancing your career. We match you with assignments that align with your goals, if you're new or experienced.",
+    image: "/blog/blog.png",
+  },
+];
+
+export const jobs = [
+  { id: 1, title: "Graphic Designer",  type: "Full Time", location: "Cape Town, SA",    listed: "2 weeks ago", status: "Open" },
+  { id: 2, title: "Graphic Designer",  type: "Full Time", location: "Cape Town, SA",    listed: "2 weeks ago", status: "Open" },
+  { id: 3, title: "Graphic Designer",  type: "Full Time", location: "Cape Town, SA",    listed: "2 weeks ago", status: "Open" },
+  { id: 4, title: "UX Designer",       type: "Contract",  location: "Johannesburg, SA", listed: "3 weeks ago", status: "Open" },
+  { id: 5, title: "Product Manager",   type: "Full Time", location: "Durban, SA",       listed: "1 week ago",  status: "Open" },
+];
