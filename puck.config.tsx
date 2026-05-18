@@ -201,7 +201,7 @@ export const config: Config<Props> = {
       defaultExpanded: false,
     },
     Home: {
-      components: ["Hero", "Path", "Mission", "HowWeHelp"],
+      components: ["Hero", "Path",],
       defaultExpanded: false,
     },
     Resources: {
