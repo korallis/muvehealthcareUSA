@@ -525,55 +525,6 @@ export const config: Config<Props> = {
       ),
     },
 
-    Bobby: {
-      fields: {
-        title: { type: "text" },
-        subtitle: { type: "text" },
-        name: { type: "text" },
-        role: { type: "text" },
-        experience: { type: "textarea" },
-        education: { type: "textarea" },
-        funFact: { type: "textarea" },
-        bgColor: {
-          type: "select",
-          label: "Background Color",
-          options: brandColorOptions,
-        },
-        fontFamily: {
-          type: "select",
-          label: "Font Family",
-          options: brandFontOptions,
-        },
-        textColor: {
-          type: "select",
-          label: "Text Color",
-          options: brandTextColors,
-        },
-        image: {
-          type: "custom",
-          render: ({ onChange, value }) => (
-            <div className="space-y-2 py-2">
-              {/* Label and Icon */}
-              <label className="text-sm font-bold text-[#1F3154] uppercase tracking-wider flex items-center gap-2">
-                <ImageIcon size={14} /> Featured Image
-              </label>
-              
-              {/* Hint Text */}
-              <p className="text-gray-400 text-xs">
-                Recommended: 1200x630px
-              </p>
-              
-              <ImageUpload 
-                value={value ?? ""} 
-                onChange={(newValue) => onChange(newValue)} 
-              />
-            </div>
-          ),
-        },
-
-      },
-      render: (props) => <Bobby {...props} />,
-    },
 
     Path: {
       fields: { title: { type: "text" } },
@@ -590,46 +541,6 @@ export const config: Config<Props> = {
     WorkWithUsToo: {
       fields: { title: { type: "text" } },
       render: ({ title }) => <WorkWithUsToo title={title} />,
-    },
-    Mission: {
-      fields: { title: { type: "text" }, description: { type: "textarea" } },
-      render: ({ title, description }) => (
-        <MissionSection title={title} description={description} />
-      ),
-    },
-    HowWeHelp: {
-      fields: { title: { type: "text" } },
-      render: ({ title }) => <HowWeHelp title={title} />,
-    },
-    WhoWeAre: {
-      fields: {
-        title: { type: "text" },
-        subtitleWho: { type: "text" },
-        subtitleAre: { type: "text" },
-        introText: { type: "textarea" },
-        mainBody: { type: "textarea" },
-        buttonText: { type: "text" },
-        buttonPath: { type: "text" },
-        image: {
-          type: "custom",
-          render: ({ onChange, value }) => (
-            <PuckImageField onChange={onChange} value={value} />
-          ),
-        },
-      },
-      defaultProps: {
-        title: "About",
-        subtitleWho: "Who",
-        subtitleAre: "We Are?",
-        introText:
-          "MUVE Healthcare Group exists to make quality care human, accessible, and empowering.",
-        mainBody:
-          "We bring together specialist services, from supported living and residential care to community, mental health, and children’s services...",
-        buttonText: "Meet The Team",
-        buttonPath: "/team",
-        image: "/Section_ImageRight.png",
-      },
-      render: (props) => <WhoWeAre {...props} />,
     },
 
 
