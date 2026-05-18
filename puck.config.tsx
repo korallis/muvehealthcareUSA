@@ -19,28 +19,20 @@ declare module "@puckeditor/core" {
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Home/Hero";
 import Path from "@/components/Home/PathCare";
-import MissionSection from "@/components/Home/Healthcare";
-import HowWeHelp from "@/components/Home/How";
+import Professionals from "./components/Home/Professionals";
+import Specialities from "./components/Home/Specialists";
+// import WorkWithUs from "./components/Home/Workwithus";
+import WorkWithUsToo from "./components/Home/Workwithus";
+
 import FooterSection from "@/components/Home/Conversation";
-import AboutHowWeHelp from "@/components/About/AboutHowWeHelp";
-import WhoWeAre from "@/components/About/WhoWeAre";
-import WhoWeHelp, { WhoWeHelpProps } from "@/components/About/WhoWeHelp";
-import MuveLiving from "@/components/Services/Muve-Living";
-import MuveHorizons from "@/components/Services/MuveHorizon";
-import MuveCommunity from "@/components/Services/MuveCommunity";
-import MuveMinds from "@/components/Services/MuveMinds";
-import MuveBright from "@/components/Services/MuveBright";
+
 import FrequentlyAsked from "./components/Faq/FrequentlyAsked";
 import QuickLinks from "./components/Faq/QuickLinks";
 import LatestNewsUI from "./components/Faq/LatestNews/LatestNewsUI";
-import MeetOmar from "./components/Social/Omar";
 import Social, { SocialProps } from "./components/Social/Value";
 import EventsUI from "./components/Social/Events/EventsUI";
-import Contact from "./components/GetInTouch/Contact";
 import FeedbackForm from "./components/GetInTouch/Feedback";
-import Locations from "./components/GetInTouch/Locations";
-import WorkWithUsUI from "./components/GetInTouch/WorkWithUs/WorkWithUsUI";
-import Bobby from "./components/Team/Bobby";
+
 
 import PuckImageField from "@/components/dashboard/PuckImageField";
 import { ImageIcon } from "lucide-react";
@@ -105,61 +97,16 @@ type Props = {
   Navbar: { logo?: string; links?: NavLink[] };
   Hero: { title?: string; subtitle?: string; bgColor?: string };
   Path: { title?: string };
-  Mission: { title?: string; description?: string };
-  HowWeHelp: { title?: string };
-  WhoWeAre: {
-    title?: string;
-    subtitleWho?: string;
-    subtitleAre?: string;
-    introText?: string;
-    mainBody?: string;
-    buttonText?: string;
-    buttonPath?: string;
-    image?: string;
-  };
-  AboutHowWeHelp: {
-    title?: string;
-    subtitleHow?: string;
-    subtitleHelp?: string;
-    introText?: string;
-    image?: string;
-    services?: Array<{
-      title: string;
-      description: string;
-      path: string;
-      logo: string;
-      alt: string;
-    }>;
-  };
-  WhoWeHelp: WhoWeHelpProps;
-  MuveLiving: { title?: string };
-  MuveHorizons: { title?: string };
-  MuveCommunity: { title?: string };
-  MuveMinds: { title?: string };
-  MuveBright: { title?: string };
+  Professionals: { title?: string };
+  Specialities: { title?: string };
+  WorkWithUsToo: { title?: string };
   FrequentlyAsked: { title?: string };
   QuickLinks: { title?: string };
   LatestNews: { title?: string };
-  MeetOmar: { title?: string };
   Social: SocialProps;
   Events: { title?: string };
-  Contact: { heading?: string; email?: string };
-  Locations: { title?: string };
   FeedbackForm: { title?: string };
-  WorkWithUs: { title?: string };
-  Bobby: {
-    title?: string;
-    subtitle?: string;
-    name?: string;
-    role?: string;
-    experience?: string;
-    education?: string;
-    funFact?: string;
-    bgColor?: string;
-    fontFamily?: string;
-    textColor?: string;
-    image?: string;
-  };
+
   FooterSection: { copyright?: string };
 
   // Page Builder (Elementor-style)
@@ -257,35 +204,13 @@ export const config: Config<Props> = {
       components: ["Hero", "Path", "Mission", "HowWeHelp"],
       defaultExpanded: false,
     },
-    About: {
-      components: ["WhoWeAre", "WhoWeHelp", "AboutHowWeHelp"],
-      defaultExpanded: false,
-    },
-    Services: {
-      components: [
-        "MuveLiving",
-        "MuveHorizons",
-        "MuveCommunity",
-        "MuveMinds",
-        "MuveBright",
-      ],
-      defaultExpanded: false,
-    },
-    Team: {
-      title: "Our People",
-      components: ["Bobby"],
-      defaultExpanded: false,
-    },
     Resources: {
       components: ["FrequentlyAsked", "QuickLinks", "LatestNews"],
       defaultExpanded: false,
     },
-    Stories: {
-      components: ["Social", "Events", "MeetOmar"],
-      defaultExpanded: false,
-    },
+
     Contact: {
-      components: ["Contact", "Locations", "FeedbackForm", "WorkWithUs"],
+      components: ["FeedbackForm"],
       defaultExpanded: false,
     },
     legal: {
@@ -654,6 +579,18 @@ export const config: Config<Props> = {
       fields: { title: { type: "text" } },
       render: ({ title }) => <Path title={title} />,
     },
+    Professionals: {
+      fields: { title: { type: "text" } },
+      render: ({ title }) => <Professionals title={title} />,
+    },
+    Specialities: {
+      fields: { title: { type: "text" } },
+      render: ({ title }) => <Specialities title={title} />,
+    },
+    WorkWithUsToo: {
+      fields: { title: { type: "text" } },
+      render: ({ title }) => <WorkWithUsToo title={title} />,
+    },
     Mission: {
       fields: { title: { type: "text" }, description: { type: "textarea" } },
       render: ({ title, description }) => (
@@ -695,145 +632,6 @@ export const config: Config<Props> = {
       render: (props) => <WhoWeAre {...props} />,
     },
 
-    // WhoWeHelp: { fields: { title: { type: "text" } }, render: ({ title }) => <WhoWeHelp title={title} /> },
-    WhoWeHelp: {
-      fields: {
-        title: { type: "text" },
-        subtitleHighlight: { type: "text" },
-        subtitleMain: { type: "text" },
-        mainDescription: { type: "textarea" },
-        image: {
-          type: "custom",
-          render: ({ onChange, value }) => (
-            <PuckImageField onChange={onChange} value={value} />
-          ),
-        },
-        strips: {
-          type: "array",
-          getItemSummary: (item) => item.title || "New Strip",
-          arrayFields: {
-            title: { type: "text" },
-            description: { type: "textarea" },
-            type: {
-              type: "select",
-              options: [
-                { label: "Purple (Slide Left)", value: "purple" },
-                { label: "Blue (Slide Right)", value: "blue" },
-              ],
-            },
-          },
-        },
-      },
-      defaultProps: {
-        title: "About",
-        subtitleHighlight: "Who",
-        subtitleMain: "We Help?",
-        mainDescription:
-          "At MUVE Healthcare Group, we support individuals with a range of complex needs, including autism, learning disabilities, mental health conditions, and behaviours that challenge.\n\n Our services are built around understanding each person’s unique strengths, preferences, and goals, ensuring care that is both high-quality and deeply human.",
-        image: "/Section_ImageRight1.png",
-        strips: [
-          {
-            title: "Profound and Multiple Learning Disabilities (PMLD)",
-            description:
-              "We provide specialist care for individuals with profound and multiple learning disabilities...",
-            type: "purple",
-          },
-          {
-            title: "Autism (ASC)",
-            description:
-              "Every autistic person is unique. We deliver tailored support...",
-            type: "blue",
-          },
-          {
-            title: "Mental Health",
-            description:
-              "Our mental health services focus on recovery, resilience, and wellbeing...",
-            type: "purple",
-          },
-          {
-            title: "Behaviours of Concern",
-            description:
-              "We support individuals whose behaviours may challenge, using positive, person-centred strategies that promote safety, understanding, and emotional regulation.",
-            type: "blue",
-          },
-        ],
-      },
-      render: (props) => <WhoWeHelp {...props} />,
-    },
-
-    AboutHowWeHelp: {
-      fields: {
-        title: { type: "text" },
-        subtitleHow: { type: "text" },
-        subtitleHelp: { type: "text" },
-        introText: { type: "textarea" },
-        image: {
-          type: "custom",
-          render: ({ onChange, value }) => (
-            <PuckImageField onChange={onChange} value={value} />
-          ),
-        },
-        services: {
-          type: "array",
-          getItemSummary: (item) => item.title || "New Service",
-          arrayFields: {
-            title: { type: "text" },
-            description: { type: "textarea" },
-            path: { type: "text", label: "Link Path" },
-            logo: {
-              type: "custom",
-              render: ({ onChange, value }) => (
-                <PuckImageField
-                  onChange={onChange}
-                  value={value}
-                  previewClassName="w-10 h-10 object-contain bg-gray-100"
-                />
-              ),
-            },
-            alt: { type: "text" },
-          },
-        },
-      },
-      defaultProps: {
-        title: "About",
-        subtitleHow: "How",
-        subtitleHelp: "We Help?",
-        introText: "We combine professional expertise...",
-        image: "/Section_ImageRight2.png",
-        services: [
-          {
-            title: "Supported Living",
-            path: "/Services#supported-living",
-            description: "Empowering individuals to live independently...",
-            logo: "/logos/muve-living.png",
-            alt: "MUVE Living",
-          },
-        ],
-      },
-      render: (props) => <AboutHowWeHelp {...props} />,
-    },
-
-    // Muve Services Components
-    MuveLiving: {
-      fields: { title: { type: "text" } },
-      render: ({ title }) => <MuveLiving title={title} />,
-    },
-    MuveHorizons: {
-      fields: { title: { type: "text" } },
-      render: ({ title }) => <MuveHorizons title={title} />,
-    },
-    MuveCommunity: {
-      fields: { title: { type: "text" } },
-      render: ({ title }) => <MuveCommunity title={title} />,
-    },
-    MuveMinds: {
-      fields: { title: { type: "text" } },
-      render: ({ title }) => <MuveMinds title={title} />,
-    },
-    MuveBright: {
-      fields: { title: { type: "text" } },
-      render: ({ title }) => <MuveBright title={title} />,
-    },
 
     // Faq Pages
     FrequentlyAsked: {
@@ -879,28 +677,12 @@ export const config: Config<Props> = {
     },
 
     Events: { fields: { title: { type: "text" } }, render: () => <EventsUI /> },
-    MeetOmar: {
-      fields: { title: { type: "text" } },
-      render: () => <MeetOmar />,
-    },
-    Contact: {
-      fields: { heading: { type: "text" }, email: { type: "text" } },
-      render: ({ heading, email }) => (
-        <Contact heading={heading} email={email} />
-      ),
-    },
-    Locations: {
-      fields: { title: { type: "text" } },
-      render: ({ title }) => <Locations title={title} />,
-    },
+
     FeedbackForm: {
       fields: { title: { type: "text" } },
       render: ({ title }) => <FeedbackForm title={title} />,
     },
-    WorkWithUs: {
-      fields: { title: { type: "text" } },
-      render: ({ title }) => <WorkWithUsUI title={title} jobs={[]} />,
-    },
+
     FooterSection: {
       fields: { copyright: { type: "text" } },
       render: ({ copyright }) => <FooterSection copyright={copyright} />,

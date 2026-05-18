@@ -1,6 +1,7 @@
+"use client";
+
 import { useState, useCallback } from "react";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
 
 interface Address {
   line1: string;
@@ -159,10 +160,9 @@ const inputBase =
 
 const errorInput = "border-red-400 focus:ring-red-300 focus:border-red-400";
 
-const selectBase =
-  "w-full bg-white rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#101935]/30 focus:border-[#101935] transition-all appearance-none cursor-pointer";
+const selectBase = "w-full bg-white rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#101935]/30 focus:border-[#101935] transition-all appearance-none cursor-pointer";
 
-const sectionCard = "bg-white/30 backdrop-blur-sm rounded-2xl p-6 space-y-5 shadow-sm border border-white/50";
+const sectionCard = " p-6 space-y-5";
 
 const sectionHeading = "text-[#101935] font-bold text-base tracking-wide uppercase border-b border-[#101935]/20 pb-2";
 
@@ -170,11 +170,9 @@ const subHeading = "text-[#101935]/80 font-semibold text-sm";
 
 const labelText = "block text-xs font-semibold text-[#101935]/70 uppercase tracking-wider mb-1";
 
-const tealBtn =
-  "inline-flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors shadow-sm";
+const tealBtn = "inline-flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors shadow-sm";
 
-const navyBtn =
-  "inline-flex items-center gap-2 bg-[#101935] hover:bg-[#1a2d55] active:bg-[#0d1428] text-white text-sm font-semibold px-8 py-2.5 rounded-full transition-colors shadow-md";
+const navyBtn = "inline-flex items-center gap-2 bg-[#101935] hover:bg-[#1a2d55] active:bg-[#0d1428] text-white text-sm font-semibold px-8 py-2.5 rounded-full transition-colors shadow-md";
 
 const radioOption = (selected: boolean) =>
   `px-4 py-2 rounded-xl text-sm font-medium border cursor-pointer transition-all select-none ${
@@ -234,9 +232,12 @@ function Step1({
 
         {/* Title */}
         <Field label="Title" required error={errors.title}>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap rounded-full gap-2">
             {TITLES.map((t) => (
-              <span key={t} className={radioOption(data.title === t)} onClick={() => onChange({ title: t })}>
+              <span 
+                key={t} 
+                className={radioOption(data.title === t)} 
+                onClick={() => onChange({ title: t })}>
                 {t}
               </span>
             ))}
@@ -1063,10 +1064,9 @@ export default function WorkWithUsForm() {
   return (
     <div className="min-h-screen flex flex-col relative" style={{ fontFamily: "'DM Sans', 'Inter', sans-serif" }}>
       {/* Background */}
-      <div className="fixed inset-0 bg-[#7F92A3] z-0" />
+      <div className="fixed inset-0 bg-[#7E98A6] z-0" />
       <div
         className="fixed inset-0 z-0 opacity-40"
-        style={{ backgroundImage: "url('/patterns/bg-squiggles.svg')", backgroundSize: "cover", backgroundPosition: "center" }}
       />
 
       {/* Main Content */}
@@ -1096,7 +1096,7 @@ export default function WorkWithUsForm() {
               >
                 <span
                   className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
-                    step === s.n ? "bg-teal-400 text-white" : s.n < step ? "bg-teal-500 text-white" : "bg-white/20 text-white/50"
+                    step === s.n ? "bg-teal-400 text-[white]" : s.n < step ? "bg-teal-500 text-white" : "bg-white/20 text-white/50"
                   }`}
                 >
                   {s.n < step ? (

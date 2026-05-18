@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { categories, jobs } from "@/constants/workData"; // Update path if needed
 
-export default function WorkWithUs() {
+export default function WorkWithUsToo() {
   const [current, setCurrent] = useState(0);
   const [mounted, setMounted] = useState(false);
 
