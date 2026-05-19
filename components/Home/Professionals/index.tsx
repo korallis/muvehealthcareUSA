@@ -43,6 +43,10 @@ const specialities = [
   },
 ];
 
+interface ProfessionalsProps {
+  title?: string;
+  description?: string;
+}
 // ─── Icons ───────────────────────────────────────────────────────────────────
 
 function IconX() {
@@ -63,7 +67,7 @@ function IconCheck() {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export default function Professionals() {
+export default function Professionals({ title }: ProfessionalsProps) {
   return (
     <div 
       className="w-full relative overflow-hidden pt-12 pb-16 px-4 bg-[#D4E2FF]"
@@ -86,10 +90,16 @@ export default function Professionals() {
             {/* For Professionals Card */}
             <div className="flex-1 bg-[#40E2B8] rounded-[4em] p-6 relative">
                 <h3 className="text-[48px] font-lexendBold text-[#07004C] mb-5 p-4 tracking-tight">
+                  {title ? (
+                    title
+                  ) : (
+                    <>
                 For{" "}
                 <span className="bg-[#fff] text-[#07004C] font-lexendBold px-2 py-0.5 rounded-md mx-0.5">
                     Professionals
                 </span>
+                </>
+          )}
                 </h3>
                 <p className="font-lexendBold text-[21px] text-[#07004C] pl-4 pr-4">
                     24/7 Support

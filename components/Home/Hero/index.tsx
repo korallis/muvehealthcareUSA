@@ -62,7 +62,7 @@ export default function Hero({
 
         <div className="relative mt-8 lg:mt-16 flex flex-col lg:flex-row justify-center lg:justify-start">
           <motion.div
-            className="relative z-30 pointer-events-none w-[115%] -mx-[7.5%] sm:w-[110%] sm:-mx-[5%] md:w-full md:mx-0 lg:w-fit lg:max-w-none mx-auto"
+            className="relative z-30 pointer-events-none w-[100%] mx-[7.5%] sm:w-[110%] sm:mx-[5%] md:w-full md:-mx-20  md:-mt-35 lg:w-fit lg:max-w-none mx-auto"
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
@@ -78,28 +78,28 @@ export default function Hero({
           </motion.div>
 
           <motion.div
-            className="hidden lg:grid absolute top-[540px] -translate-y-1/2 left-[550px] z-10 bg-lightblue p-10 rounded-3xl w-[720px] grid-cols-[1fr_4fr] gap-6"
+            className="hidden lg:grid absolute top-[540px] -translate-y-1/2 left-[550px] z-10 bg-[#4C86FF] p-10 rounded-3xl w-[720px] grid-cols-[1fr_4fr] gap-6"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1 }}
           >
             <div></div>
             <div className="text-left">
-              <p className="text-hero-body text-[#0A0440]">
+              <p className="text-hero-body text-white">
                 {subtitle ||
-                  "“We exist to make care feel human again. Empowering people to live with dignity, independence, and connection, and making quality care available to every community we serve.”"}
+                  "Make the MUVE. Care done right. Healthcare recruitment specialists connecting professionals with opportunity and clients with quality care."}
               </p>
               <motion.div className="mt-6 flex flex-wrap justify-start gap-4">
                 <motion.a
-                  href={button1Link || "About"}
-                  className="px-6 py-3 bg-[#4A4CFF] text-buttons text-white rounded-full hover:bg-[#3d3fff] cursor-pointer"
+                  href={button1Link || "ApplicationForm"}
+                  className="px-20 py-3 bg-[#07004C] text-buttons text-white rounded-full hover:bg-[#3d3fff] cursor-pointer"
                 >
-                  {button1Text || "Learn More"}
+                  {button1Text || "Apply"}
                 </motion.a>
                 <motion.a
                   href={button2Link || "#"}
                   target="_blank"
-                  className="px-6 py-3 border-2 border-[#0A0440] text-[#0A0440] text-buttons rounded-full hover:bg-[#0A0440] hover:text-white transition-all"
+                  className="px-6 py-3 border-2 border-[#07004C] text-[#0A0440] text-buttons rounded-full hover:bg-[#0A0440] hover:text-white transition-all"
                 >
                   {button2Text || "Make a Referral"}
                 </motion.a>

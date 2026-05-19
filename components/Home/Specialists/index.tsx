@@ -61,9 +61,14 @@ function IconCheck() {
   );
 }
 
+interface SpecialtiesProps {
+  title?: string;
+  description?: string;
+}
+
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export default function Specialities() {
+export default function Specialities({ title }:SpecialtiesProps) {
   return (
     <div 
       className="w-full relative overflow-hidden pt-12 pb-16 px-4"
@@ -145,10 +150,16 @@ export default function Specialities() {
         {/* ─── Section 2: Specialties Header ─── */}
         <div className="text-center mb-18">
           <h2 className="text-[60px] font-black text-white tracking-tight flex items-center justify-center gap-3">
+            {title ? (
+                    title
+                  ) : (
+                    <>
             <span className="bg-[#40E2B8] text-[#fff] px-3 py-0.5 rounded-md">
               Our
             </span>
             <span className="text-[#fff] px-3 py-0.5 rounded-md">Specialities</span>
+            </>
+          )}
           </h2>
         </div>
 

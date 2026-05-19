@@ -1,6 +1,7 @@
+"use client";
+
 import { useState, useCallback } from "react";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
 
 interface Address {
   line1: string;
@@ -154,15 +155,13 @@ const newAdditionalCert = (): AdditionalCert => ({
 
 // ─── Shared UI Primitives ─────────────────────────────────────────────────────
 
-const inputBase =
-  "w-full bg-white rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#101935]/30 focus:border-[#101935] transition-all";
+const inputBase = "w-full bg-white rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#101935]/30 focus:border-[#101935] transition-all";
 
 const errorInput = "border-red-400 focus:ring-red-300 focus:border-red-400";
 
-const selectBase =
-  "w-full bg-white rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#101935]/30 focus:border-[#101935] transition-all appearance-none cursor-pointer";
+const selectBase = "w-full bg-white rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#101935]/30 focus:border-[#101935] transition-all appearance-none cursor-pointer";
 
-const sectionCard = "bg-white/30 backdrop-blur-sm rounded-2xl p-6 space-y-5 shadow-sm border border-white/50";
+const sectionCard = " p-6 space-y-5";
 
 const sectionHeading = "text-[#101935] font-bold text-base tracking-wide uppercase border-b border-[#101935]/20 pb-2";
 
@@ -170,14 +169,12 @@ const subHeading = "text-[#101935]/80 font-semibold text-sm";
 
 const labelText = "block text-xs font-semibold text-[#101935]/70 uppercase tracking-wider mb-1";
 
-const tealBtn =
-  "inline-flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors shadow-sm";
+const tealBtn = "inline-flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors shadow-sm";
 
-const navyBtn =
-  "inline-flex items-center gap-2 bg-[#101935] hover:bg-[#1a2d55] active:bg-[#0d1428] text-white text-sm font-semibold px-8 py-2.5 rounded-full transition-colors shadow-md";
+const navyBtn = "inline-flex items-center gap-2 bg-[#101935] hover:bg-[#1a2d55] active:bg-[#0d1428] text-white text-sm font-semibold px-8 py-2.5 rounded-full transition-colors shadow-md";
 
 const radioOption = (selected: boolean) =>
-  `px-4 py-2 rounded-xl text-sm font-medium border cursor-pointer transition-all select-none ${
+  `px-4 py-2 rounded-full text-sm font-medium border cursor-pointer transition-all select-none ${
     selected
       ? "bg-[#101935] text-white border-[#101935] shadow-sm"
       : "bg-white text-gray-600 border-gray-200 hover:border-[#101935]/40 hover:text-[#101935]"
@@ -234,9 +231,12 @@ function Step1({
 
         {/* Title */}
         <Field label="Title" required error={errors.title}>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap rounded-full gap-2">
             {TITLES.map((t) => (
-              <span key={t} className={radioOption(data.title === t)} onClick={() => onChange({ title: t })}>
+              <span 
+                key={t} 
+                className={radioOption(data.title === t)} 
+                onClick={() => onChange({ title: t })}>
                 {t}
               </span>
             ))}
@@ -250,7 +250,7 @@ function Step1({
             placeholder="DD / MM / YYYY"
             value={data.dob}
             onChange={(e) => onChange({ dob: e.target.value })}
-            className={`${inputBase} ${errors.dob ? errorInput : ""}`}
+            className={`!rounded-4xl ${inputBase} ${errors.dob ? errorInput : ""}`}
           />
         </Field>
 
@@ -262,7 +262,7 @@ function Step1({
               placeholder="First Name"
               value={data.firstName}
               onChange={(e) => onChange({ firstName: e.target.value })}
-              className={`${inputBase} ${errors.firstName ? errorInput : ""}`}
+              className={`${inputBase} ${errors.firstName ? errorInput : ""} !rounded-4xl`}
             />
           </Field>
           <Field label="Middle Name">
@@ -271,7 +271,7 @@ function Step1({
               placeholder="Middle Name"
               value={data.middleName}
               onChange={(e) => onChange({ middleName: e.target.value })}
-              className={inputBase}
+              className={`!rounded-4xl ${inputBase}`}
             />
           </Field>
           <Field label="Last Name" required error={errors.lastName}>
@@ -280,7 +280,7 @@ function Step1({
               placeholder="Last Name"
               value={data.lastName}
               onChange={(e) => onChange({ lastName: e.target.value })}
-              className={`${inputBase} ${errors.lastName ? errorInput : ""}`}
+              className={`${inputBase} ${errors.lastName ? errorInput : ""} !rounded-4xl`}
             />
           </Field>
         </div>
@@ -292,7 +292,7 @@ function Step1({
             placeholder="Address Line 1"
             value={data.address.line1}
             onChange={(e) => onAddressChange({ line1: e.target.value })}
-            className={`${inputBase} ${errors.addressLine1 ? errorInput : ""}`}
+            className={`${inputBase} ${errors.addressLine1 ? errorInput : ""} !rounded-4xl`}
           />
         </Field>
         <Field label="Address Line 2">
@@ -301,7 +301,7 @@ function Step1({
             placeholder="Address Line 2"
             value={data.address.line2}
             onChange={(e) => onAddressChange({ line2: e.target.value })}
-            className={inputBase}
+            className={`!rounded-4xl ${inputBase}`}
           />
         </Field>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -311,7 +311,7 @@ function Step1({
               placeholder="City"
               value={data.address.city}
               onChange={(e) => onAddressChange({ city: e.target.value })}
-              className={`${inputBase} ${errors.city ? errorInput : ""}`}
+              className={`${inputBase} ${errors.city ? errorInput : ""} !rounded-4xl`}
             />
           </Field>
           <Field label="State / Province / Region" required error={errors.stateRegion}>
@@ -320,7 +320,7 @@ function Step1({
               placeholder="State / Province"
               value={data.address.state}
               onChange={(e) => onAddressChange({ state: e.target.value })}
-              className={`${inputBase} ${errors.stateRegion ? errorInput : ""}`}
+              className={`${inputBase} ${errors.stateRegion ? errorInput : ""} !rounded-4xl`}
             />
           </Field>
           <Field label="Postal / Zip Code" required error={errors.postal}>
@@ -329,7 +329,7 @@ function Step1({
               placeholder="Postal Code"
               value={data.address.postal}
               onChange={(e) => onAddressChange({ postal: e.target.value })}
-              className={`${inputBase} ${errors.postal ? errorInput : ""}`}
+              className={`${inputBase} ${errors.postal ? errorInput : ""} !rounded-4xl`}
             />
           </Field>
           <Field label="Country" required error={errors.country}>
@@ -338,7 +338,7 @@ function Step1({
               placeholder="Country"
               value={data.address.country}
               onChange={(e) => onAddressChange({ country: e.target.value })}
-              className={`${inputBase} ${errors.country ? errorInput : ""}`}
+              className={`${inputBase} ${errors.country ? errorInput : ""} !rounded-4xl`}
             />
           </Field>
         </div>
@@ -362,7 +362,7 @@ function Step1({
               placeholder="email@example.com"
               value={data.email}
               onChange={(e) => onChange({ email: e.target.value })}
-              className={`${inputBase} ${errors.email ? errorInput : ""}`}
+              className={`${inputBase} ${errors.email ? errorInput : ""} !rounded-4xl`}
             />
           </Field>
           <Field label="Phone" required error={errors.phone}>
@@ -371,7 +371,7 @@ function Step1({
               placeholder="+1 (555) 000-0000"
               value={data.phone}
               onChange={(e) => onChange({ phone: e.target.value })}
-              className={`${inputBase} ${errors.phone ? errorInput : ""}`}
+              className={`${inputBase} ${errors.phone ? errorInput : ""} !rounded-4xl`}
             />
           </Field>
         </div>
@@ -384,7 +384,7 @@ function Step1({
               placeholder="DD / MM / YYYY"
               value={data.dateAvailable}
               onChange={(e) => onChange({ dateAvailable: e.target.value })}
-              className={inputBase}
+              className={`!rounded-4xl ${inputBase}`}
             />
           </Field>
           <Field label="Position Applying For">
@@ -393,7 +393,7 @@ function Step1({
               placeholder="Position title"
               value={data.positionApplying}
               onChange={(e) => onChange({ positionApplying: e.target.value })}
-              className={inputBase}
+              className={`!rounded-4xl ${inputBase}`}
             />
           </Field>
         </div>
@@ -410,7 +410,7 @@ function Step1({
               <select
                 value={data.shiftsPreferred}
                 onChange={(e) => onChange({ shiftsPreferred: e.target.value })}
-                className={`${selectBase} ${errors.shiftsPreferred ? errorInput : ""}`}
+                className={`${selectBase} ${errors.shiftsPreferred ? errorInput : ""} !rounded-4xl`}
               >
                 <option value="">Please Select*</option>
                 {SHIFTS.map((s) => <option key={s} value={s}>{s}</option>)}
@@ -424,7 +424,7 @@ function Step1({
                 <select
                   value={val}
                   onChange={(e) => onShiftChange(idx, e.target.value)}
-                  className={`${selectBase} flex-1`}
+                  className={`${selectBase} flex-1 !rounded-4xl`}
                 >
                   <option value="">Please Select*</option>
                   {SHIFTS.map((s) => <option key={s} value={s}>{s}</option>)}
@@ -432,7 +432,7 @@ function Step1({
                 <button
                   type="button"
                   onClick={() => onRemoveShift(idx)}
-                  className="flex-shrink-0 text-red-400 hover:text-red-600 text-xs font-semibold transition-colors px-1"
+                  className="!rounded-4xl flex-shrink-0 text-red-400 hover:text-red-600 text-xs font-semibold transition-colors px-1"
                   aria-label="Remove shift"
                 >
                   ✕
@@ -444,7 +444,7 @@ function Step1({
             <select
               value={data.typeOfPosition}
               onChange={(e) => onChange({ typeOfPosition: e.target.value })}
-              className={`${selectBase} ${errors.typeOfPosition ? errorInput : ""}`}
+              className={`${selectBase} ${errors.typeOfPosition ? errorInput : ""} !rounded-4xl`}
             >
               <option value="">Please Select*</option>
               {POSITION_TYPES.map((p) => <option key={p} value={p}>{p}</option>)}
@@ -454,7 +454,7 @@ function Step1({
             <select
               value={data.typeOfContract}
               onChange={(e) => onChange({ typeOfContract: e.target.value })}
-              className={`${selectBase} ${errors.typeOfContract ? errorInput : ""}`}
+              className={`${selectBase} ${errors.typeOfContract ? errorInput : ""} !rounded-4xl`}
             >
               <option value="">Please Select*</option>
               {CONTRACT_TYPES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -483,7 +483,7 @@ function Step1({
             placeholder="If yes, state"
             value={data.yearsTravel}
             onChange={(e) => onChange({ yearsTravel: e.target.value })}
-            className={inputBase}
+            className={`!rounded-4xl ${inputBase}`}
           />
         </Field>
       </div>
@@ -1063,10 +1063,9 @@ export default function WorkWithUsForm() {
   return (
     <div className="min-h-screen flex flex-col relative" style={{ fontFamily: "'DM Sans', 'Inter', sans-serif" }}>
       {/* Background */}
-      <div className="fixed inset-0 bg-[#7F92A3] z-0" />
+      <div className="fixed inset-0 bg-[#7E98A6] z-0" />
       <div
         className="fixed inset-0 z-0 opacity-40"
-        style={{ backgroundImage: "url('/patterns/bg-squiggles.svg')", backgroundSize: "cover", backgroundPosition: "center" }}
       />
 
       {/* Main Content */}
@@ -1096,7 +1095,7 @@ export default function WorkWithUsForm() {
               >
                 <span
                   className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
-                    step === s.n ? "bg-teal-400 text-white" : s.n < step ? "bg-teal-500 text-white" : "bg-white/20 text-white/50"
+                    step === s.n ? "bg-teal-400 text-[white]" : s.n < step ? "bg-teal-500 text-white" : "bg-white/20 text-white/50"
                   }`}
                 >
                   {s.n < step ? (

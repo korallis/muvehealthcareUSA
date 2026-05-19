@@ -36,7 +36,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={containerVariants}
-      className="w-full bg-purple py-20 px-6"
+      className="w-full bg-[#4C86FF] py-20 px-6"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
         {/* LEFT SIDE — Conversation Section */}

@@ -81,8 +81,8 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
   }, []);
 
   const navClasses = isEditing
-    ? "w-full bg-navyblue text-white relative z-[1]"
-    : "w-full bg-navyblue text-white sticky top-0 z-[50]";
+    ? "w-full bg-[#07004C] text-white relative z-[1]"
+    : "w-full bg-[#07004C] text-white sticky top-0 z-[50]";
 
   return (
     <nav ref={puck?.dragRef} className={navClasses}>

@@ -67,7 +67,7 @@ export default function Footer({
   const activeLogo = logo || "/muve-logo.svg";
 
   return (
-    <footer className="bg-navyblue text-white py-16 px-6">
+    <footer className="bg-[#07004C] text-white py-16 px-6">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 items-start text-center md:text-left">
           {/* Left Column - Offices */}
@@ -99,9 +99,34 @@ export default function Footer({
                   </p>
                 )}
               </div>
+              <div className="text-footer leading-6">
+                {/* Use Puck rich text or static fallback */}
+                {ukOffice ? (
+                  typeof ukOffice === "string" ? (
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: sanitizeHTML(ukOffice),
+                      }}
+                    />
+                  ) : (
+                    ukOffice
+                  )
+                ) : (
+                  <p>
+                    Suite 1<br />
+                    Aqueous II
+                    <br />
+                    Rocky Lane
+                    <br />
+                    Birmingham
+                    <br />
+                    B6 5RQ
+                  </p>
+                )}
+              </div>
             </div>
 
-            <div>
+            {/* <div>
               <h3 className="text-links mb-3">Manchester Office</h3>
               <div className="text-footer leading-6">
                 {irelandOffice ? (
@@ -128,7 +153,7 @@ export default function Footer({
                   </p>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Logo Section */}
