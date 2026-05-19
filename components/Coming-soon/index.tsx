@@ -8,7 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Instagram, Linkedin, Facebook } from "lucide-react";
 
 
-export default function Comingsoon() {
+interface SoonProps {
+  title?: string;
+  description?: string;
+}
+
+export default function Comingsoon({ title }:SoonProps) {
   return (
     <main className="relative min-h-screen bg-[#94B6FF] font-brand overflow-hidden text-white flex flex-col items-center">
       
@@ -73,7 +78,13 @@ export default function Comingsoon() {
                 transition={{ delay: 0.2 }}
                 className="text-5xl justify-right md:text-[90px] font-lexendBold tracking-tighter leading-[0.85] lg:leading-[0.8]"
               >
+                {title ? (
+                    title
+                  ) : (
+                    <>
                 New Look,
+                </>
+          )}
               </motion.h1>
 
               <motion.h1 
