@@ -4,7 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { categories, jobs } from "@/constants/workData"; // Update path if needed
 
-export default function WorkWithUsToo() {
+interface WorkwithusProps {
+  title?: string;
+  description?: string;
+}
+
+export default function WorkWithUsToo({ title }:WorkwithusProps) {
   const [current, setCurrent] = useState(0);
   const [mounted, setMounted] = useState(false);
 
@@ -22,6 +27,7 @@ export default function WorkWithUsToo() {
     categories[(current + 2) % categories.length],
   ];
 
+  
   return (
     <div className="w-full relative overflow-hidden"
     style={{
@@ -35,8 +41,14 @@ export default function WorkWithUsToo() {
         <div className={`text-center mb-10 transition-all duration-700 ease-out
           ${mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"}`}>
           <h2 className="text-4xl font-extrabold text-[#0E1552] inline-flex items-center gap-3">
+            {title ? (
+                    title
+                  ) : (
+                    <>
             <span className="bg-[#0E1552] text-white px-4 py-1 rounded-md">Work</span>
             <span>With Us</span>
+            </>
+          )}
           </h2>
         </div>
 
