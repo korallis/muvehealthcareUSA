@@ -40,11 +40,11 @@ export default function WorkWithUsToo() {
           </h2>
         </div>
 
-        <div className="relative max-w-6xl mx-auto flex items-center gap-4">
+        <div className="relative max-w-6xl mx-auto flex items-center gap-0">
           <button onClick={prev} aria-label="Previous"
-            className="flex-shrink-0 w-10 h-10 rounded-full bg-white text-[#0E1552] flex items-center justify-center
+            className="flex-shrink-0 w-10 h-10 rounded-full bg-[#4C86FF] text-[#FFFFFF] font-lexendBold flex items-center justify-center
                     hover:scale-110 active:scale-95 transition-transform duration-200 z-10">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>
@@ -79,9 +79,9 @@ export default function WorkWithUsToo() {
           </div>
 
           <button onClick={next} aria-label="Next"
-            className="flex-shrink-0 w-10 h-10 rounded-full bg-white text-[#0E1552] flex items-center justify-center
+            className="flex-shrink-0 w-10 h-10 rounded-full bg-[#4C86FF] text-[#FFFF] flex items-center justify-center
                     hover:scale-110 active:scale-95 transition-transform duration-200 z-10">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6" />
             </svg>
           </button>
@@ -94,7 +94,7 @@ export default function WorkWithUsToo() {
           ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <h2 className="text-4xl font-lexendBold text-[#0E1552] inline-flex items-center gap-3">
             <span>It</span>
-            <span className="bg-[#3DDDB3] text-[#0E1552] px-4 py-1 rounded-md">Starts</span>
+            <span className="bg-[#FFFFFF] text-[#0E1552] px-4 py-1 rounded-md">Starts</span>
             <span>Here</span>
           </h2>
         </div>

@@ -23,6 +23,7 @@ import Professionals from "./components/Home/Professionals";
 import Specialities from "./components/Home/Specialists";
 // import WorkWithUs from "./components/Home/Workwithus";
 import WorkWithUsToo from "./components/Home/Workwithus";
+import Comingsoon from "./components/Coming-soon";
 
 import FooterSection from "@/components/Home/Conversation";
 
@@ -108,6 +109,8 @@ type Props = {
   FeedbackForm: { title?: string };
 
   FooterSection: { copyright?: string };
+
+  Comingsoon: { title?: string };
 
   // Page Builder (Elementor-style)
   Section: {
@@ -541,6 +544,11 @@ export const config: Config<Props> = {
     WorkWithUsToo: {
       fields: { title: { type: "text" } },
       render: ({ title }) => <WorkWithUsToo title={title} />,
+    },
+
+    Comingsoon: {
+      fields: { title: { type: "text" } },
+      render: ({ title }) => <Comingsoon title={title} />,
     },
 
 
