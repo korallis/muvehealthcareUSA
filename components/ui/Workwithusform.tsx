@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { sendWorkWithUsEmail } from "@/lib/actions/workwithus";
 
 
 interface Address {
@@ -552,7 +553,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
           <select
             value={data.category}
             onChange={(e) => onChange({ category: e.target.value })}
-            className={`${selectBase} ${errors.category ? errorInput : ""}`}
+            className={`!rounded-4xl ${selectBase} ${errors.category ? errorInput : ""}`}
           >
             <option value="">Please select</option>
             {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -564,7 +565,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
       <div className={sectionCard}>
         <h3 className={sectionHeading}>Professional Licenses</h3>
         {data.licenses.map((lic, idx) => (
-          <div key={lic.id} className="bg-white/50 rounded-xl p-4 space-y-4 border border-white/70 relative">
+          <div key={lic.id} className="rounded-xl p-4 space-y-4 relative">
             <div className="flex items-center justify-between">
               <p className={subHeading}>• License {idx + 1}</p>
               {data.licenses.length > 1 && (
@@ -614,7 +615,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
                     type="checkbox"
                     checked={lic.statuses[key]}
                     onChange={(e) => updateLicenseStatus(lic.id, key, e.target.checked)}
-                    className="w-4 h-4 accent-teal-500 rounded"
+                    className="!rounded-4xl w-4 h-4 accent-teal-500 "
                   />
                   {key === "originalState" ? "Original State" : key.charAt(0).toUpperCase() + key.slice(1)}
                 </label>
@@ -648,10 +649,10 @@ function Step2({ data, onChange, errors }: Step2Props) {
                 key={s.code}
                 type="button"
                 onClick={() => toggleState(s.code)}
-                className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-medium transition-all text-left ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-all text-left ${
                   selected
-                    ? "bg-[#101935] text-white border-[#101935]"
-                    : "bg-white text-gray-700 border-gray-200 hover:border-[#101935]/40"
+                    ? "text-white"
+                    : "text-gray-700"
                 }`}
               >
                 <span
@@ -671,7 +672,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
       {/* Mandatory Certification */}
       <div className={sectionCard}>
         <h3 className={sectionHeading}>Mandatory Certification</h3>
-        <div className="bg-white/50 rounded-xl p-4 border border-white/70">
+        <div className="rounded-xl p-4">
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 items-end">
             <div className="flex items-center">
               <span className="text-sm font-bold text-[#101935] bg-teal-100 px-3 py-2.5 rounded-xl w-full text-center">
@@ -1020,15 +1021,43 @@ export default function WorkWithUsForm() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleSubmit = () => {
-    const errs = validateStep2();
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-      return;
-    }
-    setErrors({});
-    setSubmitted(true);
-  };
+  // const handleSubmit = () => {
+  //   const errs = validateStep2();
+  //   if (Object.keys(errs).length > 0) {
+  //     setErrors(errs);
+  //     return;
+  //   }
+  //   setErrors({});
+  //   setSubmitted(true);
+  // };
+
+  const handleSubmit = async () => {
+  const errs = validateStep2();
+  if (Object.keys(errs).length > 0) { setErrors(errs); return; }
+  setErrors({});
+
+  const result = await sendWorkWithUsEmail({
+    // Step 1
+    title: step1.title, dob: step1.dob,
+    firstName: step1.firstName, middleName: step1.middleName, lastName: step1.lastName,
+    addressLine1: step1.address.line1, addressLine2: step1.address.line2,
+    city: step1.address.city, stateRegion: step1.address.state,
+    postal: step1.address.postal, country: step1.address.country,
+    usEligible: step1.usEligible, email: step1.email, phone: step1.phone,
+    dateAvailable: step1.dateAvailable, positionApplying: step1.positionApplying,
+    shiftsPreferred: step1.shiftsPreferred, shiftsExtra: step1.shiftsExtraValues,
+    typeOfPosition: step1.typeOfPosition, typeOfContract: step1.typeOfContract,
+    travelAssignment: step1.travelAssignment, yearsTravel: step1.yearsTravel,
+    // Step 2
+    category: step2.category, licenses: step2.licenses,
+    selectedStates: step2.selectedStates,
+    blsDateCompleted: step2.blsDateCompleted, blsExpiration: step2.blsExpiration,
+    certificates: step2.certificates, additionalCerts: step2.additionalCerts,
+  });
+
+  if (result.success) setSubmitted(true);
+  else setErrors({ submit: "Submission failed. Please try again." });
+};
 
   const STEPS = [
     { n: 1, label: "Personal Information" },

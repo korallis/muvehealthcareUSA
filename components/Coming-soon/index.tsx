@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Input } from "../ui/input";
 import { Button } from "@/components/ui/button";
 import { Instagram, Linkedin, Facebook } from "lucide-react";
+import Link from "next/link";
 
 
 interface SoonProps {
@@ -125,7 +126,7 @@ export default function Comingsoon({ title }:SoonProps) {
                   className="border-none md:text-[20px] font-lexend bg-transparent text-[#A0AEC0] focus-visible:ring-0 placeholder:text-[#CBD5E0] h-10 px-6 text-sm grow" 
                 />
                 <Button 
-                  className="bg-[#00D9DA] md:text-[20px] hover:bg-[#00C2C3] text-[#3A486E] font-lexendBold rounded-full h-[48px] px-8 shrink-0 text-xs tracking-tight shadow-none"
+                  className="bg-[#00D9DA] md:text-[20px] hover:bg-[#00C2C3] text-[#3A486E] font-lexendBold rounded-full h-[48px] px-0 shrink-0 text-xs tracking-tight shadow-none"
                 >
                   Subscribe
                 </Button>
@@ -137,7 +138,7 @@ export default function Comingsoon({ title }:SoonProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="w-full pt-5 flex flex-col md:flex-row items-center justify-between gap-10 border-t border-white/10"
+              className="w-full pt-2 flex flex-col md:flex-row items-center justify-between gap-4"
             >
               <div className="flex flex-wrap justify-center lg:justify-start gap-12">
                 <div className="text-center lg:text-left space-y-1">
@@ -159,6 +160,17 @@ export default function Comingsoon({ title }:SoonProps) {
                 ))}
               </div>
             </motion.div>
+
+            {/* Apply for Role*/}
+            <div className="flex w-full justify-end pb-10">
+              <Link href="https://www.cognitoforms.com/ICare24Group1/MUVEHealthcareUSASHORTAPPLY" target="_blank" rel="noopener noreferrer">
+                <Button 
+                  className="bg-[#4C86FF] md:text-[16px] hover:bg-[#00C2C3] text-[#fff] font-lexendBold rounded-full h-[38px] w-[200px] px-2 shrink-0 text-xs tracking-tight shadow-none"
+                >
+                  Apply for a role
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
