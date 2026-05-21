@@ -2,7 +2,7 @@
 
 import { escapeHtml } from "@/lib/escape-html";
 
-// ─── Types (mirrored from WorkWithUsForm.tsx) ─────────────────────────────────
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 interface LicensePayload {
   state: string;
@@ -20,12 +20,16 @@ interface CertificatePayload {
   module: string;
   dateCompleted: string;
   expirationDate: string;
+  fileBase64?: string | null;   // base64-encoded PDF content
+  fileName?: string | null;     // original filename e.g. "acls.pdf"
 }
 
 interface AdditionalCertPayload {
   name: string;
   dateCompleted: string;
   expirationDate: string;
+  fileBase64?: string | null;
+  fileName?: string | null;
 }
 
 interface WorkWithUsPayload {
@@ -35,25 +39,21 @@ interface WorkWithUsPayload {
   firstName: string;
   middleName: string;
   lastName: string;
-  // Address
   addressLine1: string;
   addressLine2: string;
   city: string;
   stateRegion: string;
   postal: string;
   country: string;
-  // Contact & eligibility
   usEligible: string;
   email: string;
   phone: string;
   dateAvailable: string;
   positionApplying: string;
-  // Preferences
   shiftsPreferred: string;
-  shiftsExtra: string[];          // additional shift preferences via "+ Add Item"
+  shiftsExtra: string[];
   typeOfPosition: string;
   typeOfContract: string;
-  // Travel
   travelAssignment: string;
   yearsTravel: string;
 
@@ -61,17 +61,17 @@ interface WorkWithUsPayload {
   category: string;
   licenses: LicensePayload[];
   selectedStates: string[];
-  // BLS / CPR
   blsDateCompleted: string;
   blsExpiration: string;
-  // Certifications
+  blsFileBase64?: string | null;   // base64 BLS/CPR PDF
+  blsFileName?: string | null;
   certificates: CertificatePayload[];
   additionalCerts: AdditionalCertPayload[];
 }
 
 // ─── HTML helpers ─────────────────────────────────────────────────────────────
 
-const e = escapeHtml; // shorthand
+const e = escapeHtml;
 
 const row = (label: string, value: string) =>
   value
@@ -106,18 +106,41 @@ const badge = (text: string, active: boolean) =>
     ? `<span style="display:inline-block;background:#0d9488;color:#fff;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;margin-right:4px">${text}</span>`
     : "";
 
+// ─── Attachment builder ───────────────────────────────────────────────────────
+
+interface GraphAttachment {
+  "@odata.type": "#microsoft.graph.fileAttachment";
+  name: string;
+  contentType: string;
+  contentBytes: string;
+}
+
+function buildAttachment(
+  base64: string | null | undefined,
+  fileName: string | null | undefined,
+  fallbackName: string,
+): GraphAttachment | null {
+  if (!base64) return null;
+  return {
+    "@odata.type": "#microsoft.graph.fileAttachment",
+    name: fileName || fallbackName,
+    contentType: "application/pdf",
+    contentBytes: base64,
+  };
+}
+
 // ─── Server Action ────────────────────────────────────────────────────────────
 
 export async function sendWorkWithUsEmail(payload: WorkWithUsPayload) {
-  const tenantId = process.env.MICROSOFT_GRAPH_TENANT_ID;
-  const clientId = process.env.MICROSOFT_GRAPH_CLIENT_ID;
+  const tenantId     = process.env.MICROSOFT_GRAPH_TENANT_ID;
+  const clientId     = process.env.MICROSOFT_GRAPH_CLIENT_ID;
   const clientSecret = process.env.MICROSOFT_GRAPH_CLIENT_SECRET;
-  const senderEmail = process.env.MICROSOFT_GRAPH_SENDER_ID;
+  const senderEmail  = process.env.MICROSOFT_GRAPH_SENDER_ID;
 
   const tokenUrl =
     "https://login.microsoftonline.com/" + tenantId + "/oauth2/v2.0/token";
 
-  // ── Derived display values ─────────────────────────────────────────────────
+  // ── Derived values ─────────────────────────────────────────────────────────
 
   const fullName = [payload.title, payload.firstName, payload.middleName, payload.lastName]
     .filter(Boolean)
@@ -127,27 +150,58 @@ export async function sendWorkWithUsEmail(payload: WorkWithUsPayload) {
     .filter(Boolean)
     .join(", ");
 
+  // ── Collect all attachments ────────────────────────────────────────────────
+
+  const attachments: GraphAttachment[] = [];
+
+  // BLS / CPR
+  const blsAttachment = buildAttachment(
+    payload.blsFileBase64,
+    payload.blsFileName,
+    "BLS_CPR_Certificate.pdf",
+  );
+  if (blsAttachment) attachments.push(blsAttachment);
+
+  // Additional training certificates
+  payload.certificates
+    .filter((c) => c.module && c.fileBase64)
+    .forEach((c, i) => {
+      const att = buildAttachment(
+        c.fileBase64,
+        c.fileName,
+        `Training_Certificate_${i + 1}.pdf`,
+      );
+      if (att) attachments.push(att);
+    });
+
+  // Additional training completed
+  payload.additionalCerts
+    .filter((c) => c.name && c.fileBase64)
+    .forEach((c, i) => {
+      const att = buildAttachment(
+        c.fileBase64,
+        c.fileName,
+        `Additional_Certificate_${i + 1}.pdf`,
+      );
+      if (att) attachments.push(att);
+    });
+
+  // ── Build email rows ───────────────────────────────────────────────────────
+
   const licenseRows = payload.licenses
     .filter((l) => l.state || l.number)
     .map(
       (l, i) => `
-      <tr>
-        <td colspan="2" style="padding:8px 0 2px">
-          <strong style="color:#101935">License ${i + 1}</strong>
-        </td>
-      </tr>
+      <tr><td colspan="2" style="padding:8px 0 2px"><strong style="color:#101935">License ${i + 1}</strong></td></tr>
       ${row("State", e(l.state))}
       ${row("License Number", e(l.number))}
       ${row("Expiry", e(l.expiry))}
-      ${row(
-        "Status",
-        [
-          badge("Active", l.statuses.active),
-          badge("Inactive", l.statuses.inactive),
-          badge("Compact", l.statuses.compact),
-          badge("Original State", l.statuses.originalState),
-        ].join("") || "—",
-      )}
+      ${row("Status", [
+        badge("Active", l.statuses.active),
+        badge("Inactive", l.statuses.inactive),
+        badge("Compact", l.statuses.compact),
+        badge("Original State", l.statuses.originalState),
+      ].join("") || "—")}
     `,
     )
     .join("<tr><td colspan='2' style='padding:4px 0'><hr style='border:none;border-top:1px solid #e2e8f0'></td></tr>");
@@ -156,14 +210,11 @@ export async function sendWorkWithUsEmail(payload: WorkWithUsPayload) {
     .filter((c) => c.module)
     .map(
       (c, i) => `
-      <tr>
-        <td colspan="2" style="padding:8px 0 2px">
-          <strong style="color:#101935">Certificate ${i + 1}</strong>
-        </td>
-      </tr>
+      <tr><td colspan="2" style="padding:8px 0 2px"><strong style="color:#101935">Certificate ${i + 1}</strong></td></tr>
       ${row("Training Module", e(c.module))}
       ${row("Date Completed", e(c.dateCompleted))}
       ${row("Expiration Date", e(c.expirationDate))}
+      ${row("File", c.fileBase64 ? `<span style="color:#0d9488;font-weight:600">✓ Attached (${e(c.fileName || "certificate.pdf")})</span>` : "—")}
     `,
     )
     .join("<tr><td colspan='2' style='padding:4px 0'><hr style='border:none;border-top:1px solid #e2e8f0'></td></tr>");
@@ -172,14 +223,11 @@ export async function sendWorkWithUsEmail(payload: WorkWithUsPayload) {
     .filter((c) => c.name)
     .map(
       (c, i) => `
-      <tr>
-        <td colspan="2" style="padding:8px 0 2px">
-          <strong style="color:#101935">Certificate ${i + 1}</strong>
-        </td>
-      </tr>
+      <tr><td colspan="2" style="padding:8px 0 2px"><strong style="color:#101935">Certificate ${i + 1}</strong></td></tr>
       ${row("Certificate Name", e(c.name))}
       ${row("Date Completed", e(c.dateCompleted))}
       ${row("Expiration Date", e(c.expirationDate))}
+      ${row("File", c.fileBase64 ? `<span style="color:#0d9488;font-weight:600">✓ Attached (${e(c.fileName || "certificate.pdf")})</span>` : "—")}
     `,
     )
     .join("<tr><td colspan='2' style='padding:4px 0'><hr style='border:none;border-top:1px solid #e2e8f0'></td></tr>");
@@ -194,7 +242,7 @@ export async function sendWorkWithUsEmail(payload: WorkWithUsPayload) {
           .join("")
       : "None selected";
 
-  // ── Email HTML body ────────────────────────────────────────────────────────
+  // ── Email HTML ─────────────────────────────────────────────────────────────
 
   const htmlBody = `
 <!DOCTYPE html>
@@ -212,8 +260,7 @@ export async function sendWorkWithUsEmail(payload: WorkWithUsPayload) {
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td>
-                    <div style="display:inline-block;background:#14b8a6;border-radius:8px;padding:6px 10px;font-size:18px;font-weight:900;color:#fff;letter-spacing:.02em">T</div>
-                    <span style="color:#fff;font-size:18px;font-weight:700;margin-left:10px;vertical-align:middle">TravHealth</span>
+                    <span style="color:#fff;font-size:18px;font-weight:700;vertical-align:middle">Muve Healthcare USA Website</span>
                     <span style="color:rgba(255,255,255,0.4);font-size:11px;margin-left:8px;letter-spacing:.1em;text-transform:uppercase;vertical-align:middle">Staffing Solutions</span>
                   </td>
                 </tr>
@@ -227,85 +274,69 @@ export async function sendWorkWithUsEmail(payload: WorkWithUsPayload) {
             </td>
           </tr>
 
+          <!-- Attachment summary banner -->
+          ${attachments.length > 0 ? `
+          <tr>
+            <td style="background:#f0fdf9;border-bottom:1px solid #99f6e4;padding:10px 28px">
+              <p style="margin:0;font-size:12px;color:#0f766e;font-weight:600">
+                📎 ${attachments.length} PDF attachment${attachments.length > 1 ? "s" : ""} included: ${attachments.map(a => e(a.name)).join(", ")}
+              </p>
+            </td>
+          </tr>` : ""}
+
           <!-- Body -->
           <tr>
             <td style="padding:24px 28px">
               <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
 
-                ${section(
-                  "Personal Information",
-                  `
+                ${section("Personal Information", `
                   ${row("Full Name", e(fullName))}
                   ${row("Date of Birth", e(payload.dob))}
                   ${row("Email", e(payload.email))}
                   ${row("Phone", e(payload.phone))}
                   ${row("US Work Eligible", e(payload.usEligible))}
-                `,
-                )}
+                `)}
 
-                ${section(
-                  "Address",
-                  `
+                ${section("Address", `
                   ${row("Address Line 1", e(payload.addressLine1))}
                   ${row("Address Line 2", e(payload.addressLine2))}
                   ${row("City", e(payload.city))}
                   ${row("State / Province", e(payload.stateRegion))}
                   ${row("Postal / Zip Code", e(payload.postal))}
                   ${row("Country", e(payload.country))}
-                `,
-                )}
+                `)}
 
-                ${section(
-                  "Availability & Preferences",
-                  `
+                ${section("Availability & Preferences", `
                   ${row("Date Available", e(payload.dateAvailable))}
                   ${row("Position Applying For", e(payload.positionApplying))}
                   ${row("Shifts Preferred", e(allShifts))}
                   ${row("Type of Position", e(payload.typeOfPosition))}
                   ${row("Type of Contract", e(payload.typeOfContract))}
-                `,
-                )}
+                `)}
 
-                ${section(
-                  "Travel Experience",
-                  `
+                ${section("Travel Experience", `
                   ${row("Completed Travel Assignment", e(payload.travelAssignment))}
                   ${row("Years of Travel Experience", e(payload.yearsTravel))}
-                `,
-                )}
+                `)}
 
                 ${section("Category / Discipline", row("Category", e(payload.category)))}
 
-                ${
-                  licenseRows
-                    ? section("Professional Licenses", licenseRows)
-                    : ""
-                }
+                ${licenseRows ? section("Professional Licenses", licenseRows) : ""}
 
-                ${section(
-                  "States of Interest",
-                  `<tr><td colspan="2" style="padding:6px 0">${statesDisplay}</td></tr>`,
+                ${section("States of Interest",
+                  `<tr><td colspan="2" style="padding:6px 0">${statesDisplay}</td></tr>`
                 )}
 
-                ${section(
-                  "Mandatory Certification — BLS / CPR",
-                  `
+                ${section("Mandatory Certification — BLS / CPR", `
                   ${row("Date Completed", e(payload.blsDateCompleted))}
                   ${row("Expiration Date", e(payload.blsExpiration))}
-                `,
-                )}
+                  ${row("File", payload.blsFileBase64
+                    ? `<span style="color:#0d9488;font-weight:600">✓ Attached (${e(payload.blsFileName || "BLS_CPR_Certificate.pdf")})</span>`
+                    : "Not uploaded")}
+                `)}
 
-                ${
-                  certRows
-                    ? section("Additional Training Certifications", certRows)
-                    : ""
-                }
-
-                ${
-                  additionalCertRows
-                    ? section("Additional Training Completed", additionalCertRows)
-                    : ""
-                }
+                ${certRows ? section("Additional Training Certifications", certRows) : ""}
+                ${additionalCertRows ? section("Additional Training Completed", additionalCertRows) : ""}
 
               </table>
             </td>
@@ -315,7 +346,7 @@ export async function sendWorkWithUsEmail(payload: WorkWithUsPayload) {
           <tr>
             <td style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:16px 28px;text-align:center">
               <p style="margin:0;font-size:11px;color:#94a3b8">
-                This email was generated automatically from the TravHealth "Work With Us" application form.
+                This email was generated automatically from the Muve HealthCare USA "Work With Us" application form.
               </p>
             </td>
           </tr>
@@ -374,10 +405,11 @@ export async function sendWorkWithUsEmail(payload: WorkWithUsPayload) {
             content: htmlBody,
           },
           toRecipients: [
-            { emailAddress: { address: "evansmunatsa7@gmail.com" } },
+            { emailAddress: { address: "Vikas.Jha@muvehealthcare.com" } },
           ],
+          attachments,   // ← PDFs attached here
         },
-        saveToSentItems: false,
+        saveToSentItems: true,
       }),
     });
 

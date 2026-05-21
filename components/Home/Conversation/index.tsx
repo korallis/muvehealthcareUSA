@@ -41,7 +41,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
         {/* LEFT SIDE — Conversation Section */}
         <motion.div variants={itemVariants}>
-          <h2 className="text-subheading text-white leading-tight">
+          <h2 className="text-subheading text-[#fff] leading-tight">
             {copyright ? (
               copyright
             ) : (
@@ -79,35 +79,35 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
                 color: "#fff",
               }}
               whileTap={{ scale: 0.95 }}
-              className="text-buttons border-4 border-navyblue text-navyblue px-10 py-2 rounded-full transition-colors duration-100 inline-block cursor-pointer"
+              className="text-buttons border-4 border-[#07004C] bg-[#07004C] text-[#fff] px-18 py-2 rounded-full transition-colors duration-100 inline-block cursor-pointer"
             >
-              Call Back
+              Whatsapp
             </motion.a>
             <motion.a
               href="https://www.cognitoforms.com/ICare24Group1/EmailAndSMSSubscriptionConsentForm"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ backgroundColor: "#0fbdbd" }}
-              className="bg-[#14D8D8] px-8 text-[#16203B] text-buttons text-white px-10 py-3 rounded-full inline-block cursor-pointer"
+              className="border-4 border-[#07004C] text-[#07004C] text-buttons text-white px-16 py-2 rounded-full inline-block cursor-pointer"
             >
-              Subscribe
+              Call Back
             </motion.a>
           </div>
 
           {/* Email Subscribe */}
           <motion.div variants={itemVariants} className="mt-10">
-            <div className="flex w-full max-w-lg rounded-full overflow-hidden font-lexend">
-              {/* <input
+            <div className="flex w-full max-w-lg bg-[#fff] rounded-full overflow-hidden font-lexend">
+              <input
                 type="email"
                 placeholder="Email"
                 className="flex-1 px-6 py-3 text-gray-700 outline-none"
-              /> */}
-              {/* <motion.a href="https://www.cognitoforms.com/ICare24Group1/EmailSubscriptionConsentForm" target="_blank"
+              />
+              <motion.a href="https://www.cognitoforms.com/ICare24Group1/EmailSubscriptionConsentForm" target="_blank"
                 whileHover={{ backgroundColor: "#0fbdbd" }}
                 className="bg-[#14D8D8] px-8 text-[#16203B] text-buttons text-white px-10 py-3 rounded-full inline-block cursor-pointer"
               >
                 Subscribe 
-              </motion.a> */}
+              </motion.a>
             </div>
           </motion.div>
         </motion.div>
@@ -133,47 +133,37 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
                 path: "/About",
                 links: [
                   "Who we are",
-                  "Who we help",
-                  "How we help",
-                  { name: "Our People", customPath: "/team" },
+                  "Work With Us",
+                  "Our Socialites",
                 ],
               },
               {
-                title: "Services",
+                title: "Work With Us",
                 path: "/Services",
                 links: [
-                  "Supported Living",
-                  "Residential Care",
-                  "Community Care",
-                  {
-                    name: "Mental Health",
-                    customPath: "Services/#independent-mental-health",
-                  },
-                  {
-                    name: "Children’s Services",
-                    customPath: "Services/#childrens-services",
-                  },
+                  "Our Careers",
+                  "Make a Referal",
+                  "Why Choose Us",
                 ],
               },
               {
-                title: "Resources",
+                title: "Hire Team",
                 path: "/resources",
                 links: [
-                  "FAQ’s",
-                  "Quick Links",
-                  "Latest News",
-                  { name: "Privacy Policy", customPath: "/privacy" },
+                  "Our Socialites",
+                  "Get In Touch",
+                  "Why Choose Us",
                 ],
               },
               {
-                title: "Stories + Impact",
-                path: "/stories",
-                links: ["Social Value", "Impact Stories", "Events"],
+                title: "Resourses",
+                path: "/resources",
+                links: ["FAQ's", "Latest News", "Downloads"],
               },
               {
                 title: "Get in Touch",
                 path: "/Contact",
-                links: ["Contact", "Locations", "Feedback Form", "Careers"],
+                links: ["Apply", "Contact", "Make a Referal"],
               },
             ].map((column, idx) => (
               <motion.div key={idx} variants={itemVariants}>
