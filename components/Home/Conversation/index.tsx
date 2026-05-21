@@ -41,7 +41,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
         {/* LEFT SIDE — Conversation Section */}
         <motion.div variants={itemVariants}>
-          <h2 className="text-subheading text-[#fff] leading-tight">
+          <h2 className=" text-[#fff] leading-tight">
             {copyright ? (
               copyright
             ) : (
