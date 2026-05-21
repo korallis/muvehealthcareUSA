@@ -158,7 +158,12 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
               {
                 title: "Resourses",
                 path: "/resources",
-                links: ["FAQ's", "Latest News", "Downloads"],
+                links: [
+                  { name: "FAQ's", customPath: "/privacy" },
+                  "Latest News", 
+                  "Downloads"
+
+                ],
               },
               {
                 title: "Get in Touch",
