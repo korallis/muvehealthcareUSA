@@ -2,19 +2,38 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { categories, jobs } from "@/constants/workData"; // Update path if needed
+import { categories } from "@/constants/workData"; // Kept static categories
 
 interface WorkwithusProps {
   title?: string;
   description?: string;
 }
 
-export default function WorkWithUsToo({ title }:WorkwithusProps) {
+export default function WorkWithUsToo({ title }: WorkwithusProps) {
   const [current, setCurrent] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [liveJobs, setLiveJobs] = useState<any[]>([]); // Holds your live LaborEdge jobs
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 50);
+
+    // ── THIS IS HOW THE COMPONENT CALLS FILE 1 ──
+    async function loadJobsFromApi() {
+      try {
+        const response = await fetch("/api/laborEdge"); // Calls File 1 directly
+        if (response.ok) {
+          const data = await response.json();
+          setLiveJobs(data); // Injects the live jobs into your table design
+        }
+      } catch (err) {
+        console.error("Could not load jobs:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadJobsFromApi();
     return () => clearTimeout(t);
   }, []);
 
@@ -27,14 +46,12 @@ export default function WorkWithUsToo({ title }:WorkwithusProps) {
     categories[(current + 2) % categories.length],
   ];
 
-  
   return (
     <div className="w-full relative overflow-hidden"
     style={{
         background: "linear-gradient(180deg, #40E2B8 0%, #45E3BA 35%, #78EACD 58%, #A2F0DC 80%, #B3F3E3 91%, #B3F3E3 100%)",
       }}
     >
-
 
       {/* ── WORK WITH US ── */}
       <div className="py-14 px-4">
@@ -111,7 +128,7 @@ export default function WorkWithUsToo({ title }:WorkwithusProps) {
           </h2>
         </div>
 
-        {/* Jobs cards */}
+        {/* Display Jobs cards from LaborEdge API */}
         <div className={`max-w-6xl mx-auto bg-[#0E1552] rounded-4xl p-8
                       transition-all duration-700 delay-500 ease-out
                       ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`} style={{ overflow: "hidden" }}>
@@ -124,39 +141,51 @@ export default function WorkWithUsToo({ title }:WorkwithusProps) {
               scrollbarColor: "#3DDDB3 #0E1552",  /* Firefox thumb / track */
             }}
           >
-            {jobs.map((job, idx) => (
-              <div
-                key={job.id}
-                style={{ transitionDelay: `${600 + idx * 80}ms` }}
-                className={`bg-white rounded-full px-10 py-8 flex items-center justify-between gap-4
-                            cursor-pointer transition-all duration-300 ease-out
-                            ${mounted ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"}`}>
-
-                <div className="min-w-[120px]">
-                  <p className="text-[#07004C] font-lexendBold text-[20px]">{job.title}</p>
-                  <p className="text-[#07004C] text-[16px] font-lexend">{job.type} | {job.location}</p>
-                </div>
-
-                <p className="text-[#07004C] text-[16px] font-lexend hidden sm:block text-center">
-                  Listed {job.listed}
-                </p>
-
-                <p className="text-[#07004C] font-lexend text-[16px] hidden sm:block whitespace-nowrap">
-                  Status: <span className="text-[#0E1552] font-semibold">{job.status}</span>
-                </p>
-
-                <div className="flex gap-2 flex-shrink-0">
-                  <button className="bg-[#07004C] text-[#FFFF] text-[16px] font-lexendBold px-4 py-1.5 rounded-full
-                                     hover:brightness-110 active:scale-95 transition-all duration-150">
-                    View
-                  </button>
-                  <button className="bg-[#4C86FF] text-[#fff] text-xs font-lexendBold px-4 py-1.5 rounded-full
-                                     hover:bg-[#3DDDB3] hover:text-[#0E1552] active:scale-95 transition-all duration-150">
-                    Apply
-                  </button>
-                </div>
+            {loading ? (
+              <div className="text-white text-center py-8 font-lexend text-[16px]">
+                Loading available jobs...
               </div>
-            ))}
+            ) : liveJobs.length === 0 ? (
+              <div className="text-white text-center py-8 font-lexend text-[16px]">
+                No jobs available right now.
+              </div>
+            ) : (
+              liveJobs.map((job, idx) => (
+                <div
+                  key={job.jobId || job.id || idx}
+                  style={{ transitionDelay: `${600 + idx * 80}ms` }}
+                  className={`bg-white rounded-full px-10 py-8 flex items-center justify-between gap-4
+                              cursor-pointer transition-all duration-300 ease-out
+                              ${mounted ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"}`}>
+
+                  <div className="min-w-[120px]">
+                    <p className="text-[#07004C] font-lexendBold text-[20px]">{job.title || 'Healthcare Assignment'}</p>
+                    <p className="text-[#07004C] text-[16px] font-lexend">
+                      {job.jobType || job.type || 'Contract'} | {job.jobLocation ? `${job.jobLocation.city}, ${job.jobLocation.state}` : (job.location || 'Nationwide')}
+                    </p>
+                  </div>
+
+                  <p className="text-[#07004C] text-[16px] font-lexend hidden sm:block text-center">
+                    {job.weeklyGrossPay ? `Weekly Pay: $${job.weeklyGrossPay}` : `Listed ${job.listed || 'Recently'}`}
+                  </p>
+
+                  <p className="text-[#07004C] font-lexend text-[16px] hidden sm:block whitespace-nowrap">
+                    Status: <span className="text-[#0E1552] font-semibold">{job.status || 'Active'}</span>
+                  </p>
+
+                  <div className="flex gap-2 flex-shrink-0">
+                    <button className="bg-[#07004C] text-[#FFFF] text-[16px] font-lexendBold px-4 py-1.5 rounded-full
+                                       hover:brightness-110 active:scale-95 transition-all duration-150">
+                      View
+                    </button>
+                    <button className="bg-[#4C86FF] text-[#fff] text-xs font-lexendBold px-4 py-1.5 rounded-full
+                                       hover:bg-[#3DDDB3] hover:text-[#0E1552] active:scale-95 transition-all duration-150">
+                      Apply
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
