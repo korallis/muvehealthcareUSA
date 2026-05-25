@@ -2,29 +2,52 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { categories } from "@/constants/workData"; // Kept static categories
+import { categories } from "@/constants/workData";
 
 interface WorkwithusProps {
   title?: string;
   description?: string;
 }
 
+// Strictly type the nested location schema returned by the Nexus backend
+interface JobLocation {
+  city: string;
+  state: string;
+}
+
+// Strictly type the unified LaborEdge job data model structure
+interface LaborEdgeJob {
+  jobId?: number | string;
+  id?: number | string;
+  title?: string;
+  jobType?: string;
+  type?: string;
+  jobLocation?: JobLocation;
+  location?: string;
+  weeklyGrossPay?: number | string;
+  listed?: string;
+  status?: string;
+  portalUrl?: string;
+  jobUrl?: string;
+  applyUrl?: string;
+}
+
 export default function WorkWithUsToo({ title }: WorkwithusProps) {
-  const [current, setCurrent] = useState(0);
-  const [mounted, setMounted] = useState(false);
-  const [liveJobs, setLiveJobs] = useState<any[]>([]); // Holds your live LaborEdge jobs
-  const [loading, setLoading] = useState(true);
+  const [current, setCurrent] = useState<number>(0);
+  const [mounted, setMounted] = useState<boolean>(false);
+  const [liveJobs, setLiveJobs] = useState<LaborEdgeJob[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 50);
 
     // ── THIS IS HOW THE COMPONENT CALLS FILE 1 ──
-    async function loadJobsFromApi() {
+    async function loadJobsFromApi(): Promise<void> {
       try {
         const response = await fetch("/api/laborEdge"); // Calls File 1 directly
         if (response.ok) {
-          const data = await response.json();
-          setLiveJobs(data); // Injects the live jobs into your table design
+          const data = await response.json() as LaborEdgeJob[];
+          setLiveJobs(data); // Injects the live jobs into table design
         }
       } catch (err) {
         console.error("Could not load jobs:", err);
@@ -37,8 +60,36 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
     return () => clearTimeout(t);
   }, []);
 
-  const prev = () => setCurrent((c) => (c === 0 ? categories.length - 1 : c - 1));
-  const next = () => setCurrent((c) => (c === categories.length - 1 ? 0 : c + 1));
+  // Handler to safely open specific job links in a new browser tab
+  const handleJobRedirect = (job: LaborEdgeJob, isApplyAction: boolean = false): void => {
+    // 1. Fallback cascade to catch any absolute links if provided by the backend response
+    let destinationUrl = job.portalUrl || job.jobUrl || job.applyUrl;
+
+    // 2. Structural resolution: Construct your agency's verified portal path dynamically
+    if (!destinationUrl) {
+      const activeId = job.jobId || job.id;
+      if (activeId) {
+        // Construct the base URL pointing to your public nexus-leap career portal
+        destinationUrl = `https://nexus-leap.laboredge.com/jobs?jobId=${activeId}&orgCode=muve`;
+        // destinationUrl = `https://nexus-leap.laboredge.com/muve/careers/${activeId}`;
+        // destinationUrl = `https://muve.laboredge.com/jobs/${activeId}`;
+        
+        // Append the application workflow flag if the user clicked the "Apply" button
+        if (isApplyAction) {
+          destinationUrl += "?action=apply";
+        }
+      }
+    }
+    
+    if (destinationUrl) {
+      window.open(destinationUrl, "_blank", "noopener,noreferrer");
+    } else {
+      console.warn("Unable to resolve a valid destination context path for job entry configuration:", job);
+    }
+  };
+
+  const prev = (): void => setCurrent((c) => (c === 0 ? categories.length - 1 : c - 1));
+  const next = (): void => setCurrent((c) => (c === categories.length - 1 ? 0 : c + 1));
 
   const visible = [
     categories[current % categories.length],
@@ -59,13 +110,13 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
           ${mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"}`}>
           <h2 className="text-4xl font-extrabold text-[#0E1552] inline-flex items-center gap-3">
             {title ? (
-                    title
-                  ) : (
-                    <>
-            <span className="bg-[#0E1552] text-white px-4 py-1 rounded-md">Work</span>
-            <span>With Us</span>
-            </>
-          )}
+              title
+            ) : (
+              <>
+                <span className="bg-[#0E1552] text-white px-4 py-1 rounded-md">Work</span>
+                <span>With Us</span>
+              </>
+            )}
           </h2>
         </div>
 
@@ -78,33 +129,44 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
             </svg>
           </button>
 
-          <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {visible.map((cat, idx) => (
-              <div
-                key={`${cat.id}-${idx}`}
-                style={{ transitionDelay: `${idx * 120}ms` }}
-                className={`group rounded-b-4xl overflow-hidden bg-white
-                            hover:-translate-y-2 hover:scale-[1.02]
-                            transition-all duration-500 ease-out
-                            ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              >
-                <div className="w-full h-60 relative overflow-hidden">
-                  <Image
-                    src={cat.image}
-                    alt={cat.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 33vw"
-                    className="object-cover opacity-75 group-hover:scale-110 transition-transform duration-500"
-                  />
+          {/* Mask container preserving your layout boundary bounds */}
+          <div className="flex-1 overflow-hidden mx-2 sm:mx-4">
+            <div 
+              className="grid grid-cols-1 sm:grid-cols-3 gap-4 transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(-${(current * 100) / (window.innerWidth < 640 ? 1 : 3)}%)`,
+                width: `${(categories.length * 100) / (window.innerWidth < 640 ? 1 : 3)}%`,
+                display: 'grid',
+                gridTemplateColumns: `repeat(${categories.length}, 1fr)`
+              }}
+            >
+              {categories.map((cat, idx) => (
+                <div
+                  key={`${cat.id}-${idx}`}
+                  style={{ transitionDelay: `${idx * 120}ms` }}
+                  className={`group rounded-b-4xl overflow-hidden bg-white
+                              hover:-translate-y-2 hover:scale-[1.02]
+                              transition-all duration-500 ease-out
+                              ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                >
+                  <div className="w-full h-60 relative overflow-hidden">
+                    <Image
+                      src={cat.image}
+                      alt={cat.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                      className="object-cover opacity-75 group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-5 bg-white">
+                    <h3 className="text-[#0E1552] text-center font-lexendBold text-[30px] mb-2 group-hover:text-teal-600 transition-colors duration-300">
+                      {cat.title}
+                    </h3>
+                    <p className="text-[#0E1552] font-lexend text-center text-[16px] leading-relaxed">{cat.description}</p>
+                  </div>
                 </div>
-                <div className="p-5 bg-white">
-                  <h3 className="text-[#0E1552] text-center font-lexendBold text-[30px] mb-2 group-hover:text-teal-600 transition-colors duration-300">
-                    {cat.title}
-                  </h3>
-                  <p className="text-[#0E1552] font-lexend text-center text-[16px] leading-relaxed">{cat.description}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           <button onClick={next} aria-label="Next"
@@ -153,6 +215,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
               liveJobs.map((job, idx) => (
                 <div
                   key={job.jobId || job.id || idx}
+                  onClick={() => handleJobRedirect(job, false)}
                   style={{ transitionDelay: `${600 + idx * 80}ms` }}
                   className={`bg-white rounded-full px-10 py-8 flex items-center justify-between gap-4
                               cursor-pointer transition-all duration-300 ease-out
@@ -173,12 +236,12 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                     Status: <span className="text-[#0E1552] font-semibold">{job.status || 'Active'}</span>
                   </p>
 
-                  <div className="flex gap-2 flex-shrink-0">
-                    <button className="bg-[#07004C] text-[#FFFF] text-[16px] font-lexendBold px-4 py-1.5 rounded-full
+                  <div className="flex gap-2 flex-shrink-0" onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
+                    <button onClick={() => handleJobRedirect(job, false)} className="bg-[#07004C] text-[#FFFF] text-[16px] font-lexendBold px-4 py-1.5 rounded-full
                                        hover:brightness-110 active:scale-95 transition-all duration-150">
                       View
                     </button>
-                    <button className="bg-[#4C86FF] text-[#fff] text-xs font-lexendBold px-4 py-1.5 rounded-full
+                    <button onClick={() => handleJobRedirect(job, true)} className="bg-[#4C86FF] text-[#fff] text-xs font-lexendBold px-4 py-1.5 rounded-full
                                        hover:bg-[#3DDDB3] hover:text-[#0E1552] active:scale-95 transition-all duration-150">
                       Apply
                     </button>
