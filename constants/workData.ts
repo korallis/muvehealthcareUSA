@@ -20,6 +20,13 @@ export const categories = [
       "Explore new locations while advancing your career. We match you with assignments that align with your goals, if you're new or experienced.",
     image: "/blog/blog.png",
   },
+  {
+    id: 4,
+    title: "Per Diem",
+    description:
+      "Work when and where you choose. Enjoy flexibility, competitive rates and a smooth onboarding process that gets you started quickly",
+    image: "/blog/blog.png",
+  },
 ];
 
 export const jobs = [
