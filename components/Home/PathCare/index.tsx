@@ -39,7 +39,7 @@ function HoverPopup({ title, description }: HoverPopupProps) {
 // 2. Updated function to accept 'title' prop
 export default function Path({ title }: PathProps) {
   return (
-    <section className="relative bg-[#130D55] overflow-hidden min-h-screen lg:min-h-[700px] flex flex-col lg:flex-row lg:items-center pt-10 pb-0 lg:py-0">
+    <section id="whow-we-are" className="relative bg-[#130D55] overflow-hidden min-h-screen lg:min-h-[700px] flex flex-col lg:flex-row lg:items-center pt-10 pb-0 lg:py-0">
       {/* TOP RIGHT PATTERN */}
       <img
         src="/care-path-pattern.svg"
