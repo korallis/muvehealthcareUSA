@@ -57,7 +57,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${lexendDeca.variable} ${monts.variable} antialiased`}>
-        {/* <Navbar {...navProps} /> */}
+        <Navbar {...navProps} />
         {children}
         <AccessibilityWidget />
         {/* 3. Pass the dynamic props to the Footer */}

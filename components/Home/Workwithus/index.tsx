@@ -70,8 +70,8 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
       const activeId = job.jobId || job.id;
       if (activeId) {
         // Construct the base URL pointing to your public nexus-leap career portal
-        destinationUrl = `https://nexus-leap.laboredge.com/jobs?jobId=${activeId}&orgCode=muve`;
-        // destinationUrl = `https://nexus-leap.laboredge.com/muve/careers/${activeId}`;
+        // destinationUrl = `https://nexus-leap.laboredge.com/jobs?jobId=${activeId}&orgCode=muve`;
+        destinationUrl = `https://nexus-leap.laboredge.com/MUVE/job-details-view/${activeId}`;
         // destinationUrl = `https://muve.laboredge.com/jobs/${activeId}`;
         
         // Append the application workflow flag if the user clicked the "Apply" button

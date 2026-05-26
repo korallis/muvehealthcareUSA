@@ -7,7 +7,7 @@ export const DEFAULT_NAV_PROPS = {
       dropdownBg: "bg-[#07004C]",
       textColor: "text-white",
       subLinks: [
-        { title: "Who we are", href: "/about#who-we-are" },
+        { title: "Who we are", href: "#who-we-are" },
         { title: "Work With Us", href: "/about#who-we-help" },
         { title: "Our Socialites", href: "/about#how-we-do-it" },
       ],
