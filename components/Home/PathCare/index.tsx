@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 // 1. Added Prop Interface to match your puck.config.ts
 interface PathProps {
@@ -39,7 +40,7 @@ function HoverPopup({ title, description }: HoverPopupProps) {
 // 2. Updated function to accept 'title' prop
 export default function Path({ title }: PathProps) {
   return (
-    <section id="whow-we-are" className="relative bg-[#130D55] overflow-hidden min-h-screen lg:min-h-[700px] flex flex-col lg:flex-row lg:items-center pt-10 pb-0 lg:py-0">
+    <section id="who-we-are" className="relative bg-[#130D55] overflow-hidden min-h-screen lg:min-h-[700px] flex flex-col lg:flex-row lg:items-center pt-10 pb-0 lg:py-0">
       {/* TOP RIGHT PATTERN */}
       <img
         src="/care-path-pattern.svg"
@@ -93,9 +94,11 @@ export default function Path({ title }: PathProps) {
           </p>
 
           <div className="flex justify-left mt-10">
-          <button className="bg-[#40E2B8] text-[#07004C] font-lexendBold text-[20px] px-8 py-2.5 rounded-full hover:bg-[#2bc49d] transition-all tracking-wide">
-            Get in Touch
-          </button>
+          <Link href="#Contact" className="inline-block">
+            <button className="bg-[#40E2B8] text-[#07004C] font-lexendBold text-[20px] px-8 py-2.5 rounded-full hover:bg-[#2bc49d] transition-all tracking-wide">
+              Get in Touch
+            </button>
+          </Link>
         </div>
 
         </motion.div>

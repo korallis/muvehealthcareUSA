@@ -40,7 +40,7 @@ h2,
   font-size: clamp(1.875rem, 4vw + 1rem, 3.75rem) !important;
   line-height: 1.2 !important;
   overflow: visible !important;
-  color: #1f3154;
+  /* color: #1f3154; */
 }
 
 h4 {
@@ -228,7 +228,7 @@ html.light-bg-mode * {
 
 html.light-bg-mode p,
 html.light-bg-mode h1,
-html.light-bg-mode h2,
+/* html.light-bg-mode h2, */
 html.light-bg-mode h3,
 html.light-bg-mode h4,
 html.light-bg-mode span,

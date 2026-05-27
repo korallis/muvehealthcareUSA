@@ -98,7 +98,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
   ];
 
   return (
-    <div className="w-full relative overflow-hidden"
+    <div id="work-with-us" className="w-full relative overflow-hidden"
     style={{
         background: "linear-gradient(180deg, #40E2B8 0%, #45E3BA 35%, #78EACD 58%, #A2F0DC 80%, #B3F3E3 91%, #B3F3E3 100%)",
       }}

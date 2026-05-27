@@ -92,12 +92,13 @@ export default function Hero({
               <motion.div className="mt-6 flex flex-wrap justify-start gap-4">
                 <motion.a
                   href={button1Link || "ApplicationForm"}
+                  target="_blank"
                   className="px-20 py-3 bg-[#07004C] text-buttons text-white rounded-full hover:bg-[#3d3fff] cursor-pointer"
                 >
                   {button1Text || "Apply"}
                 </motion.a>
                 <motion.a
-                  href={button2Link || "#"}
+                  href={button2Link || "ApplicationForm"}
                   target="_blank"
                   className="px-6 py-3 border-2 border-[#07004C] text-[#0A0440] text-buttons rounded-full hover:bg-[#0A0440] hover:text-white transition-all"
                 >
@@ -114,20 +115,22 @@ export default function Hero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          <p className="text-[#0A0440] text-hero-body font-medium">
+          <p className="text-[#0A0440] text-hero-body font-lexend">
             {subtitle ||
-              "““We exist to make care feel human again. Empowering people to live with dignity, independence, and connection, and making quality care available to every community we serve.”"}
+              "Make the MUVE. Care done right. Healthcare recruitment specialists connecting professionals with opportunity and clients with quality care."}
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <a
-              href={button1Link || "About"}
-              className="px-8 py-4 bg-[#4A4CFF] text-white text-center text-buttons rounded-full"
+              href={button1Link || "#ApplicationForm"}
+              target="_blank"
+              className="px-8 py-4 bg-[#07004C] text-white text-center text-buttons rounded-full"
             >
-              Learn More
+              Apply
             </a>
             <a
-              href={button2Link || "#"}
-              className="px-8 py-4 border-2 border-[#0A0440] text-[#0A0440] text-center text-buttons rounded-full transition-colors"
+              href={button2Link || "ApplicationForm"}
+              target="_blank"
+              className="px-8 py-4 border-2 border-[#07004C] text-[#07004C] text-center text-buttons rounded-full transition-colors"
             >
               Make a Referral
             </a>

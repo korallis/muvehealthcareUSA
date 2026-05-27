@@ -36,12 +36,13 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={containerVariants}
+      id="get-in-touch"
       className="w-full bg-[#4C86FF] py-20 px-6"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
         {/* LEFT SIDE — Conversation Section */}
         <motion.div variants={itemVariants}>
-          <h2 className=" text-[#fff] leading-tight">
+          <h2 className="text-white leading-tight">
             {copyright ? (
               copyright
             ) : (
@@ -52,22 +53,12 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
             )}
           </h2>
 
-          <p className="mt-6 text-xl font-lexend text-navyblue">
+          <p className="mt-6 text-[28px] font-lexend text-[#07004C]">
             Speak with a team member
           </p>
 
           {/* Buttons with Hover effects */}
           <div className="mt-6 flex flex-wrap gap-4">
-            {/* <motion.a 
-              href="https://wa.me/27737194634" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="text-buttons bg-navyblue text-white px-10 py-3 rounded-full inline-block cursor-pointer"
-            >
-              Whatsapp
-            </motion.a> */}
 
             <motion.a
               href="https://www.cognitoforms.com/ICare24Group1/MuveCallBackForm"
@@ -109,6 +100,9 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
                 Subscribe 
               </motion.a>
             </div>
+            <p className="mt-2 text-[15px] font-lexend text-[#fff]">
+              We will send you news and updates, T+C’s apply*
+            </p>
           </motion.div>
         </motion.div>
 
@@ -130,29 +124,30 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
             {[
               {
                 title: "About",
-                path: "/About",
+                // path: "#who-we-are",
                 links: [
-                  "Who we are",
-                  "Work With Us",
-                  "Our Socialites",
+                  {name: "Who we are", customPath: "#who-we-are"},
+                  {name: "Work With Us", customPath: "#work-with-us"},
+                  {name: "Our Specialities", customPath: "#specialities"}
                 ],
               },
               {
                 title: "Work With Us",
-                path: "/Services",
+                // path: "/Services",
                 links: [
-                  "Our Careers",
-                  "Make a Referal",
-                  "Why Choose Us",
+                  {name: "Our Careers", customPath: "#work-with-us"},
+                  {name: "Make a Referal", customPath: "ApplicationForm"},
+                  {name: "Why Choose Us", customPath: "#for-professionals-and-clients"}
                 ],
               },
               {
                 title: "Hire Team",
-                path: "/resources",
+                // path: "/resources",
                 links: [
-                  "Our Socialites",
-                  "Get In Touch",
-                  "Why Choose Us",
+                  {name: "Our Specialities", customPath: "#specialities"},
+                  {name: "Get In Touch", customPath: "#get-in-touch"},
+                  {name: "Why Choose Us", customPath: "#for-professionals-and-clients"}
+  
                 ],
               },
               {
@@ -168,7 +163,11 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
               {
                 title: "Get in Touch",
                 path: "/Contact",
-                links: ["Apply", "Contact", "Make a Referal"],
+                links: [
+                  {name: "Apply", customPath: "ApplicationForm"},
+                  {name: "Contact", customPath: "#Contact"},
+                  {name: "Make a Referal", customPath: "ApplicationForm"}
+                ],
               },
             ].map((column, idx) => (
               <motion.div key={idx} variants={itemVariants}>
