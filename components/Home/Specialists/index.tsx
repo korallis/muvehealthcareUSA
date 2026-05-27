@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -77,7 +78,7 @@ export default function Specialities({ title }:SpecialtiesProps) {
       }}
     >
       {/* Decorative background squiggles pattern */}
-      <div className="absolute -top-205 inset-0 pointer-events-none select-none z-0">
+      <div id="specialities" className="absolute -top-205 inset-0 pointer-events-none select-none z-0">
         <Image
           src="/patterns/bg-squiggles.svg"
           alt=""
@@ -196,9 +197,11 @@ export default function Specialities({ title }:SpecialtiesProps) {
 
         {/* Find Your Team Button */}
         <div className="flex justify-center">
-          <button className="bg-[#40E2B8] text-[#07004C] font-lexendBold text-[20px] px-8 py-2.5 rounded-full hover:bg-[#2bc49d] transition-all tracking-wide">
-            Find Your Team
-          </button>
+          <Link href="ApplicationForm" className="inline-block">
+            <button className="bg-[#40E2B8] text-[#07004C] font-lexendBold text-[20px] px-8 py-2.5 rounded-full hover:bg-[#2bc49d] transition-all tracking-wide">
+              Find Your Team
+            </button>
+          </Link>
         </div>
 
       </div>

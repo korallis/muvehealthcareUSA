@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -73,7 +74,7 @@ export default function Professionals({ title }: ProfessionalsProps) {
       className="w-full relative overflow-hidden pt-12 pb-16 px-4 bg-[#D4E2FF]"
     >
       {/* Decorative background squiggles pattern */}
-      <div className="absolute inset-0 pointer-events-none select-none z-0">
+      <div id="for-professionals-and-clients" className="absolute inset-0 pointer-events-none select-none z-0">
     <Image
       src="/patterns/background.svg"
       alt=""
@@ -122,9 +123,11 @@ export default function Professionals({ title }: ProfessionalsProps) {
                 </p>
 
                 <div className="flex justify-left mt-18 mb-10 pl-4 pr-4">
+                  <Link href="ApplicationForm" className="inline-block">
                     <button className="bg-[#07004C] text-[#fff] font-lexendBold text-[20px] px-8 py-2.5 rounded-full hover:bg-[#2bc49d] transition-all tracking-wide">
                         Find Your Team
                     </button>
+                  </Link>
                 </div>
                 
             </div>
@@ -158,9 +161,11 @@ export default function Professionals({ title }: ProfessionalsProps) {
                 </p>
 
                 <div className="flex justify-left mt-18 mb-10 pl-4 pr-4">
+                  <Link href="ApplicationForm" className="inline-block">
                     <button className="bg-[#fff] text-[#07004C] font-lexendBold text-[20px] px-8 py-2.5 rounded-full hover:bg-[#2bc49d] transition-all tracking-wide">
                         Find Your Team
                     </button>
+                  </Link>
                 </div>
                 
             </div>

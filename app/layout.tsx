@@ -61,7 +61,7 @@ export default async function RootLayout({
         {children}
         <AccessibilityWidget />
         {/* 3. Pass the dynamic props to the Footer */}
-        {/* <Footer {...footerProps} /> */}
+        <Footer {...footerProps} />
       </body>
     </html>
   );

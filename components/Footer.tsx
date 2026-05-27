@@ -37,22 +37,22 @@ export default function Footer({
   const defaultSocials = [
     {
       name: "Linkedin",
-      url: "https://www.linkedin.com/company/muve-healthcare/?viewAsMember=true",
+      url: "https://www.linkedin.com/company/muvehealthcare-usa/",
     },
     {
       name: "Instagram",
-      url: "https://www.instagram.com/muvehealthcaregroup/",
+      url: "https://www.instagram.com/muvehealthcare_usa/",
     },
     {
       name: "Facebook",
-      url: "https://www.facebook.com/profile.php?viewas=100000686899395&id=61583092695274",
+      url: "https://www.facebook.com/muvehealthcare/",
     },
   ];
 
   const defaultLinks = [
     { label: "Modern Slavery", href: "/Slavery" },
     { label: "Privacy Policy", href: "/Privacy" },
-    { label: "Cookie Policy", href: "/cookies" },
+    { label: "Handbook", href: "/cookies" },
     { label: "CQC Report", href: "https://www.cqc.org.uk" },
     { label: "Terms + Conditions", href: "/Terms" },
     {
@@ -64,19 +64,19 @@ export default function Footer({
   // 2. Use Puck data if available, otherwise use static defaults
   const activeSocials = socialLinks || defaultSocials;
   const activeLinks = footerLinks || defaultLinks;
-  const activeLogo = logo || "/muve-logo.svg";
+  const activeLogo = logo || "/muveusalogo.svg";
 
   return (
-    <footer className="bg-[#07004C] text-white py-16 px-6">
+    <footer id="Contact" className="bg-[#07004C] text-white py-16 px-6">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-12 items-start text-center md:text-left">
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 items-start text-center md:text-left">
           {/* Left Column - Offices */}
-          <div className="flex justify-center md:justify-start gap-16">
+          <div className="flex justify-center md:justify-start">
             <div>
               <h3 className="text-links mb-3">{title}</h3>
               <div className="text-footer leading-6">
                 {/* Use Puck rich text or static fallback */}
-                {ukOffice ? (
+                {/* {ukOffice ? (
                   typeof ukOffice === "string" ? (
                     <div
                       dangerouslySetInnerHTML={{
@@ -87,6 +87,7 @@ export default function Footer({
                     ukOffice
                   )
                 ) : (
+                 
                   <p>
                     Suite 1<br />
                     Aqueous II
@@ -97,32 +98,19 @@ export default function Footer({
                     <br />
                     B6 5RQ
                   </p>
-                )}
-              </div>
-              <div className="text-footer leading-6">
-                {/* Use Puck rich text or static fallback */}
-                {ukOffice ? (
-                  typeof ukOffice === "string" ? (
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: sanitizeHTML(ukOffice),
-                      }}
-                    />
-                  ) : (
-                    ukOffice
-                  )
-                ) : (
-                  <p>
-                    Suite 1<br />
-                    Aqueous II
-                    <br />
-                    Rocky Lane
-                    <br />
-                    Birmingham
-                    <br />
-                    B6 5RQ
+                )} */}
+                <h3 className="font-lexendBold text-[18px]">Phone</h3>
+                <p className="font-lexend text-[15px]">1866-467-1912</p>
+                <br/>
+                <h3 className="font-lexendBold text-[18px]">Email</h3>
+                <p className="font-lexend text-[15px]">Accountmgmt@muvehealthcare.com</p>
+                <br/>
+                <h3 className="font-lexendBold text-[18px]">Head Office</h3>
+                <p className="font-lexend text-[15px]">
+                  2600 South Shore Blvd. <br/>
+                  Suite 300, League City, <br/>
+                  TX 77573
                   </p>
-                )}
               </div>
             </div>
 
@@ -168,7 +156,7 @@ export default function Footer({
             </Link>
             <p className="mt-6 text-links text-center whitespace-pre-line">
               {copyright ||
-                "© 2025 Muve Healthcare Group.\nAll Rights Reserved. Site by Marva Group."}
+                "© 2026 Muve Healthcare USA.\nAll Rights Reserved. Site by Marva Group."}
             </p>
           </div>
 
