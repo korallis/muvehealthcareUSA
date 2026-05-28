@@ -4,28 +4,28 @@ export const categories = [
     title: "Allied Health",
     description:
       "Access a range of opportunities across allied healthcare. Competitive pay, great locations and roles tailored to your career ambitions.",
-    image: "/blog/blog.png",
+    image: "/models/allied.svg",
   },
   {
     id: 2,
     title: "Locum Tenens",
     description:
       "Step into temporary roles with confidence. Flexible assignments, seamless onboarding and full support so you can focus on patient care.",
-    image: "/blog/blog.png",
+    image: "/models/locum.svg",
   },
   {
     id: 3,
     title: "Travel",
     description:
       "Explore new locations while advancing your career. We match you with assignments that align with your goals, if you're new or experienced.",
-    image: "/blog/blog.png",
+    image: "/models/travel.svg",
   },
   {
     id: 4,
     title: "Per Diem",
     description:
       "Work when and where you choose. Enjoy flexibility, competitive rates and a smooth onboarding process that gets you started quickly",
-    image: "/blog/blog.png",
+    image: "/models/diem.svg",
   },
 ];
 
