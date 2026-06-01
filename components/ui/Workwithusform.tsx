@@ -164,20 +164,20 @@ const selectBase = "w-full bg-white rounded-xl border border-gray-200 px-4 py-2.
 
 const sectionCard = " p-6 space-y-5";
 
-const sectionHeading = "text-[#101935] font-bold text-base tracking-wide uppercase border-b border-[#101935]/20 pb-2";
+const sectionHeading = "text-[#101935] font-lexendBold text-base tracking-wide uppercase border-b border-[#101935]/20 pb-2";
 
-const subHeading = "text-[#101935]/80 font-semibold text-sm";
+const subHeading = "text-[#101935]/80 font-lexendBold text-sm";
 
-const labelText = "block text-xs font-semibold text-[#101935]/70 uppercase tracking-wider mb-1";
+const labelText = "block text-xs font-lexendBold text-[#101935]/70 uppercase tracking-wider mb-1";
 
-const tealBtn = "inline-flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors shadow-sm";
+const tealBtn = "inline-flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white text-sm font-lexendBold px-4 py-2 rounded-xl transition-colors";
 
-const navyBtn = "inline-flex items-center gap-2 bg-[#101935] hover:bg-[#1a2d55] active:bg-[#0d1428] text-white text-sm font-semibold px-8 py-2.5 rounded-full transition-colors shadow-md";
+const navyBtn = "inline-flex items-center gap-2 bg-[#101935] hover:bg-[#1a2d55] active:bg-[#0d1428] text-white text-sm font-lexendBold px-8 py-2.5 rounded-full transition-colors";
 
 const radioOption = (selected: boolean) =>
-  `px-4 py-2 rounded-full text-sm font-medium border cursor-pointer transition-all select-none ${
+  `px-4 py-2 rounded-full text-sm font-lexend border cursor-pointer transition-all select-none ${
     selected
-      ? "bg-[#101935] text-white border-[#101935] shadow-sm"
+      ? "bg-[#101935] text-white border-[#101935]"
       : "bg-white text-gray-600 border-gray-200 hover:border-[#101935]/40 hover:text-[#101935]"
   }`;
 
@@ -417,8 +417,8 @@ function Step1({
                 {SHIFTS.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </Field>
-            <button type="button" onClick={onAddShift} className={tealBtn}>
-              <span className="text-lg leading-none">+</span> Add Item
+            <button type="button" onClick={onAddShift} className="rounded-full bg-[#40e2b8]">
+              <span className="text-lg leading-none font-lexend rounded-full">+</span> Add Item
             </button>
             {shiftsExtra.map((val, idx) => (
               <div key={idx} className="flex items-center gap-2">
@@ -433,7 +433,7 @@ function Step1({
                 <button
                   type="button"
                   onClick={() => onRemoveShift(idx)}
-                  className="!rounded-4xl flex-shrink-0 text-red-400 hover:text-red-600 text-xs font-semibold transition-colors px-1"
+                  className="!rounded-4xl flex-shrink-0 text-red-400 hover:text-red-600 text-xs font-lexendBold transition-colors px-1"
                   aria-label="Remove shift"
                 >
                   ✕
@@ -572,7 +572,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
                 <button
                   type="button"
                   onClick={() => removeLicense(lic.id)}
-                  className="text-red-400 hover:text-red-600 text-xs font-semibold transition-colors"
+                  className="text-red-400 hover:text-red-600 text-xs font-lexendBold transition-colors"
                 >
                   Remove
                 </button>
@@ -736,7 +736,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
                 <button
                   type="button"
                   onClick={() => removeCert(cert.id)}
-                  className="text-red-400 hover:text-red-600 text-xs font-semibold transition-colors"
+                  className="text-red-400 hover:text-red-600 text-xs font-lexendBold transition-colors"
                 >
                   Remove
                 </button>
@@ -798,9 +798,9 @@ function Step2({ data, onChange, errors }: Step2Props) {
         <button
           type="button"
           onClick={() => onChange({ certificates: [...data.certificates, newCertificate()] })}
-          className={tealBtn}
+          className="rounded-full bg-[#40e2b8]"
         >
-          <span className="text-lg leading-none">+</span> Add Item
+          <span className="text-lg leading-none font-lexend">+</span> Add Item
         </button>
       </div>
 
@@ -820,7 +820,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
                 <button
                   type="button"
                   onClick={() => removeAdditional(cert.id)}
-                  className="text-red-400 hover:text-red-600 text-xs font-semibold transition-colors"
+                  className="text-red-400 hover:text-red-600 text-xs font-lexendBold transition-colors"
                 >
                   Remove
                 </button>
@@ -881,9 +881,9 @@ function Step2({ data, onChange, errors }: Step2Props) {
         <button
           type="button"
           onClick={() => onChange({ additionalCerts: [...data.additionalCerts, newAdditionalCert()] })}
-          className={tealBtn}
+          className="rounded-full bg-[#40e2b8]"
         >
-          <span className="text-lg leading-none">+</span> Add Item
+          <span className="text-lg leading-none font-lexend">+</span> Add Item
         </button>
       </div>
     </div>
@@ -1032,32 +1032,32 @@ export default function WorkWithUsForm() {
   // };
 
   const handleSubmit = async () => {
-  const errs = validateStep2();
-  if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-  setErrors({});
+    const errs = validateStep2();
+    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
+    setErrors({});
 
-  const result = await sendWorkWithUsEmail({
-    // Step 1
-    title: step1.title, dob: step1.dob,
-    firstName: step1.firstName, middleName: step1.middleName, lastName: step1.lastName,
-    addressLine1: step1.address.line1, addressLine2: step1.address.line2,
-    city: step1.address.city, stateRegion: step1.address.state,
-    postal: step1.address.postal, country: step1.address.country,
-    usEligible: step1.usEligible, email: step1.email, phone: step1.phone,
-    dateAvailable: step1.dateAvailable, positionApplying: step1.positionApplying,
-    shiftsPreferred: step1.shiftsPreferred, shiftsExtra: step1.shiftsExtraValues,
-    typeOfPosition: step1.typeOfPosition, typeOfContract: step1.typeOfContract,
-    travelAssignment: step1.travelAssignment, yearsTravel: step1.yearsTravel,
-    // Step 2
-    category: step2.category, licenses: step2.licenses,
-    selectedStates: step2.selectedStates,
-    blsDateCompleted: step2.blsDateCompleted, blsExpiration: step2.blsExpiration,
-    certificates: step2.certificates, additionalCerts: step2.additionalCerts,
-  });
+    const result = await sendWorkWithUsEmail({
+      // Step 1
+      title: step1.title, dob: step1.dob,
+      firstName: step1.firstName, middleName: step1.middleName, lastName: step1.lastName,
+      addressLine1: step1.address.line1, addressLine2: step1.address.line2,
+      city: step1.address.city, stateRegion: step1.address.state,
+      postal: step1.address.postal, country: step1.address.country,
+      usEligible: step1.usEligible, email: step1.email, phone: step1.phone,
+      dateAvailable: step1.dateAvailable, positionApplying: step1.positionApplying,
+      shiftsPreferred: step1.shiftsPreferred, shiftsExtra: step1.shiftsExtraValues,
+      typeOfPosition: step1.typeOfPosition, typeOfContract: step1.typeOfContract,
+      travelAssignment: step1.travelAssignment, yearsTravel: step1.yearsTravel,
+      // Step 2
+      category: step2.category, licenses: step2.licenses,
+      selectedStates: step2.selectedStates,
+      blsDateCompleted: step2.blsDateCompleted, blsExpiration: step2.blsExpiration,
+      certificates: step2.certificates, additionalCerts: step2.additionalCerts,
+    });
 
-  if (result.success) setSubmitted(true);
-  else setErrors({ submit: "Submission failed. Please try again." });
-};
+    if (result.success) setSubmitted(true);
+    else setErrors({ submit: "Submission failed. Please try again." });
+  };
 
   const STEPS = [
     { n: 1, label: "Personal Information" },
@@ -1067,14 +1067,14 @@ export default function WorkWithUsForm() {
   if (submitted) {
     return (
       <div className="min-h-screen bg-[#7F92A3] flex items-center justify-center">
-        <div className="bg-white rounded-2xl p-12 max-w-md w-full text-center shadow-xl">
+        <div className="bg-white rounded-2xl p-12 max-w-md w-full text-center">
           <div className="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-[#101935] mb-2">Application Submitted!</h2>
-          <p className="text-gray-500 text-sm mb-6">
+          <h2 className="text-2xl font-lexendBold text-[#101935] mb-2">Application Submitted!</h2>
+          <p className="text-white font-lexend text-sm mb-6">
             Thank you, {step1.firstName}. We'll review your application and be in touch shortly.
           </p>
           <button
@@ -1101,10 +1101,10 @@ export default function WorkWithUsForm() {
       <main className="relative z-10 flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 py-8 space-y-6">
         {/* Page title */}
         <div>
-          <h1 className="text-white text-2xl sm:text-3xl font-bold tracking-tight drop-shadow">
+          <h1 className="text-white text-2xl sm:text-3xl font-lexendBold tracking-tight">
             Work With Us
           </h1>
-          <p className="text-white/70 text-sm mt-1">Complete all required fields marked with an asterisk (*)</p>
+          <p className="text-white text-sm mt-1 font-lexend">Complete all required fields marked with an asterisk (*)</p>
         </div>
 
         {/* Step indicator */}
@@ -1114,16 +1114,16 @@ export default function WorkWithUsForm() {
               <button
                 type="button"
                 onClick={() => { if (s.n < step) setStep(s.n as 1 | 2); }}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-lexendBold transition-all ${
                   step === s.n
-                    ? "bg-[#101935] text-white shadow-md"
+                    ? "bg-[#101935] text-white"
                     : s.n < step
                     ? "bg-white/30 text-white hover:bg-white/40 cursor-pointer"
                     : "bg-white/15 text-white/50 cursor-default"
                 }`}
               >
                 <span
-                  className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
+                  className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-lexendBold flex-shrink-0 ${
                     step === s.n ? "bg-teal-400 text-[white]" : s.n < step ? "bg-teal-500 text-white" : "bg-white/20 text-white/50"
                   }`}
                 >
