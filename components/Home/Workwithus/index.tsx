@@ -384,7 +384,7 @@ export function WorkWithUsToo({ title }: WorkwithusProps) {
                     placeholder="Search Title, Category, City..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-white/10 text-white placeholder-slate-400 text-sm pl-9 pr-4 py-2.5 rounded-xl border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all"
+                    className="w-full bg-white/10 text-white placeholder-slate-400 text-sm pl-9 pr-4 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all"
                   />
                   {searchQuery && (
                     <button 
@@ -405,7 +405,7 @@ export function WorkWithUsToo({ title }: WorkwithusProps) {
                   <select
                     value={jobType}
                     onChange={(e) => setJobType(e.target.value)}
-                    className="w-full bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-xl border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
+                    className="w-full bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
                   >
                     <option value="All" className="bg-[#0e1552] text-white">All Types</option>
                     <option value="Allied Health" className="bg-[#0e1552] text-white">Allied Health</option>
@@ -421,13 +421,13 @@ export function WorkWithUsToo({ title }: WorkwithusProps) {
 
               {/* Filter 3: Location Dropdown with Text filter support */}
               <div className="col-span-1 lg:col-span-3 relative">
-                <label className="block text-xs font-semibold text-slate-300 mb-1 pl-1">Location / Area</label>
+                <label className="block text-xs font-lexend text-white mb-1 pl-1">Location / Area</label>
                 <div className="relative text-white">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 text-[#3DDDB3]" />
                   <select
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="w-full bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-xl border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
+                    className="w-full bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
                   >
                     <option value="All" className="bg-[#0e1552] text-white">All Locations</option>
                     {uniqueAvailableLocations.map((loc) => (
@@ -450,7 +450,7 @@ export function WorkWithUsToo({ title }: WorkwithusProps) {
                   <select
                     value={datePosted}
                     onChange={(e) => setDatePosted(e.target.value)}
-                    className="w-full bg-[#0e1552] text-white text-sm pl-9 pr-6 py-2.5 rounded-xl border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
+                    className="w-full bg-[#0e1552] text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
                   >
                     <option value="Any time" className="bg-[#0e1552] text-white">Any time</option>
                     <option value="Last 24 hours" className="bg-[#0e1552] text-white">Last 24 hours</option>
@@ -470,7 +470,7 @@ export function WorkWithUsToo({ title }: WorkwithusProps) {
                   onClick={handleClearFilters}
                   disabled={!isAnyFilterActive}
                   title="Clear all active filter values"
-                  className={`flex items-center justify-center gap-2 text-xs font-lexendBold py-2.5 rounded-xl border transition-all text-center w-full h-[40px] select-none
+                  className={`flex items-center justify-center gap-2 text-xs font-lexendBold py-2.5 rounded-full border transition-all text-center w-full h-[40px] select-none
                     ${
                       isAnyFilterActive
                         ? "bg-rose-500/10 text-rose-300 border-rose-500/20 hover:bg-rose-500/20 cursor-pointer active:scale-95"
@@ -487,7 +487,7 @@ export function WorkWithUsToo({ title }: WorkwithusProps) {
             {/* Quick tag identifiers showing what criteria are set */}
             {isAnyFilterActive && (
               <div className="flex flex-wrap items-center gap-2 mt-4 pt-3 border-t border-white/5">
-                <span className="text-slate-400 text-xs font-medium">Applied:</span>
+                <span className="text-slate-400 text-xs font-lexendBold">Applied:</span>
                 {searchQuery && (
                   <span className="inline-flex items-center gap-1.5 bg-sky-950 text-sky-300 border border-sky-800/60 px-2 py-0.5 rounded-lg text-xs font-sans">
                     Keyword: "{searchQuery}"
