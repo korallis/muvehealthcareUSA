@@ -61,7 +61,7 @@ function IconX() {
 
 function IconCheck() {
   return (
-    <span className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#3DDDB3] text-white font-lexendBold text-[30px] select-none shadow-sm">
+    <span className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#3DDDB3] text-white font-lexendBold text-[30px] select-none">
       ✓
     </span>
   );
@@ -101,7 +101,7 @@ export default function Professionals({ title }: ProfessionalsProps) {
             <div 
               style={{ transitionDelay: mounted ? "100ms" : "0ms" }}
               className={`group flex-1 bg-[#40E2B8] rounded-[2.5em] sm:rounded-[4em] p-4 sm:p-6 relative
-                hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(7,0,76,0.15)]
+                hover:-translate-y-2
                 transition-all duration-500 ease-out
                 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
             >
@@ -150,7 +150,7 @@ export default function Professionals({ title }: ProfessionalsProps) {
                 <div className="flex justify-start mt-10 sm:mt-18 mb-6 sm:mb-10 pl-2 sm:pl-4 pr-2 sm:pr-4">
                   <Link href="ApplicationForm" className="inline-block w-full sm:w-auto">
                     <button className="w-full sm:w-auto bg-[#07004C] text-[#fff] font-lexendBold text-[18px] sm:text-[20px] px-8 py-2.5 rounded-full 
-                                       hover:scale-105 hover:bg-[#0d176d] active:scale-95 transition-all duration-200 tracking-wide shadow-md">
+                                       hover:scale-105 hover:bg-[#0d176d] active:scale-95 transition-all duration-200 tracking-wide">
                         Find Your Team
                     </button>
                   </Link>
@@ -162,7 +162,7 @@ export default function Professionals({ title }: ProfessionalsProps) {
             <div 
               style={{ transitionDelay: mounted ? "250ms" : "0ms" }}
               className={`group flex-1 bg-[#82AAFF] rounded-[2.5em] sm:rounded-[4em] p-4 sm:p-6 relative
-                hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(7,0,76,0.15)]
+                hover:-translate-y-2
                 transition-all duration-500 ease-out
                 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
             >
@@ -205,7 +205,7 @@ export default function Professionals({ title }: ProfessionalsProps) {
                 <div className="flex justify-start mt-10 sm:mt-18 mb-6 sm:mb-10 pl-2 sm:pl-4 pr-2 sm:pr-4">
                   <Link href="ApplicationForm" className="inline-block w-full sm:w-auto">
                     <button className="w-full sm:w-auto bg-[#fff] text-[#07004C] font-lexendBold text-[18px] sm:text-[20px] px-8 py-2.5 rounded-full 
-                                       hover:scale-105 hover:bg-[#f0f4ff] active:scale-95 transition-all duration-200 tracking-wide shadow-md">
+                                       hover:scale-105 hover:bg-[#f0f4ff] active:scale-95 transition-all duration-200 tracking-wide">
                         Find Your Team
                     </button>
                   </Link>

@@ -49,7 +49,7 @@ const specialities = [
 
 function IconX() {
   return (
-    <span className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#4A79F7] text-white font-lexendBold text-[30px] select-none shadow-md group-hover:scale-110 transition-transform duration-300">
+    <span className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#4A79F7] text-white font-lexendBold text-[30px] select-none group-hover:scale-110 transition-transform duration-300">
       ✕
     </span>
   );
@@ -57,7 +57,7 @@ function IconX() {
 
 function IconCheck() {
   return (
-    <span className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#3DDDB3] text-white font-lexendBold text-[30px] select-none shadow-md group-hover:scale-110 transition-transform duration-300">
+    <span className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#3DDDB3] text-white font-lexendBold text-[30px] select-none group-hover:scale-110 transition-transform duration-300">
       ✓
     </span>
   );
@@ -106,7 +106,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
         >
           
           {/* Say Goodbye Card */}
-          <div className="group/card flex-1 border border-15 border-white rounded-4xl p-6 relative bg-transparent hover:-translate-y-2 hover:bg-white/5 hover:shadow-[0_20px_40px_rgba(7,0,76,0.1)] transition-all duration-500 ease-out">
+          <div className="group/card flex-1 border border-15 border-white rounded-4xl p-6 relative bg-transparent hover:-translate-y-2 hover:bg-white/5 transition-all duration-500 ease-out">
             <div className="absolute -top-3 right-4 sm:-right-5">
               <IconX />
             </div>
@@ -128,7 +128,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
           </div>
 
           {/* Say Hello Card */}
-          <div className="group/card flex-1 bg-[#82AAFF] rounded-4xl p-6 relative shadow-sm hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(7,0,76,0.15)] transition-all duration-500 ease-out">
+          <div className="group/card flex-1 bg-[#82AAFF] rounded-4xl p-6 relative hover:-translate-y-2 transition-all duration-500 ease-out">
             <div className="absolute -top-3 right-4 sm:-right-5">
               <IconCheck />
             </div>
@@ -155,7 +155,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
           className={`flex justify-center mb-10 transition-all duration-700 delay-200 ease-out
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
         >
-          <button className="bg-[#07004C] text-white font-lexendBold text-[22px] sm:text-[25px] px-9 py-2.5 rounded-full hover:scale-105 hover:bg-[#03236d] active:scale-95 transition-all duration-200 tracking-wide shadow-md">
+          <button className="bg-[#07004C] text-white font-lexendBold text-[22px] sm:text-[25px] px-9 py-2.5 rounded-full hover:scale-105 hover:bg-[#03236d] active:scale-95 transition-all duration-200 tracking-wide">
             Get Started
           </button>
         </div>
@@ -188,8 +188,8 @@ export default function Specialities({ title }: SpecialtiesProps) {
             <div
               key={spec.id}
               style={{ transitionDelay: mounted ? `${400 + idx * 120}ms` : "0ms" }}
-              className={`group/spec bg-white rounded-b-4xl overflow-hidden shadow-md flex flex-col
-                hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(7,0,76,0.2)]
+              className={`group/spec bg-white rounded-b-4xl overflow-hidden flex flex-col
+                hover:-translate-y-2
                 transition-all duration-500 ease-out
                 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
             >
@@ -223,7 +223,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
         >
           <Link href="ApplicationForm" className="inline-block w-full sm:w-auto text-center">
-            <button className="w-full sm:w-auto bg-[#40E2B8] text-[#07004C] font-lexendBold text-[18px] sm:text-[20px] px-8 py-2.5 rounded-full hover:scale-105 hover:bg-[#2bc49d] active:scale-95 transition-all duration-200 tracking-wide shadow-md">
+            <button className="w-full sm:w-auto bg-[#40E2B8] text-[#07004C] font-lexendBold text-[18px] sm:text-[20px] px-8 py-2.5 rounded-full hover:scale-105 hover:bg-[#2bc49d] active:scale-95 transition-all duration-200 tracking-wide">
               Find Your Team
             </button>
           </Link>

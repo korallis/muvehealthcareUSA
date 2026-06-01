@@ -109,7 +109,7 @@ export default function AccessibilityWidget(): React.ReactElement {
         aria-label="Open accessibility options"
         onClick={() => setOpen(true)}
         // Restored your original 'bg-blue' and sizing
-        className="fixed right-0 top-2/6 z-[9998] flex h-14 w-12 -translate-y-1/2 items-center justify-center rounded-l-2xl bg-blue p-3 transition-all hover:bg-lightblue"
+        className="fixed right-0 top-2/6 z-[9998] flex h-14 w-12 -translate-y-1/2 items-center justify-center rounded-l-2xl bg-[#40E2B8] p-3 transition-all hover:bg-[#07004C]"
       >
         <img
           src="/icons/accessibility.svg"
