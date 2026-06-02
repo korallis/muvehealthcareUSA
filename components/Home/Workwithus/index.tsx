@@ -39,9 +39,9 @@ interface LaborEdgeJob {
   jobStatusCode?: string;
 }
 
-export default function App() {
-  return <WorkWithUsToo />;
-}
+// export default function App() {
+//   return <WorkWithUsToo />;
+// }
 
 // Global utility helpers to safely resolve location and date values across mock or raw API structures
 const getJobLocationString = (job: LaborEdgeJob): string => {
@@ -66,7 +66,7 @@ const getFormattedDate = (dateStr?: string): string => {
   });
 };
 
-export function WorkWithUsToo({ title }: WorkwithusProps) {
+export default function WorkWithUsToo({ title }: WorkwithusProps) {
   const [current, setCurrent] = useState<number>(0);
   const [mounted, setMounted] = useState<boolean>(false);
   const [liveJobs, setLiveJobs] = useState<LaborEdgeJob[]>([]);
