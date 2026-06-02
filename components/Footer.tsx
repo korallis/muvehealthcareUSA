@@ -53,7 +53,6 @@ export default function Footer({
     { label: "Modern Slavery", href: "/Slavery" },
     { label: "Privacy Policy", href: "/Privacy" },
     { label: "Handbook", href: "/cookies" },
-    { label: "CQC Report", href: "https://www.cqc.org.uk" },
     { label: "Terms + Conditions", href: "/Terms" },
     {
       label: "Revoke consents",

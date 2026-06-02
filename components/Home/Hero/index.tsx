@@ -1,4 +1,3 @@
-// components/Hero.tsx
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -25,11 +24,11 @@ export default function Hero({
   button2Link,
 }: HeroProps) {
   return (
-    <section className="relative w-full bg-[#918CF2] overflow-hidden min-h-screen lg:min-h-0">
+    <section className="relative w-full bg-[#709EFF] overflow-hidden min-h-screen lg:min-h-0">
       <motion.img
         src={patternImage || "/hero-pattern.svg"}
         alt=""
-        className="absolute opacity-30 pointer-events-none w-full aspect-square max-w-sm left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:inset-0 md:w-[900px] md:h-[800px] md:-ml-[120px] md:left-0 md:top-0 md:translate-x-0 md:translate-y-0 md:max-w-none"
+        className="absolute opacity-60 pointer-events-none w-full aspect-square max-w-sm left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:inset-0 md:w-[900px] md:h-[800px] md:-ml-[120px] md:left-0 md:top-60 md:translate-x-0 md:translate-y-0 md:max-w-none"
         style={{
           maskImage: "radial-gradient(circle, black 50%, transparent 100%)",
           WebkitMaskImage:
@@ -51,7 +50,7 @@ export default function Hero({
             ) : (
               <>
                 {/* ADDED: pb-1 and leading-snug to prevent the span from clipping its own background */}
-                <span className="bg-lightblue px-2 pb-1 rounded-md inline-block mb-2 lg:mb-0 leading-snug">
+                <span className="bg-[#40E2B8] px-2 pb-1 rounded-md inline-block mb-2 lg:mb-0 leading-snug">
                   Redefining
                 </span>{" "}
                 the healthcare journey for everyone, everywhere.
