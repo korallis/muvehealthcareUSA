@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { categories } from "@/constants/workData";
 import { Search, MapPin, Calendar, Briefcase, RotateCcw, SlidersHorizontal} from "lucide-react";
+import Image from "next/image";
 
 interface WorkwithusProps {
   title?: string;
@@ -266,7 +267,7 @@ export function WorkWithUsToo({ title }: WorkwithusProps) {
       <div className="py-14 px-4 relative max-w-6xl mx-auto">
         <div className={`text-center mb-10 transition-all duration-700 ease-out
           ${mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"}`}>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0E1552] inline-flex items-center justify-center flex-wrap gap-3 font-lexendBold">
+          <h2 className="text-3xl sm:text-4xl font-lexendBold text-[#fff] inline-flex items-center justify-center flex-wrap gap-3 font-lexendBold">
             {title ? (
               title
             ) : (
@@ -276,9 +277,6 @@ export function WorkWithUsToo({ title }: WorkwithusProps) {
               </>
             )}
           </h2>
-          <p className="text-[#0E1552]/80 mt-2 font-lexend max-w-md mx-auto text-sm sm:text-base">
-            Discover outstanding clinical placements with comprehensive healthcare assignment tools.
-          </p>
         </div>
 
         <div className="relative flex items-center gap-0 w-full">
@@ -306,24 +304,25 @@ export function WorkWithUsToo({ title }: WorkwithusProps) {
                 <div
                   key={`${cat.id}-${idx}`}
                   style={{ transitionDelay: mounted ? `${idx * 120}ms` : '0ms' }}
-                  className={`group rounded-3xl overflow-hidden bg-white shadow-xl shadow-teal-900/5
+                  className={`group rounded-b-4xl overflow-hidden bg-white shadow-xl shadow-teal-900/5
                               hover:-translate-y-2 hover:scale-[1.01]
                               transition-all duration-500 ease-out
                               ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
                 >
-                  <div className="w-full h-48 sm:h-60 relative overflow-hidden bg-slate-100">
-                    <img
+                  <div className="w-full h-48 sm:h-60 relative overflow-hidden">
+                    <Image
                       src={cat.image}
                       alt={cat.title}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      referrerPolicy="no-referrer"
+                      fill
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                      className="object-cover "
                     />
                   </div>
                   <div className="p-5 bg-white">
-                    <h3 className="text-[#0E1552] text-center font-lexendBold text-[20px] sm:text-[24px] mb-2 group-hover:text-teal-600 transition-colors duration-300">
+                    <h3 className="text-[#0E1552] text-center font-lexendBold text-[24px] sm:text-[30px] mb-2 group-hover:text-teal-600 transition-colors duration-300">
                       {cat.title}
                     </h3>
-                    <p className="text-[#0E1552]/80 font-lexend text-center text-[13px] sm:text-[14px] leading-relaxed">
+                    <p className="text-[#0E1552] font-lexend text-center text-[14px] sm:text-[16px] leading-relaxed">
                       {cat.description}
                     </p>
                   </div>
@@ -521,7 +520,7 @@ export function WorkWithUsToo({ title }: WorkwithusProps) {
             {loading ? (
               <div className="text-white text-center py-12 font-lexend text-[16px] flex flex-col items-center justify-center gap-3">
                 <div className="animate-spin rounded-full h-8 w-8 border-2 border-t-transparent border-[#3DDDB3]" />
-                <span>Loading available healthcare assignments...</span>
+                <span>{title || 'Loading available healthcare assignments...'}</span>
               </div>
             ) : filteredJobs.length === 0 ? (
               <div className="text-white text-center py-12 font-lexend text-[16px] bg-white/5 rounded-2xl border border-dashed border-white/10">

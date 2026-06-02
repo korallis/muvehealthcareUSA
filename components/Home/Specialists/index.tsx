@@ -112,14 +112,14 @@ export default function Specialities({ title }: SpecialtiesProps) {
             </div>
             <h3 className="text-[32px] sm:text-[48px] font-lexendBold text-[#07004C] mb-5 tracking-tight">
               Say{" "}
-              <span className="inline-block bg-[#4A79F7] text-[#07004C] font-lexendBold px-2 py-0.5 rounded-md mx-0.5 group-hover/card:scale-105 transition-transform duration-300">
+              <span className="inline-block bg-[#4A79F7] text-[#07004C] font-lexendBold px-2 py-0.5 rounded-md mx-0.5">
                 Goodbye
               </span>{" "}
               To
             </h3>
             <ul className="space-y-2.5">
               {goodbyeItems.map((item) => (
-                <li key={item} className="flex items-center gap-2 text-[18px] sm:text-[20px] text-[#07004C] font-lexendBold transition-transform duration-300 hover:translate-x-1">
+                <li key={item} className="flex items-center gap-2 text-[18px] sm:text-[20px] text-[#07004C] font-lexendBold transition-transform duration-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0B256B] flex-shrink-0" />
                   {item}
                 </li>
@@ -134,14 +134,14 @@ export default function Specialities({ title }: SpecialtiesProps) {
             </div>
             <h3 className="text-[32px] sm:text-[48px] font-lexendBold text-[#07004C] mb-5 tracking-tight">
               Say{" "}
-              <span className="inline-block bg-white text-[#0B256B] px-2 py-0.5 rounded-md mx-0.5 group-hover/card:scale-105 transition-transform duration-300">
+              <span className="inline-block bg-white text-[#0B256B] px-2 py-0.5 rounded-md mx-0.5">
                 Hello
               </span>{" "}
               To
             </h3>
             <ul className="space-y-2.5">
               {helloItems.map((item) => (
-                <li key={item} className="flex items-center gap-2 text-[18px] sm:text-[20px] text-[#07004C] font-lexendBold transition-transform duration-300 hover:translate-x-1">
+                <li key={item} className="flex items-center gap-2 text-[18px] sm:text-[20px] text-[#07004C] font-lexendBold">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0B256B] flex-shrink-0" />
                   {item}
                 </li>

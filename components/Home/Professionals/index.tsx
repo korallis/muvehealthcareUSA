@@ -111,7 +111,7 @@ export default function Professionals({ title }: ProfessionalsProps) {
                   ) : (
                     <>
                       For{" "}
-                      <span className="bg-[#fff] text-[#07004C] font-lexendBold px-2 py-0.5 rounded-md group-hover:tracking-wide transition-all duration-300">
+                      <span className="bg-[#fff] text-[#07004C] font-lexendBold px-2 py-0.5 rounded-md">
                         Professionals
                       </span>
                     </>
@@ -119,29 +119,29 @@ export default function Professionals({ title }: ProfessionalsProps) {
                 </h3>
                 
                 <div className="space-y-6 pl-2 sm:pl-4 pr-2 sm:pr-4">
-                  <div className="group/item transition-transform duration-300 hover:translate-x-1">
+                  <div className="group/item transition-transform">
                     <p className="font-lexendBold text-[18px] sm:text-[21px] text-[#07004C] leading-snug">
                         24/7 Support
                     </p>
-                    <p className="font-lexend text-[16px] sm:text-[18px] text-[#07004C] opacity-90 mt-1">
+                    <p className="font-lexendBold text-[16px] sm:text-[21px] text-[#07004C] opacity-90">
                         Call, email or message anytime. We’re always here to help.
                     </p>
                   </div>
 
-                  <div className="group/item transition-transform duration-300 hover:translate-x-1">
+                  <div className="group/item transition-transform">
                     <p className="font-lexendBold text-[18px] sm:text-[21px] text-[#07004C] leading-snug">
                         Fast, Simple Applications
                     </p>
-                    <p className="font-lexend text-[16px] sm:text-[18px] text-[#07004C] opacity-90 mt-1">
+                    <p className="font-lexendBold text-[16px] sm:text-[21px] text-[#07004C] opacity-90">
                         Apply from your phone with smooth onboarding and dedicated support.
                     </p>
                   </div>
 
-                  <div className="group/item transition-transform duration-300 hover:translate-x-1">
+                  <div className="group/item transition-transform">
                     <p className="font-lexendBold text-[18px] sm:text-[21px] text-[#07004C] leading-snug">
                         Training Support
                     </p>
-                    <p className="font-lexend text-[16px] sm:text-[18px] text-[#07004C] opacity-90 mt-1">
+                    <p className="font-lexendBold text-[16px] sm:text-[21px] text-[#07004C] opacity-90">
                         We help with certifications, licensing and compliance at no cost.
                     </p>
                   </div>
@@ -151,7 +151,7 @@ export default function Professionals({ title }: ProfessionalsProps) {
                   <Link href="ApplicationForm" className="inline-block w-full sm:w-auto">
                     <button className="w-full sm:w-auto bg-[#07004C] text-[#fff] font-lexendBold text-[18px] sm:text-[20px] px-8 py-2.5 rounded-full 
                                        hover:scale-105 hover:bg-[#0d176d] active:scale-95 transition-all duration-200 tracking-wide">
-                        Find Your Team
+                        Find Your Role
                     </button>
                   </Link>
                 </div>
@@ -168,36 +168,35 @@ export default function Professionals({ title }: ProfessionalsProps) {
             >
                 <h3 className="text-[34px] sm:text-[48px] font-lexendBold text-[#fff] mb-5 p-2 sm:p-4 tracking-tight flex flex-wrap gap-2">
                   For{" "}
-                  <span className="bg-[#07004C] text-[#fff] font-lexendBold px-2 py-0.5 rounded-md group-hover:tracking-wide transition-all duration-300">
+                  <span className="bg-[#07004C] text-[#fff] font-lexendBold px-2 py-0.5 rounded-md">
                       Clients
                   </span>
                 </h3>
 
                 <div className="space-y-6 pl-2 sm:pl-4 pr-2 sm:pr-4">
-                  <div className="group/item transition-transform duration-300 hover:translate-x-1">
-                    <p className="font-lexendBold text-[18px] sm:text-[21px] text-[#07004C] leading-snug">
-                        24/7 Support
-                    </p>
-                    <p className="font-lexend text-[16px] sm:text-[18px] text-[#07004C] opacity-90 mt-1">
-                        Call, email or message anytime. We’re always here to help.
-                    </p>
-                  </div>
-
-                  <div className="group/item transition-transform duration-300 hover:translate-x-1">
-                    <p className="font-lexendBold text-[18px] sm:text-[21px] text-[#07004C] leading-snug">
-                        Fast, Simple Applications
-                    </p>
-                    <p className="font-lexend text-[16px] sm:text-[18px] text-[#07004C] opacity-90 mt-1">
-                        Apply from your phone with smooth onboarding and dedicated support.
+                  <div className="group/item transition-transform duration-300">
+                    <p className="font-lexendBold text-[18px] sm:text-[21px] text-[#fff] leading-snug">
+                      Strong Talent Network                    </p>
+                    <p className="font-lexendBold text-[16px] sm:text-[21px] text-[#fff] opacity-90 mt-0">
+                        Access skilled nurses, allied professionals and physicians across all specialties.
                     </p>
                   </div>
 
-                  <div className="group/item transition-transform duration-300 hover:translate-x-1">
-                    <p className="font-lexendBold text-[18px] sm:text-[21px] text-[#07004C] leading-snug">
-                        Training Support
+                  <div className="group/item transition-transform">
+                    <p className="font-lexendBold text-[18px] sm:text-[21px] text-[#fff] leading-snug">
+                        The Right Fit
                     </p>
-                    <p className="font-lexend text-[16px] sm:text-[18px] text-[#07004C] opacity-90 mt-1">
-                        We help with certifications, licensing and compliance at no cost.
+                    <p className="font-lexendBold text-[16px] sm:text-[21px] text-[#fff] opacity-90 mt-0">
+                        We place trained, vetted professionals ready to deliver quality care.
+                    </p>
+                  </div>
+
+                  <div className="group/item transition-transform">
+                    <p className="font-lexendBold text-[18px] sm:text-[21px] text-[#fff] leading-snug">
+                        24/7 Staffing Support
+                    </p>
+                    <p className="font-lexendBold text-[16px] sm:text-[21px] text-[#fff] opacity-90 mt-0">
+                        Our team is always available to support your staffing needs.
                     </p>
                   </div>
                 </div>
