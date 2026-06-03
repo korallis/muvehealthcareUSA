@@ -37,7 +37,10 @@ export default function LatestNewsUI({ news: initialNews }: LatestNewsUIProps) {
   return (
     <section
       id="latest-news"
-      className="bg-lightblue pt-24 pb-32 relative overflow-hidden"
+      className=" pt-24 pb-32 relative overflow-hidden"
+      style={{
+        background: "linear-gradient(180deg, #4C86FF 100%, #4C86FF 75%, #4C86FF 65%, #A5C2FF 30%, #A5C2FF 10%)",
+      }}
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
@@ -48,14 +51,14 @@ export default function LatestNewsUI({ news: initialNews }: LatestNewsUIProps) {
 
         <NewsList news={news} />
 
-        <div className="flex justify-start mt-16">
+        {/* <div className="flex justify-start mt-16">
           <Link
             href="/News"
             className="bg-[#1F3154] text-white px-12 py-3 rounded-full text-lg font-lexendBold transition-all"
           >
             View All
           </Link>
-        </div>
+        </div> */}
       </div>
     </section>
   );

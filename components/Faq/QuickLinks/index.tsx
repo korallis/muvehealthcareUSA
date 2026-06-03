@@ -61,7 +61,7 @@ export default function QuickLinks({ title }: QuickLinksProps) {
   return (
     <main
       id="quick-links"
-      className="min-h-screen bg-gradient-to-b from-[#00D9DA] to-[#99F0F0] px-6 md:px-20 py-16"
+      className="min-h-screen bg-gradient-to-b from-[#4C86FF] to-[#B7CFFF] px-6 md:px-20 py-16"
     >
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
@@ -83,16 +83,16 @@ export default function QuickLinks({ title }: QuickLinksProps) {
               setOpenIndex(null);
             }}
             className={clsx(
-              "relative px-8 py-3 rounded-full font-lexendBold transition-colors duration-500",
+              "relative px-8 py-1 rounded-full font-lexendBold transition-colors duration-500",
               activeCategory === cat
                 ? "text-white"
-                : "bg-white border-2 border-[#003366] text-[#003366]",
+                : "bg-transparent border-2 border-[#07004C] text-[#07004C]",
             )}
           >
             {activeCategory === cat && (
               <motion.div
                 layoutId="active-pill"
-                className="absolute inset-0 bg-[#003366] rounded-full z-0"
+                className="absolute inset-0 bg-[#07004C] rounded-full z-0"
                 transition={{ type: "spring", bounce: 0.1, duration: 0.8 }}
               />
             )}

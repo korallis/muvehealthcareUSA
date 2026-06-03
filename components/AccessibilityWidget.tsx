@@ -130,10 +130,10 @@ export default function AccessibilityWidget(): React.ReactElement {
         aria-label="Accessibility Menu"
         className={`fixed right-0 top-1/2 z-[10000] w-72 -translate-y-1/2 transition-transform duration-500 ease-in-out ${
           open ? "translate-x-0" : "translate-x-full"
-        } rounded-l-3xl overflow-hidden bg-purple`} // Restored bg-purple
+        } rounded-bl-4xl overflow-hidden bg-[#28536B]`} // Restored bg-purple
       >
-        <div className="bg-purple p-5 border-b border-white/10">
-          <h4 className="text-sm font-lexendBold text-white uppercase tracking-widest">
+        <div className="bg-[#28536B] p-5 border-b border-white/10">
+          <h4 className="text-[20px] font-lexendBold text-white uppercase tracking-widest">
             Accessibility Tools
           </h4>
         </div>
@@ -205,7 +205,7 @@ export default function AccessibilityWidget(): React.ReactElement {
 
         <a
           href="tel:08081754091"
-          className="flex items-center w-full bg-blue p-5 text-white font-lexendBold hover:opacity-90 transition-colors"
+          className="flex items-center w-full bg-[#40E2B8] pl-8 pt-5 pb-5 text-white font-lexend hover:opacity-90 transition-colors"
         >
           <HeartIcon />
           <span className="ml-4 text-sm">Call Muve Healthcare</span>

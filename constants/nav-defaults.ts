@@ -9,7 +9,7 @@ export const DEFAULT_NAV_PROPS = {
       subLinks: [
         { title: "Who we are", href: "#who-we-are" },
         { title: "Work With Us", href: "#work-with-us" },
-        { title: "Our Spcialities", href: "#specialities" },
+        { title: "Our Specialities", href: "#specialities" },
       ],
     },
     {

@@ -65,7 +65,7 @@ export default function FrequentlyAsked({ title }: FrequentlyAskedProps) {
   return (
     <main
       id="fAQs"
-      className="min-h-screen bg-gradient-to-b from-[#A89DF8] to-[#B9A8FF] px-6 md:px-20 py-16"
+      className="min-h-screen bg-gradient-to-b from-[#40E2B8] to-[#9FF0DB] px-6 md:px-20 py-16"
     >
       <motion.h1
         initial={{ opacity: 0, x: -20 }}
@@ -93,16 +93,16 @@ export default function FrequentlyAsked({ title }: FrequentlyAskedProps) {
               setOpenIndex(null);
             }}
             className={clsx(
-              "relative px-8 py-3 rounded-full font-lexendBold transition-colors duration-500",
+              "relative px-8 py-1 rounded-full font-lexendBold transition-colors duration-500",
               activeCategory === cat
                 ? "text-white"
-                : "bg-white border-2 border-[#003366] text-[#003366]",
+                : "bg-transparent border-2 border-[#07004C] text-[#07004C]",
             )}
           >
             {activeCategory === cat && (
               <motion.div
                 layoutId="active-pill"
-                className="absolute inset-0 bg-[#003366] rounded-full z-0"
+                className="absolute inset-0 bg-[#07004C] rounded-full z-0"
                 transition={{ type: "spring", bounce: 0.1, duration: 0.8 }}
               />
             )}
@@ -183,7 +183,7 @@ function FAQAccordion({
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <div className="p-5 pt-0 border-t border-white/10 mt-2">
+            <div className="p-5 pt-0 border-t bg-white border-white/10 mt-2">
               <p className="mb-4 text-navyblue font-lexend text-lg whitespace-pre-line">
                 {item.answer}
               </p>

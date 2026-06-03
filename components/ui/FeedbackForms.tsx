@@ -34,16 +34,16 @@ export default function FeedbackForms() {
               key={tab}
               type="button"
               onClick={() => setActiveTab(tab)}
-              className={`relative px-8 py-3 rounded-full font-lexendBold transition-colors duration-500 ${
+              className={`relative px-8 py-1 rounded-full font-lexendBold transition-colors duration-500 ${
                 activeTab === tab
-                  ? "text-white"
-                  : "bg-white border-2 border-[#003366] text-[#003366]"
+                  ? "text-[#07004C]"
+                  : "bg-[#07004C] border-2 border-[#07004C] text-[#fff]"
               }`}
             >
               {activeTab === tab && (
                 <motion.div
                   layoutId="active-pill"
-                  className="absolute inset-0 bg-[#003366] rounded-full z-0"
+                  className="absolute inset-0 bg-[#94B6FF] border-2 border-[#07004C] rounded-full z-0"
                   transition={{ type: "spring", bounce: 0.1, duration: 0.8 }}
                 />
               )}
@@ -59,7 +59,7 @@ export default function FeedbackForms() {
           viewport={{ once: true }}
           className="mt-12"
         >
-          <p className="text-[16px] font-lexend text-[#003366]">I am a…</p>
+          <p className="text-[16px] font-lexend text-[#07004C]">I am a…</p>
           <div className="flex font-lexend items-center gap-6 mt-4 flex-wrap">
             {[
               "Client",
@@ -80,7 +80,7 @@ export default function FeedbackForms() {
                   className="sr-only peer font-lexend"
                   required
                 />
-                <span className="text-[#003366]">{label}</span>
+                <span className="text-[#07004C]">{label}</span>
                 <span className="h-5 w-5 bg-white rounded-full border border-[#003366] peer-checked:bg-[#003366] peer-checked:ring-2 peer-checked:ring-white peer-checked:ring-inset transition-all duration-500"></span>
               </label>
             ))}
@@ -170,7 +170,7 @@ export default function FeedbackForms() {
             whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={isPending}
-            className="mt-8 px-10 py-3 rounded-full bg-[#003366] text-white font-lexendBold hover:bg-[#022c5a] transition duration-500 disabled:opacity-50"
+            className="mt-8 px-16 py-1 rounded-full bg-[#07004C] text-white font-lexendBold hover:bg-[#022c5a] transition duration-500 disabled:opacity-50"
           >
             {isPending ? "Submitting…" : "Submit"}
           </motion.button>
