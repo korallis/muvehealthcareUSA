@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { categories } from "@/constants/workData";
-import { Search, MapPin, Calendar, Briefcase, RotateCcw, SlidersHorizontal} from "lucide-react";
+import { Search, MapPin, Calendar, Briefcase, RotateCcw, SlidersHorizontal, Activity} from "lucide-react";
 import Image from "next/image";
 
 interface WorkwithusProps {
@@ -37,23 +37,64 @@ interface LaborEdgeJob {
   postedDate?: string;
   jobStatus?: string;
   jobStatusCode?: string;
+  specialty?: string;
 }
 
-// export default function App() {
-//   return <WorkWithUsToo />;
-// }
+const STATE_NAMES: Record<string, string> = {
+  AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California", CO: "Colorado", CT: "Connecticut", DE: "Delaware", FL: "Florida",
+  GA: "Georgia", HI: "Hawaii", ID: "Idaho", IL: "Illinois", IN: "Indiana", IA: "Iowa", KS: "Kansas", KY: "Kentucky", LA: "Louisiana", ME: "Maine",
+  MD: "Maryland", MA: "Massachusetts", MI: "Michigan", MN: "Minnesota", MS: "Mississippi", MO: "Missouri", MT: "Montana", NE: "Nebraska", NV: "Nevada",
+  NH: "New Hampshire", NJ: "New Jersey", NM: "New Mexico", NY: "New York", NC: "North Carolina", ND: "North Dakota", OH: "Ohio", OK: "Oklahoma",
+  OR: "Oregon", PA: "Pennsylvania", RI: "Rhode Island", SC: "South Carolina", SD: "South Dakota", TN: "Tennessee", TX: "Texas", UT: "Utah",
+  VT: "Vermont", VA: "Virginia", WA: "Washington", WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming"
+};
 
-// Global utility helpers to safely resolve location and date values across mock or raw API structures
+const getStateFullName = (stateStr?: string): string => {
+  if (!stateStr) return "";
+  const cleaned = stateStr.trim();
+  if (cleaned.length === 2) {
+    return STATE_NAMES[cleaned.toUpperCase()] || cleaned;
+  }
+  return cleaned;
+};
+
+// Global utility helpers to safely resolve location, state, and date values across mock or raw API structures
 const getJobLocationString = (job: LaborEdgeJob): string => {
   if (job.clientCity) {
-    const statePart = job.clientStateCode || job.clientState;
+    const rawState = job.clientState || job.clientStateCode;
+    const statePart = rawState ? getStateFullName(rawState) : "";
     return statePart ? `${job.clientCity}, ${statePart}` : job.clientCity;
   }
   if (job.jobLocation) {
-    return `${job.jobLocation.city}, ${job.jobLocation.state}`;
+    const statePart = getStateFullName(job.jobLocation.state);
+    return `${job.jobLocation.city}, ${statePart}`;
   }
-  return job.location || "Nationwide";
+  if (job.location) {
+    const parts = job.location.split(",");
+    if (parts.length > 1) {
+      const city = parts[0].trim();
+      const st = getStateFullName(parts[parts.length - 1]);
+      return `${city}, ${st}`;
+    }
+    return job.location || "Nationwide";
+  }
+  return "Nationwide";
 };
+
+const getJobStateString = (job: LaborEdgeJob): string => {
+  if (job.clientState) return getStateFullName(job.clientState);
+  if (job.clientStateCode) return getStateFullName(job.clientStateCode);
+  if (job.jobLocation?.state) return getStateFullName(job.jobLocation.state);
+  if (job.location) {
+    const parts = job.location.split(",");
+    if (parts.length > 1) {
+      return getStateFullName(parts[parts.length - 1]);
+    }
+    return getStateFullName(job.location);
+  }
+  return "";
+};
+
 
 const getFormattedDate = (dateStr?: string): string => {
   if (!dateStr) return "Recently";
@@ -78,6 +119,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
   const [jobType, setJobType] = useState<string>("All");
   const [location, setLocation] = useState<string>("All");
   const [datePosted, setDatePosted] = useState<string>("Any time");
+  const [specialty, setSpecialty] = useState<string>("All");
 
   // Load animation, viewport size, and dynamic data streaming
   useEffect(() => {
@@ -184,14 +226,22 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
       if (jType !== targetType) return false;
     }
 
-    // 2. Location / Area AND Logic
+    // 2. State-Only Location AND Logic
     if (location !== "All" && location.trim() !== "") {
-      const textQuery = location.toLowerCase().trim();
-      const jobLocCombined = getJobLocationString(job).toLowerCase();
-      if (!jobLocCombined.includes(textQuery)) return false;
+      const targetState = location.toLowerCase().trim();
+      const jobState = getJobStateString(job).toLowerCase().trim();
+      if (jobState !== targetState) return false;
     }
 
-    // 3. Date Posted AND Logic
+    // 3. Specialty AND Logic
+    if (specialty !== "All" && specialty.trim() !== "") {
+      const spec = (job.specialty || "").toLowerCase().trim();
+      const targetSpec = specialty.toLowerCase().trim();
+      if (spec !== targetSpec) return false;
+    }
+
+
+    // 4. Date Posted AND Logic
     const dateToUse = job.postedDate || job.listed;
     if (!isDateWithinRange(dateToUse, datePosted)) return false;
 
@@ -217,11 +267,30 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
     )
   ).sort();
 
+  // Unique list of specialties dynamically parsed from dataset
+  const uniqueAvailableSpecialties = Array.from(
+    new Set(
+      liveJobs
+        .map((j) => j.specialty)
+        .filter((s): s is string => !!s && s.trim() !== "")
+    )
+  ).sort();
+
+  // Unique list of states pulled dynamically from dataset to populate optional state options
+  const uniqueAvailableStates = Array.from(
+    new Set(
+      liveJobs
+        .map((j) => getJobStateString(j))
+        .filter((s) => s !== "" && s !== "Nationwide")
+    )
+  ).sort();
+
   // Clear all filters back to default values
   const handleClearFilters = (): void => {
     setSearchQuery("");
     setJobType("All");
     setLocation("All");
+    setSpecialty("All");
     setDatePosted("Any time");
   };
 
@@ -230,6 +299,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
     searchQuery !== "" ||
     jobType !== "All" ||
     location !== "All" ||
+    specialty !== "All" ||
     datePosted !== "Any time";
 
   // Handler to safely open specific job links in a new browser tab
@@ -373,31 +443,10 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
             {/* Responsive grid mapping filter sections */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
               
-              {/* Filter 1: Search Query */}
-              <div className="col-span-1 lg:col-span-4 relative">
-                <label className="block text-xs font-semibold text-slate-300 mb-1 pl-1">Search Keywords</label>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
-                  <input
-                    type="text"
-                    placeholder="Search Title, Category, City..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-white/10 text-white placeholder-slate-400 text-sm pl-9 pr-4 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all"
-                  />
-                  {searchQuery && (
-                    <button 
-                      onClick={() => setSearchQuery("")}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs"
-                    >
-                      Clear
-                    </button>
-                  )}
-                </div>
-              </div>
+              
 
-              {/* Filter 2: Job Type */}
-              <div className="col-span-1 lg:col-span-2 relative">
+              {/* Filter 1: Job Type */}
+              <div className="col-span-1 lg:col-span-3 relative">
                 <label className="block text-xs font-semibold text-slate-300 mb-1 pl-1">Job Type</label>
                 <div className="relative text-white">
                   <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 text-[#3DDDB3]" />
@@ -418,9 +467,9 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                 </div>
               </div>
 
-              {/* Filter 3: Location Dropdown with Text filter support */}
-              <div className="col-span-1 lg:col-span-3 relative">
-                <label className="block text-xs font-lexend text-white mb-1 pl-1">Location / Area</label>
+              {/* Filter 2: Location Dropdown with Text filter support */}
+              <div className="col-span-1 lg:col-span-4 relative">
+                <label className="block text-xs font-lexendBold text-slate-300 mb-1 pl-1">State</label>
                 <div className="relative text-white">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 text-[#3DDDB3]" />
                   <select
@@ -428,10 +477,10 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                     onChange={(e) => setLocation(e.target.value)}
                     className="w-full bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
                   >
-                    <option value="All" className="bg-[#0e1552] text-white">All Locations</option>
-                    {uniqueAvailableLocations.map((loc) => (
-                      <option key={loc} value={loc} className="bg-[#0e1552] text-white">
-                        {loc}
+                    <option value="All" className="bg-[#0e1552] text-white">All States</option>
+                    {uniqueAvailableStates.map((st) => (
+                      <option key={st} value={st} className="bg-[#0e1552] text-white">
+                        {st}
                       </option>
                     ))}
                   </select>
@@ -441,20 +490,22 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                 </div>
               </div>
 
-              {/* Filter 4: Date Posted */}
-              <div className="col-span-1 lg:col-span-2 relative">
-                <label className="block text-xs font-semibold text-slate-300 mb-1 pl-1">Date Posted</label>
+              {/* Filter 3: Spealiity */}
+              <div className="col-span-1 lg:col-span-4 relative">
+                <label className="block text-xs font-semibold text-slate-300 mb-1 pl-1">Specialty</label>
                 <div className="relative text-white">
-                  <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 text-[#3DDDB3]" />
+                  <Activity className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 text-[#3DDDB3]" />
                   <select
-                    value={datePosted}
-                    onChange={(e) => setDatePosted(e.target.value)}
-                    className="w-full bg-[#0e1552] text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
+                    value={specialty}
+                    onChange={(e) => setSpecialty(e.target.value)}
+                    className="w-full bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
                   >
-                    <option value="Any time" className="bg-[#0e1552] text-white">Any time</option>
-                    <option value="Last 24 hours" className="bg-[#0e1552] text-white">Last 24 hours</option>
-                    <option value="Last 7 days" className="bg-[#0e1552] text-white">Last 7 days</option>
-                    <option value="Last 30 days" className="bg-[#0e1552] text-white">Last 30 days</option>
+                    <option value="All" className="bg-[#0e1552] text-white">All Specialties</option>
+                    {uniqueAvailableSpecialties.map((spec) => (
+                      <option key={spec} value={spec} className="bg-[#0e1552] text-white">
+                        {spec}
+                      </option>
+                    ))}
                   </select>
                   <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                     <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
