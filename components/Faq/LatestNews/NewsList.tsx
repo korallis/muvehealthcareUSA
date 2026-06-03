@@ -65,13 +65,13 @@ export default function NewsList({ news }: { news: News[] }) {
           />
 
           {/* CONTENT */}
-          <div className="bg-[#918CF2] p-6 text-[#1F3154] flex-grow">
-            <h4 className="font-lexendBold text-1xl mb-4 text-[#1F3154] leading-tight group-hover:text-[#00D9DA] transition-colors cursor-pointer">
+          <div className="bg-[#fff] p-6 text-[#1F3154] flex-grow">
+            <h3 className="font-lexend font-[600] text-[22px] mb-4 text-[#07004C] leading-tight group-hover:text-[#00D9DA] transition-colors cursor-pointer">
               {news.title}
-            </h4>
+            </h3>
 
             {news.content && (
-              <p className="text-sm mb-6 font-lexend leading-relaxed line-clamp-4">
+              <p className="text-[16px] text-[#07004C] mb-6 font-lexend leading-relaxed line-clamp-4">
                 {news.content.replace(/<[^>]*>?/gm, "")}
               </p>
             )}
@@ -80,17 +80,17 @@ export default function NewsList({ news }: { news: News[] }) {
               href={`/News/${news.slug}`}
               className="
                 inline-block
-                bg-[#1F3154] 
+                bg-[#07004C] 
                 text-white 
+                text-[16px]
                 px-6 py-2 
                 rounded-full 
-                font-medium
                 hover:opacity-90
                 transition-opacity
                 font-lexendBold
               "
             >
-              Learn more
+              Read More
             </Link>
           </div>
         </motion.div>

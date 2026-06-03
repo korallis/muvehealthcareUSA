@@ -43,7 +43,7 @@ export default function FeedbackForm({ title }: FeedbackFormProps) {
   return (
     <section
       id="feedback-form"
-      className="w-full bg-[#62E5E7] relative py-20 px-6 lg:px-20 overflow-hidden"
+      className="w-full bg-[#94B6FF] relative py-20 px-6 lg:px-20 overflow-hidden"
     >
       {/* Heading - Scroll Triggered */}
       <motion.div
@@ -56,7 +56,7 @@ export default function FeedbackForm({ title }: FeedbackFormProps) {
         <h1 className="text-[48px] font-lexendBold text-white leading-none">
           {title || "Chat To Us"}
         </h1>
-        <p className="text-[24px] font-lexendBold text-[#003366] mt-2">
+        <p className="text-[24px] font-lexendBold text-[#07004C] mt-2">
           We Love Feedback
         </p>
       </motion.div>
