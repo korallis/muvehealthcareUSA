@@ -2,6 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
+import { CONVERSATION_DATA, FOOTER_QUICK_LINKS, FooterColumn, FooterLink } from "@/constants/conversationConstants";
 
 interface FooterSectionProps {
   copyright?: string;
@@ -54,14 +55,13 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
           </h2>
 
           <p className="mt-6 text-[28px] font-lexend text-[#07004C]">
-            Speak with a team member
+            {CONVERSATION_DATA.subtitle}
           </p>
 
           {/* Buttons with Hover effects */}
           <div className="mt-2 flex flex-wrap gap-4">
-
             <motion.a
-              href="https://www.cognitoforms.com/ICare24Group1/MuveCallBackForm"
+              href={CONVERSATION_DATA.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{
@@ -75,7 +75,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
               Whatsapp
             </motion.a>
             <motion.a
-              href="https://www.cognitoforms.com/ICare24Group1/EmailAndSMSSubscriptionConsentForm"
+              href={CONVERSATION_DATA.callbackUrl}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ backgroundColor: "#0fbdbd" }}
@@ -93,7 +93,9 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
                 placeholder="Email"
                 className="flex-1 px-6 py-3 text-gray-700 outline-none"
               />
-              <motion.a href="https://www.cognitoforms.com/ICare24Group1/EmailSubscriptionConsentForm" target="_blank"
+              <motion.a 
+                href={CONVERSATION_DATA.subscribeUrl} 
+                target="_blank"
                 whileHover={{ backgroundColor: "#0fbdbd" }}
                 className="bg-[#14D8D8] px-8 text-[#16203B] text-buttons text-white px-10 py-3 rounded-full inline-block cursor-pointer"
               >
@@ -101,7 +103,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
               </motion.a>
             </div>
             <p className="mt-2 text-[15px] font-lexend text-[#fff]">
-              We will send you news and updates, T+C’s apply*
+              {CONVERSATION_DATA.disclaimer}
             </p>
           </motion.div>
         </motion.div>
@@ -121,76 +123,25 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
           </div>
 
           <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-8 text-white">
-            {[
-              {
-                title: "About",
-                // path: "#who-we-are",
-                links: [
-                  {name: "Who we are", customPath: "#who-we-are"},
-                  {name: "Work With Us", customPath: "#work-with-us"},
-                  {name: "Our Specialities", customPath: "#specialities"}
-                ],
-              },
-              {
-                title: "Work With Us",
-                // path: "/Services",
-                links: [
-                  {name: "Our Careers", customPath: "#work-with-us"},
-                  {name: "Make a Referal", customPath: "ApplicationForm"},
-                  {name: "Why Choose Us", customPath: "#for-professionals-and-clients"}
-                ],
-              },
-              {
-                title: "Hire Team",
-                // path: "/resources",
-                links: [
-                  {name: "Our Specialities", customPath: "#specialities"},
-                  {name: "Get In Touch", customPath: "#get-in-touch"},
-                  {name: "Why Choose Us", customPath: "#for-professionals-and-clients"}
-  
-                ],
-              },
-              {
-                title: "Resourses",
-                path: "/resources",
-                links: [
-                  { name: "FAQ's", customPath: "/privacy" },
-                  "Latest News", 
-                  "Downloads"
-
-                ],
-              },
-              {
-                title: "Get in Touch",
-                path: "/Contact",
-                links: [
-                  {name: "Apply", customPath: "ApplicationForm"},
-                  {name: "Contact", customPath: "#Contact"},
-                  {name: "Make a Referal", customPath: "ApplicationForm"}
-                ],
-              },
-            ].map((column, idx) => (
+            {FOOTER_QUICK_LINKS.map((column: FooterColumn, idx: number) => (
               <motion.div key={idx} variants={itemVariants}>
                 <h4 className="text-quicklinksheader text-[#07004c]">
                   {column.title}
                 </h4>
                 <ul className="mt-3 space-y-1 text-white/90">
-                  {column.links.map((link, linkIdx) => {
-                    // 1. Check if link is an object or string
+                  {column.links.map((link: FooterLink, linkIdx: number) => {
                     const isObject = typeof link !== "string";
                     const linkName = isObject ? link.name : link;
 
-                    // 2. Generate the ID safely using the string name
                     const sectionId = linkName
                       .toLowerCase()
                       .replace(/[^a-z0-9]+/g, "-")
                       .replace(/(^-|-$)/g, "");
 
-                    // 3. Decide the final URL (use customPath if it exists, otherwise use the hash)
                     const finalHref =
                       isObject && link.customPath
                         ? link.customPath
-                        : `${column.path}#${sectionId}`;
+                        : `${column.path || ""}#${sectionId}`;
 
                     return (
                       <li
