@@ -16,14 +16,23 @@ interface HoverPopupProps {
 /* Hover popup component */
 function HoverPopup({ title, description }: HoverPopupProps) {
   return (
-    <div
-      className="absolute bottom-full -mb-25 left-1/2 -translate-x-1/2 
-      opacity-0 
-      group-hover:opacity-100 
-      group-active:opacity-100 
-      group-focus:opacity-100
-      transition-opacity duration-200 
-      z-50 pointer-events-auto"
+    <motion.div
+      className="absolute bottom-full -mb-25 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-active:opacity-100 group-focus:opacity-100 transition-opacity duration-200 z-50 pointer-events-auto"
+      
+      // 1. The starting state before it is seen (invisible and shifted slightly down)
+      initial={{ opacity: 0, y: 15 }} 
+      
+      // 2. The animated state when it scrolls into view
+      whileInView={{ opacity: 1, y: 0 }} 
+      
+      // 3. Settings for how the scroll tracking triggers
+      viewport={{ once: true, amount: 0.2 }} 
+      
+      // 4. Premium cubic-bezier transition to match the cinematic glide speed
+      transition={{ 
+        duration: 0.6, 
+        ease: [0.25, 1, 0.5, 1] 
+      }}
     >
       <div className="bg-[#26E6DB] text-[#1F3154] px-8 py-4 rounded-[15px] lg:rounded-[30px] w-[260px] lg:w-[250px]">
         <h4 className="text-[16px] lg:text-[20px] font-lexendBold mb-2">
@@ -33,7 +42,7 @@ function HoverPopup({ title, description }: HoverPopupProps) {
           {description}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -95,7 +104,7 @@ export default function Path({ title }: PathProps) {
 
           <div className="flex justify-left mt-10">
           <Link href="#Contact" className="inline-block">
-            <button className="bg-[#40E2B8] text-[#07004C] font-lexendBold text-[20px] px-8 py-2.5 rounded-full hover:bg-[#2bc49d] transition-all tracking-wide">
+            <button className="bg-[#40E2B8] text-[#07004C] font-lexendBold text-[20px] px-8 py-2 rounded-full hover:bg-[#2bc49d] transition-all tracking-wide">
               Get in Touch
             </button>
           </Link>

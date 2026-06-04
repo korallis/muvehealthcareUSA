@@ -97,7 +97,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
         />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto">
         
         {/* ─── Section 1: Comparison Cards ─── */}
         <div 
@@ -155,9 +155,11 @@ export default function Specialities({ title }: SpecialtiesProps) {
           className={`flex justify-center mb-10 transition-all duration-700 delay-200 ease-out
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
         >
-          <button className="bg-[#07004C] text-white font-lexendBold text-[22px] sm:text-[25px] px-9 py-2.5 rounded-full hover:scale-105 hover:bg-[#03236d] active:scale-95 transition-all duration-200 tracking-wide">
-            Get Started
-          </button>
+           <Link href="ApplicationForm" className="inline-block w-full sm:w-auto text-center">
+            <button className="bg-[#07004C] text-white font-lexendBold text-[20px] sm:text-[22px] px-9 py-2 rounded-full hover:scale-105 hover:bg-[#03236d] active:scale-95 transition-all duration-200 tracking-wide">
+              Get Started
+            </button>
+          </Link>
         </div>
 
         {/* Thin Divider Line */}
@@ -200,7 +202,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
                   alt={spec.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, 33vw"
-                  className="object-cover group-hover/spec:scale-110 transition-transform duration-700 ease-out"
+                  className="object-cover transition-transform duration-700 ease-out"
                 />
               </div>
 
@@ -223,7 +225,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
         >
           <Link href="ApplicationForm" className="inline-block w-full sm:w-auto text-center">
-            <button className="w-full sm:w-auto bg-[#40E2B8] text-[#07004C] font-lexendBold text-[18px] sm:text-[20px] px-8 py-2.5 rounded-full hover:scale-105 hover:bg-[#2bc49d] active:scale-95 transition-all duration-200 tracking-wide">
+            <button className="w-full sm:w-auto bg-[#40E2B8] text-[#07004C] font-lexendBold text-[20px] sm:text-[22px] px-8 py-2 rounded-full hover:scale-105 hover:bg-[#2bc49d] active:scale-95 transition-all duration-200 tracking-wide">
               Find Your Team
             </button>
           </Link>

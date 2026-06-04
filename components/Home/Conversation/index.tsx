@@ -58,7 +58,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
           </p>
 
           {/* Buttons with Hover effects */}
-          <div className="mt-6 flex flex-wrap gap-4">
+          <div className="mt-2 flex flex-wrap gap-4">
 
             <motion.a
               href="https://www.cognitoforms.com/ICare24Group1/MuveCallBackForm"
@@ -66,7 +66,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
               rel="noopener noreferrer"
               whileHover={{
                 scale: 1.05,
-                backgroundColor: "#24345E",
+                backgroundColor: "#07004c",
                 color: "#fff",
               }}
               whileTap={{ scale: 0.95 }}
@@ -113,7 +113,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
               initial={{ x: -20, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="bg-[#14D8D8] text-[#16203B] text-subheading px-3 py-1"
+              className="bg-[#14D8D8] text-[#fff] text-subheading px-3 py-1"
             >
               Quick
             </motion.span>
@@ -171,7 +171,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
               },
             ].map((column, idx) => (
               <motion.div key={idx} variants={itemVariants}>
-                <h4 className="text-quicklinksheader text-navyblue">
+                <h4 className="text-quicklinksheader text-[#07004c]">
                   {column.title}
                 </h4>
                 <ul className="mt-3 space-y-1 text-white/90">
@@ -195,7 +195,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
                     return (
                       <li
                         key={linkIdx}
-                        className="hover:text-navyblue transition-colors text-quicklinks text-sm md:text-base"
+                        className="hover:text-[#07004c] text-quicklinks text-sm md:text-base"
                       >
                         <Link href={finalHref}>{linkName}</Link>
                       </li>

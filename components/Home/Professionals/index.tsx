@@ -149,7 +149,7 @@ export default function Professionals({ title }: ProfessionalsProps) {
 
                 <div className="flex justify-start mt-10 sm:mt-18 mb-6 sm:mb-10 pl-2 sm:pl-4 pr-2 sm:pr-4">
                   <Link href="ApplicationForm" className="inline-block w-full sm:w-auto">
-                    <button className="w-full sm:w-auto bg-[#07004C] text-[#fff] font-lexendBold text-[18px] sm:text-[20px] px-8 py-2.5 rounded-full 
+                    <button className="w-full sm:w-auto bg-[#07004C] text-[#fff] font-lexendBold text-[18px] sm:text-[20px] px-8 py-2 rounded-full 
                                        hover:scale-105 hover:bg-[#0d176d] active:scale-95 transition-all duration-200 tracking-wide">
                         Find Your Role
                     </button>
@@ -203,7 +203,7 @@ export default function Professionals({ title }: ProfessionalsProps) {
 
                 <div className="flex justify-start mt-10 sm:mt-18 mb-6 sm:mb-10 pl-2 sm:pl-4 pr-2 sm:pr-4">
                   <Link href="ApplicationForm" className="inline-block w-full sm:w-auto">
-                    <button className="w-full sm:w-auto bg-[#fff] text-[#07004C] font-lexendBold text-[18px] sm:text-[20px] px-8 py-2.5 rounded-full 
+                    <button className="w-full sm:w-auto bg-[#fff] text-[#07004C] font-lexendBold text-[18px] sm:text-[20px] px-8 py-2 rounded-full 
                                        hover:scale-105 hover:bg-[#f0f4ff] active:scale-95 transition-all duration-200 tracking-wide">
                         Find Your Team
                     </button>

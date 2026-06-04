@@ -334,7 +334,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
       }}
     >
       {/* ── WORK WITH US CAROUSEL ── */}
-      <div className="py-14 px-4 relative max-w-6xl mx-auto">
+      <div className="py-14 px-4 relative max-w-7xl mx-auto">
         <div className={`text-center mb-10 transition-all duration-700 ease-out
           ${mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"}`}>
           <h2 className="text-3xl sm:text-4xl font-lexendBold text-[#fff] inline-flex items-center justify-center flex-wrap gap-3 font-lexendBold">

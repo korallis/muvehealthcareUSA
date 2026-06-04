@@ -68,9 +68,9 @@ export default function Footer({
   return (
     <footer id="Contact" className="bg-[#07004C] text-white py-16 px-6">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 items-start text-center md:text-left">
+        <div className="w-full flex flex-col md:flex-row gap-2 items-start text-center md:text-left">
           {/* Left Column - Offices */}
-          <div className="flex justify-center md:justify-start">
+          <div className="w-full flex md:w-[20%] justify-center md:justify-start">
             <div>
               <h3 className="text-links mb-3">{title}</h3>
               <div className="text-footer leading-6">
@@ -144,7 +144,7 @@ export default function Footer({
           </div>
 
           {/* Logo Section */}
-          <div className="flex flex-col items-center">
+          <div className="w-full flex md:w-[55%] flex-col items-center">
             <Link href="/">
               <Image
                 src={activeLogo}
@@ -160,7 +160,7 @@ export default function Footer({
           </div>
 
           {/* Right Column - Links + Social Icons */}
-          <div className="flex flex-col items-center md:items-end gap-6">
+          <div className="w-full flex md:w-[20%] flex-col items-center md:items-start gap-6">
             <div className="text-sm space-y-2 flex flex-col">
               {activeLinks.map((link: FooterLink, i: number) => (
                 <Link
@@ -178,25 +178,26 @@ export default function Footer({
             <div className="text-sm mt-2">
               <CookiePreferencesButton />
             </div>
+          </div>
 
-            <div className="flex gap-4 mt-2">
-              {activeSocials.map((social: SocialLink, i: number) => (
-                <a
-                  key={i} // Use the index 'i' instead of 'social.name'
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center rounded-full hover:text-lightblue transition-colors"
-                  aria-label={`Visit Muve Healthcare on ${social.name}`}
-                >
-                  <img
-                    src={`/icons/footer/${social.name}.svg`}
-                    className="w-7"
-                    alt={social.name}
-                  />
-                </a>
-              ))}
-            </div>
+          {/* Social Media Icons */}
+          <div className="w-full flex md:w-[5%] flex-col items-center">
+            {activeSocials.map((social: SocialLink, i: number) => (
+              <a
+                key={i} // Use the index 'i' instead of 'social.name'
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:text-lightblue transition-colors"
+                aria-label={`Visit Muve Healthcare on ${social.name}`}
+              >
+                <img
+                  src={`/icons/footer/${social.name}.svg`}
+                  className="w-7"
+                  alt={social.name}
+                />
+              </a>
+            ))}
           </div>
         </div>
       </div>
