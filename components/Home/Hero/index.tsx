@@ -92,14 +92,14 @@ export default function Hero({
                 <motion.a
                   href={button1Link || "ApplicationForm"}
                   target="_blank"
-                  className="px-20 py-3 bg-[#07004C] text-buttons text-white rounded-full hover:bg-[#3d3fff] cursor-pointer"
+                  className="px-20 py-2 bg-[#07004C] text-buttons text-white rounded-full hover:bg-[#3d3fff] cursor-pointer"
                 >
                   {button1Text || "Apply"}
                 </motion.a>
                 <motion.a
                   href={button2Link || "ApplicationForm"}
                   target="_blank"
-                  className="px-6 py-3 border-2 border-[#07004C] text-[#0A0440] text-buttons rounded-full hover:bg-[#0A0440] hover:text-white transition-all"
+                  className="px-6 py-2 border-2 border-[#07004C] text-[#0A0440] text-buttons rounded-full hover:bg-[#0A0440] hover:text-white transition-all"
                 >
                   {button2Text || "Make a Referral"}
                 </motion.a>

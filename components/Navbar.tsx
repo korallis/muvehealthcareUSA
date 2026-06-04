@@ -57,16 +57,68 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
     return results;
   }, [searchQuery, links]);
 
-  const handleLinkClick = (e: React.MouseEvent) => {
+  // const handleLinkClick = (e: React.MouseEvent) => {
+  //   if (isEditing) {
+  //     e.preventDefault();
+  //     e.stopPropagation();
+  //   } else {
+  //     setMobileOpen(false);
+  //     setSearchOpen(false);
+  //     setSearchQuery(""); // Clear search on navigation
+  //   }
+  // };
+
+  const handleLinkClick = (e: React.MouseEvent, href?: string) => {
     if (isEditing) {
       e.preventDefault();
       e.stopPropagation();
-    } else {
-      setMobileOpen(false);
-      setSearchOpen(false);
-      setSearchQuery(""); // Clear search on navigation
+      return;
     }
+
+    // Advanced Animated Scroll for internal section links
+    if (href && href.startsWith("#")) {
+      e.preventDefault();
+      const targetElement = document.getElementById(href.substring(1));
+      
+      if (targetElement) {
+        // Calculate where the element sits relative to the window, accounting for your sticky navbar height (approx 80px)
+        const navbarOffset = 80; 
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navbarOffset;
+
+        // Custom mathematical animation loop for precise easing curves
+        const startPosition = window.pageYOffset;
+        const distance = offsetPosition - startPosition;
+        let startTime: number | null = null;
+        const duration = 1200; // Animation speed in milliseconds (increase for slower, smoother glides)
+
+        // Cubic-bezier easing function (Ease-in-out-cubic for a premium, heavy cinematic glide)
+        const easeInOutCubic = (t: number) => {
+          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        };
+
+        const animationLoop = (currentTime: number) => {
+          if (startTime === null) startTime = currentTime;
+          const timeElapsed = currentTime - startTime;
+          const run = easeInOutCubic(Math.min(timeElapsed / duration, 1));
+          
+          window.scrollTo(0, startPosition + distance * run);
+
+          if (timeElapsed < duration) {
+            requestAnimationFrame(animationLoop);
+          }
+        };
+
+        requestAnimationFrame(animationLoop);
+      }
+    }
+
+    setMobileOpen(false);
+    setSearchOpen(false);
+    setSearchQuery("");
   };
+
+
 
   // Close search when clicking outside
   useEffect(() => {

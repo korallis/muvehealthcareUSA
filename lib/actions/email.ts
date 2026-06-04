@@ -69,7 +69,7 @@ export async function sendServiceEmail(formData: FormData) {
               `,
           },
           toRecipients: [
-            { emailAddress: { address: "marketing@muvehealthcare.co.uk" } },
+            { emailAddress: { address: "Vikas.Jha@muvehealthcare.com" } },
           ],
         },
         saveToSentItems: false,

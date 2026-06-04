@@ -3,47 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-// ─── Data ────────────────────────────────────────────────────────────────────
-
-const goodbyeItems = [
-  "Overpromising recruiters",
-  "Onboarding delays",
-  "Costly cancellations",
-];
-
-const helloItems = [
-  "Right first time",
-  "Clear communication",
-  "Reliable support",
-];
-
-const specialities = [
-  {
-    id: 1,
-    title: "Allied Health",
-    description:
-      "We provide allied health professionals across surgery, respiratory care, laboratories, pharmacy, radiology, cardiovascular services and therapy roles.",
-    image: "/specialties/allied.svg",
-    alt: "Allied Health professionals smiling",
-  },
-  {
-    id: 2,
-    title: "Nurses",
-    description:
-      "We provide nurses across acute care, palliative care, rehabilitation, outpatient services and ambulatory care.",
-    image: "/specialties/nurses.svg",
-    alt: "Nurse smiling at camera",
-  },
-  {
-    id: 3,
-    title: "Physicians, APRNs and Locum Tenens",
-    description:
-      "We provide physicians, APRNs and locum tenens professionals across all specialties.",
-    image: "/specialties/physicians.svg",
-    alt: "Physicians and medical staff",
-  },
-];
+import { GOODBYE_ITEMS, HELLO_ITEMS, SPECIALITIES_DATA, SPECIALITIES_ASSETS, SpecialityItem } from "@/constants/specialtiesConstants";
 
 // ─── Icons ───────────────────────────────────────────────────────────────────
 
@@ -88,7 +48,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
       {/* Decorative background squiggles pattern - Ultra-slow ambient load zoom */}
       <div id="specialities" className="absolute -top-205 inset-0 pointer-events-none select-none z-0">
         <Image
-          src="/patterns/bg-squiggles.svg"
+          src={SPECIALITIES_ASSETS.bgSquiggles}
           alt=""
           fill
           className="object-contain opacity-80 transition-transform duration-[10000ms] ease-out"
@@ -97,7 +57,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
         />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto">
         
         {/* ─── Section 1: Comparison Cards ─── */}
         <div 
@@ -118,7 +78,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
               To
             </h3>
             <ul className="space-y-2.5">
-              {goodbyeItems.map((item) => (
+              {GOODBYE_ITEMS.map((item) => (
                 <li key={item} className="flex items-center gap-2 text-[18px] sm:text-[20px] text-[#07004C] font-lexendBold transition-transform duration-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0B256B] flex-shrink-0" />
                   {item}
@@ -140,7 +100,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
               To
             </h3>
             <ul className="space-y-2.5">
-              {helloItems.map((item) => (
+              {HELLO_ITEMS.map((item) => (
                 <li key={item} className="flex items-center gap-2 text-[18px] sm:text-[20px] text-[#07004C] font-lexendBold">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0B256B] flex-shrink-0" />
                   {item}
@@ -155,9 +115,11 @@ export default function Specialities({ title }: SpecialtiesProps) {
           className={`flex justify-center mb-10 transition-all duration-700 delay-200 ease-out
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
         >
-          <button className="bg-[#07004C] text-white font-lexendBold text-[22px] sm:text-[25px] px-9 py-2.5 rounded-full hover:scale-105 hover:bg-[#03236d] active:scale-95 transition-all duration-200 tracking-wide">
-            Get Started
-          </button>
+           <Link href={SPECIALITIES_ASSETS.getStartedHref} className="inline-block w-full sm:w-auto text-center">
+            <button className="bg-[#07004C] text-white font-lexendBold text-[20px] sm:text-[22px] px-9 py-2 rounded-full hover:scale-105 hover:bg-[#03236d] active:scale-95 transition-all duration-200 tracking-wide">
+              Get Started
+            </button>
+          </Link>
         </div>
 
         {/* Thin Divider Line */}
@@ -184,7 +146,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
 
         {/* ─── Specialties Grid ─── */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-10 mb-10">
-          {specialities.map((spec, idx) => (
+          {SPECIALITIES_DATA.map((spec: SpecialityItem, idx: number) => (
             <div
               key={spec.id}
               style={{ transitionDelay: mounted ? `${400 + idx * 120}ms` : "0ms" }}
@@ -200,35 +162,22 @@ export default function Specialities({ title }: SpecialtiesProps) {
                   alt={spec.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, 33vw"
-                  className="object-cover group-hover/spec:scale-110 transition-transform duration-700 ease-out"
+                  className="object-cover transition-transform duration-700 ease-out"
                 />
               </div>
 
               {/* Text Context */}
               <div className="p-6 sm:p-8 flex flex-col flex-grow bg-[#DBE7FF]">
-                <h3 className="text-[#07004C] text-left font-lexendBold text-[22px] sm:text-[26px] mb-2 group-hover/spec:text-teal-600 transition-colors duration-300">
+                <h3 className="text-[#07004C] text-left font-lexendBold text-[24px] mb-3">
                   {spec.title}
                 </h3>
-                <p className="text-[#07004C] font-lexend text-left text-[14px] sm:text-[16px] leading-relaxed">
+                <p className="text-[#07004C]/80 text-left font-lexend text-[16px] leading-relaxed">
                   {spec.description}
                 </p>
               </div>
             </div>
           ))}
         </div>
-
-        {/* Find Your Team Button */}
-        <div 
-          className={`flex justify-center transition-all duration-700 delay-700 ease-out
-            ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-        >
-          <Link href="ApplicationForm" className="inline-block w-full sm:w-auto text-center">
-            <button className="w-full sm:w-auto bg-[#40E2B8] text-[#07004C] font-lexendBold text-[18px] sm:text-[20px] px-8 py-2.5 rounded-full hover:scale-105 hover:bg-[#2bc49d] active:scale-95 transition-all duration-200 tracking-wide">
-              Find Your Team
-            </button>
-          </Link>
-        </div>
-
       </div>
     </div>
   );

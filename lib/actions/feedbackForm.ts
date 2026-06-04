@@ -77,7 +77,7 @@ export async function sendFeedbackEmail(
             `,
           },
           toRecipients: [
-            { emailAddress: { address: "marketing@muvehealthcare.co.uk" } },
+            { emailAddress: { address: "Vikas.Jha@muvehealthcare.com" } },
           ],
         },
         saveToSentItems: false, // Boolean, not string
