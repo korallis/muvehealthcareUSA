@@ -25,7 +25,7 @@ export const DEFAULT_SOCIALS: SocialLink[] = [
 
 export const DEFAULT_LINKS: FooterStaticLink[] = [
   { label: "Modern Slavery", href: "/Slavery" },
-  { label: "Privacy Policy", href: "/Privacy" },
+  { label: "Privacy Policy", href: "/privacy" },
   { label: "Handbook", href: "/cookies" },
   { label: "Terms + Conditions", href: "/Terms" },
   {

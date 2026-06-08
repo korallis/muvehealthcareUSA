@@ -646,7 +646,7 @@ export const config: Config<Props> = {
       },
       render: ({ title, policies }) => {
         return (
-          <main className="w-full bg-purple min-h-screen">
+          <main className="w-full bg-[#709eff] min-h-screen">
             <section className="py-20">
               <div className="max-w-7xl mx-auto px-6 text-white">
                 <h1 className="font-lexendBold text-5xl md:text-6xl mb-12">
