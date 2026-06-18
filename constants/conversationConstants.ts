@@ -32,7 +32,7 @@ export const FOOTER_QUICK_LINKS: FooterColumn[] = [
     title: "Work With Us",
     links: [
       { name: "Our Careers", customPath: "#work-with-us" },
-      { name: "Make a Referal", customPath: "ApplicationForm" },
+      { name: "Make a Referral", customPath: "ApplicationForm" },
       { name: "Why Choose Us", customPath: "#for-professionals-and-clients" }
     ],
   },

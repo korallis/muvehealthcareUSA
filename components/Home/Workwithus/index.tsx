@@ -435,7 +435,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                 <SlidersHorizontal className="text-[#3DDDB3] w-5 h-5" />
                 <span className="text-white font-lexendBold text-base">Filter Assignments</span>
               </div>
-              <span className="text-xs font-mono text-slate-300 bg-white/10 px-2 py-0.5 rounded-md">
+              <span className="text-xs font-lexend text-slate-300 bg-white/10 px-2 py-0.5 rounded-md">
                 Found {filteredJobs.length} of {liveJobs.length} active
               </span>
             </div>
@@ -447,7 +447,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
 
               {/* Filter 1: Job Type */}
               <div className="col-span-1 lg:col-span-3 relative">
-                <label className="block text-xs font-semibold text-slate-300 mb-1 pl-1">Job Type</label>
+                <label className="block text-xs font-lexend text-slate-300 mb-1 pl-1">Job Type</label>
                 <div className="relative text-white">
                   <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 text-[#3DDDB3]" />
                   <select
@@ -455,11 +455,11 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                     onChange={(e) => setJobType(e.target.value)}
                     className="w-full bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
                   >
-                    <option value="All" className="bg-[#0e1552] text-white">All Types</option>
-                    <option value="Allied Health" className="bg-[#0e1552] text-white">Allied Health</option>
-                    <option value="Locum Tenens" className="bg-[#0e1552] text-white">Locum Tenens</option>
-                    <option value="Travel" className="bg-[#0e1552] text-white">Travel</option>
-                    <option value="Per Diem" className="bg-[#0e1552] text-white">Per Diem</option>
+                    <option value="All" className="bg-[#0e1552] text-white font-lexend">All Types</option>
+                    <option value="Allied Health" className="bg-[#0e1552] text-white font-lexend">Allied Health</option>
+                    <option value="Locum Tenens" className="bg-[#0e1552] text-white font-lexend">Locum Tenens</option>
+                    <option value="Travel" className="bg-[#0e1552] text-white font-lexend">Travel</option>
+                    <option value="Per Diem" className="bg-[#0e1552] text-white font-lexend">Per Diem</option>
                   </select>
                   <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                     <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
@@ -469,7 +469,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
 
               {/* Filter 2: Location Dropdown with Text filter support */}
               <div className="col-span-1 lg:col-span-4 relative">
-                <label className="block text-xs font-lexendBold text-slate-300 mb-1 pl-1">State</label>
+                <label className="block text-xs font-lexend text-slate-300 mb-1 pl-1">State</label>
                 <div className="relative text-white">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 text-[#3DDDB3]" />
                   <select
@@ -477,7 +477,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                     onChange={(e) => setLocation(e.target.value)}
                     className="w-full bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
                   >
-                    <option value="All" className="bg-[#0e1552] text-white">All States</option>
+                    <option value="All" className="bg-[#0e1552] text-white font-lexend">All States</option>
                     {uniqueAvailableStates.map((st) => (
                       <option key={st} value={st} className="bg-[#0e1552] text-white">
                         {st}
@@ -492,7 +492,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
 
               {/* Filter 3: Spealiity */}
               <div className="col-span-1 lg:col-span-4 relative">
-                <label className="block text-xs font-semibold text-slate-300 mb-1 pl-1">Specialty</label>
+                <label className="block text-xs font-lexend text-slate-300 mb-1 pl-1">Specialty</label>
                 <div className="relative text-white">
                   <Activity className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 text-[#3DDDB3]" />
                   <select
@@ -500,7 +500,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                     onChange={(e) => setSpecialty(e.target.value)}
                     className="w-full bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
                   >
-                    <option value="All" className="bg-[#0e1552] text-white">All Specialties</option>
+                    <option value="All" className="bg-[#0e1552] text-white font-lexend">All Specialties</option>
                     {uniqueAvailableSpecialties.map((spec) => (
                       <option key={spec} value={spec} className="bg-[#0e1552] text-white">
                         {spec}
@@ -527,7 +527,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                         : "bg-white/5 text-slate-400 border-white/10 cursor-not-allowed opacity-40"
                     }`}
                 >
-                  <RotateCcw className="w-3.5 h-3.5" />
+                  <RotateCcw className="w-3.5 h-3.5 font-lexend" />
                   <span>Reset</span>
                 </button>
               </div>
@@ -625,11 +625,11 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                   </p>
 
                   <div className="flex gap-2 justify-center sm:justify-end flex-shrink-0" onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
-                    <button onClick={() => handleJobRedirect(job, false)} className="bg-[#07004C] text-[#FFFF] text-[14px] sm:text-[16px] font-lexendBold px-5 sm:px-4 py-2 sm:py-1.5 rounded-full
+                    <button onClick={() => handleJobRedirect(job, false)} className="bg-[#07004C] text-[#FFFF] text-[14px] sm:text-[12px] font-lexendBold px-5 sm:px-4 py-2 sm:py-1.5 rounded-full
                                        hover:brightness-110 active:scale-95 transition-all duration-150 flex-1 sm:flex-none">
                       View
                     </button>
-                    <button onClick={() => handleJobRedirect(job, true)} className="bg-[#4C86FF] text-[#fff] text-[14px] sm:text-xs font-lexendBold px-5 sm:px-4 py-2 sm:py-1.5 rounded-full
+                    <button onClick={() => handleJobRedirect(job, true)} className="bg-[#4C86FF] text-[#fff] text-[14px] sm:text-[12px] font-lexendBold px-5 sm:px-4 py-2 sm:py-1.5 rounded-full
                                        hover:bg-[#3DDDB3] hover:text-[#0E1552] active:scale-95 transition-all duration-150 flex-1 sm:flex-none">
                       Apply
                     </button>

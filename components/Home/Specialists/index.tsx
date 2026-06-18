@@ -9,16 +9,28 @@ import { GOODBYE_ITEMS, HELLO_ITEMS, SPECIALITIES_DATA, SPECIALITIES_ASSETS, Spe
 
 function IconX() {
   return (
-    <span className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#4A79F7] text-white font-lexendBold text-[30px] select-none group-hover:scale-110 transition-transform duration-300">
-      ✕
+    <span className="flex items-center justify-center w-[70px] h-[70px] rounded-full bg-[#4C86FF] select-none group-hover:scale-110 transition-transform duration-300">
+      <Image 
+        src="/icons/x-icon.svg"
+        alt="Close" 
+        width={40} 
+        height={40} 
+        priority
+      />
     </span>
   );
 }
 
 function IconCheck() {
   return (
-    <span className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-[#3DDDB3] text-white font-lexendBold text-[30px] select-none group-hover:scale-110 transition-transform duration-300">
-      ✓
+    <span className="flex items-center justify-center w-[70px] h-[70px] rounded-full bg-[#40E2B8] select-none group-hover:scale-110 transition-transform duration-300">
+      <Image 
+        src="/icons/tic-icon.svg"
+        alt="Close" 
+        width={50} 
+        height={50} 
+        priority
+      />
     </span>
   );
 }
@@ -57,7 +69,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-6xl mx-auto">
         
         {/* ─── Section 1: Comparison Cards ─── */}
         <div 
@@ -66,18 +78,18 @@ export default function Specialities({ title }: SpecialtiesProps) {
         >
           
           {/* Say Goodbye Card */}
-          <div className="group/card flex-1 border border-15 border-white rounded-4xl p-6 relative bg-transparent hover:-translate-y-2 hover:bg-white/5 transition-all duration-500 ease-out">
-            <div className="absolute -top-3 right-4 sm:-right-5">
+          <div className="group/card flex-1 border border-15 border-white rounded-[60px] p-2 relative bg-transparent hover:-translate-y-2 hover:bg-white/5 transition-all duration-500 ease-out">
+            <div className="absolute -top-8 right-4 sm:-right-5">
               <IconX />
             </div>
-            <h3 className="text-[32px] sm:text-[48px] font-lexendBold text-[#07004C] mb-5 tracking-tight">
+            <h3 className="text-[32px] sm:text-[48px] font-lexendBold text-[#07004C] mb-5 pt-5 pl-5 tracking-tight">
               Say{" "}
               <span className="inline-block bg-[#4A79F7] text-[#07004C] font-lexendBold px-2 py-0.5 rounded-md mx-0.5">
                 Goodbye
               </span>{" "}
               To
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="space-y-2.5 pb-5 pl-5">
               {GOODBYE_ITEMS.map((item) => (
                 <li key={item} className="flex items-center gap-2 text-[18px] sm:text-[20px] text-[#07004C] font-lexendBold transition-transform duration-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0B256B] flex-shrink-0" />
@@ -88,18 +100,18 @@ export default function Specialities({ title }: SpecialtiesProps) {
           </div>
 
           {/* Say Hello Card */}
-          <div className="group/card flex-1 bg-[#82AAFF] rounded-4xl p-6 relative hover:-translate-y-2 transition-all duration-500 ease-out">
-            <div className="absolute -top-3 right-4 sm:-right-5">
+          <div className="group/card flex-1 bg-[#82AAFF] rounded-[60px] p-2 relative hover:-translate-y-2 transition-all duration-500 ease-out">
+            <div className="absolute -top-8 right-4 sm:-right-5">
               <IconCheck />
             </div>
-            <h3 className="text-[32px] sm:text-[48px] font-lexendBold text-[#07004C] mb-5 tracking-tight">
+            <h3 className="text-[32px] sm:text-[48px] font-lexendBold text-[#07004C] mb-5 pl-16 pt-5 tracking-tight">
               Say{" "}
               <span className="inline-block bg-white text-[#0B256B] px-2 py-0.5 rounded-md mx-0.5">
                 Hello
               </span>{" "}
               To
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="space-y-2.5 pl-16">
               {HELLO_ITEMS.map((item) => (
                 <li key={item} className="flex items-center gap-2 text-[18px] sm:text-[20px] text-[#07004C] font-lexendBold">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0B256B] flex-shrink-0" />
@@ -115,7 +127,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
           className={`flex justify-center mb-10 transition-all duration-700 delay-200 ease-out
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
         >
-           <Link href={SPECIALITIES_ASSETS.getStartedHref} className="inline-block w-full sm:w-auto text-center">
+           <Link href={SPECIALITIES_ASSETS.getStartedHref} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto text-center">
             <button className="bg-[#07004C] text-white font-lexendBold text-[20px] sm:text-[22px] px-9 py-2 rounded-full hover:scale-105 hover:bg-[#03236d] active:scale-95 transition-all duration-200 tracking-wide">
               Get Started
             </button>
@@ -177,6 +189,18 @@ export default function Specialities({ title }: SpecialtiesProps) {
               </div>
             </div>
           ))}
+        </div>
+        
+        {/* Get Started Button */}
+        <div 
+          className={`flex justify-center mb-10 transition-all duration-700 delay-200 ease-out
+            ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+        >
+           <Link href={SPECIALITIES_ASSETS.getStartedHref} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto text-center">
+            <button className="bg-[#40E2B8] text-[#07004C] font-lexendBold text-[20px] sm:text-[22px] px-9 py-2 rounded-full hover:scale-105 hover:bg-[#03236d] hover:text[#fff] active:scale-95 transition-all duration-200 tracking-wide">
+              Find Your Team
+            </button>
+          </Link>
         </div>
       </div>
     </div>
