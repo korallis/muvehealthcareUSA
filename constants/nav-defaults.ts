@@ -3,24 +3,24 @@ export const DEFAULT_NAV_PROPS = {
   links: [
     {
       title: "About",
-      href: "#who-we-are",
+      href: "/test/#who-we-are",
       dropdownBg: "bg-[#07004C]",
       textColor: "text-white",
       subLinks: [
-        { title: "Who we are", href: "/#who-we-are" },
-        { title: "Work With Us", href: "/#work-with-us" },
-        { title: "Our Specialities", href: "/#specialities" },
+        { title: "Who we are", href: "/test/#who-we-are" },
+        { title: "Work With Us", href: "/test/#work-with-us" },
+        { title: "Our Specialities", href: "/test/#specialities" },
       ],
     },
     {
       title: "Work With Us",
-      href: "#work-with-us",
+      href: "/#work-with-us",
       dropdownBg: "bg-[#4C86FF]",
       textColor: "text-white",
       subLinks: [
-        { title: "Our Careers", href: "/#work-with-us" },
+        { title: "Our Careers", href: "/test/#work-with-us" },
         { title: "Make a Referral", href: "ApplicationForm" },
-        { title: "Why Choose Us", href: "/#for-professionals-and-clients" },
+        { title: "Why Choose Us", href: "/test/#for-professionals-and-clients" },
       ],
     },
     {
@@ -29,9 +29,9 @@ export const DEFAULT_NAV_PROPS = {
       dropdownBg: "bg-[#28536B]",
       textColor: "text-white",
       subLinks: [
-        { title: "Our Specialities", href: "/#specialities" },
-        { title: "Get in Touch", href: "/#get-in-touch" },
-        { title: "Why Choose Us", href: "/#for-professionals-and-clients" },
+        { title: "Our Specialities", href: "/test/#specialities" },
+        { title: "Get in Touch", href: "/test/#get-in-touch" },
+        { title: "Why Choose Us", href: "/test/#for-professionals-and-clients" },
       ],
     },
     {
@@ -47,12 +47,12 @@ export const DEFAULT_NAV_PROPS = {
     },
     {
       title: "Get in Touch",
-      href: "#Contact",
+      href: "/#Contact",
       dropdownBg: "bg-[#688797]",
       textColor: "text-white",
       subLinks: [
         { title: "Apply", href: "ApplicationForm" },
-        { title: "Contact", href: "#Contact" },
+        { title: "Contact", href: "/#Contact" },
         { title: "Make a Referral", href: "ApplicationForm" },
       ],
     },

@@ -77,7 +77,7 @@ export default function Hero({
           </motion.div>
 
           <motion.div
-            className="hidden lg:grid absolute top-[540px] -translate-y-1/2 left-[550px] z-10 bg-[#4C86FF] p-10 rounded-3xl w-[720px] grid-cols-[1fr_4fr] gap-6"
+            className="hidden lg:grid absolute top-[540px] -translate-y-1/2 left-[500px] z-10 bg-[#4C86FF] p-10 rounded-3xl w-[720px] grid-cols-[1fr_4fr] gap-6"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1 }}
