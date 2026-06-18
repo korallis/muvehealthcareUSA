@@ -131,7 +131,7 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" onClick={handleLinkClick}>
+          <Link href="/test" onClick={handleLinkClick}>
             <Image
               src={logo || "/muve-logo.svg"}
               alt="Logo"
