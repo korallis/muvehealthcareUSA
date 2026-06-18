@@ -24,7 +24,7 @@ export const categories = [
     id: 4,
     title: "Per Diem",
     description:
-      "Work when and where you choose. Enjoy flexibility, competitive rates and a smooth onboarding process that gets you started quickly",
+      "Work when and where you choose. Enjoy flexibility, competitive rates and a smooth onboarding process that gets you started quickly.",
     image: "/models/diem.svg",
   },
 ];

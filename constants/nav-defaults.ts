@@ -7,9 +7,9 @@ export const DEFAULT_NAV_PROPS = {
       dropdownBg: "bg-[#07004C]",
       textColor: "text-white",
       subLinks: [
-        { title: "Who we are", href: "#who-we-are" },
-        { title: "Work With Us", href: "#work-with-us" },
-        { title: "Our Specialities", href: "#specialities" },
+        { title: "Who we are", href: "/#who-we-are" },
+        { title: "Work With Us", href: "/#work-with-us" },
+        { title: "Our Specialities", href: "/#specialities" },
       ],
     },
     {
@@ -18,20 +18,20 @@ export const DEFAULT_NAV_PROPS = {
       dropdownBg: "bg-[#4C86FF]",
       textColor: "text-white",
       subLinks: [
-        { title: "Our Careers", href: "#work-with-us" },
+        { title: "Our Careers", href: "/#work-with-us" },
         { title: "Make a Referral", href: "ApplicationForm" },
-        { title: "Why Choose Us", href: "#for-professionals-and-clients" },
+        { title: "Why Choose Us", href: "/#for-professionals-and-clients" },
       ],
     },
     {
       title: "Hire Team",
-      href: "#specialities",
+      href: "/#specialities",
       dropdownBg: "bg-[#28536B]",
       textColor: "text-white",
       subLinks: [
-        { title: "Our Specialities", href: "#specialities" },
-        { title: "Get in Touch", href: "#get-in-touch" },
-        { title: "Why Choose Us", href: "#for-professionals-and-clients" },
+        { title: "Our Specialities", href: "/#specialities" },
+        { title: "Get in Touch", href: "/#get-in-touch" },
+        { title: "Why Choose Us", href: "/#for-professionals-and-clients" },
       ],
     },
     {

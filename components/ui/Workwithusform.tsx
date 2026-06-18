@@ -156,29 +156,29 @@ const newAdditionalCert = (): AdditionalCert => ({
 
 // ─── Shared UI Primitives ─────────────────────────────────────────────────────
 
-const inputBase = "w-full bg-white rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#101935]/30 focus:border-[#101935] transition-all";
+const inputBase = "w-full bg-white rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#07004C] focus:border-[#07004C] transition-all";
 
 const errorInput = "border-red-400 focus:ring-red-300 focus:border-red-400";
 
-const selectBase = "w-full bg-white rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#101935]/30 focus:border-[#101935] transition-all appearance-none cursor-pointer";
+const selectBase = "w-full bg-white rounded-xl border border-gray-200 px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#07004C] focus:border-[#07004C] transition-all appearance-none cursor-pointer";
 
 const sectionCard = " p-6 space-y-5";
 
-const sectionHeading = "text-[#101935] font-lexendBold text-base tracking-wide uppercase border-b border-[#101935]/20 pb-2";
+const sectionHeading = "text-[#07004C] font-lexendBold text-base tracking-wide uppercase border-b border-[#07004C] pb-2";
 
-const subHeading = "text-[#101935]/80 font-lexendBold text-sm";
+const subHeading = "text-[#07004C] font-lexendBold text-sm";
 
-const labelText = "block text-xs font-lexendBold text-[#101935]/70 uppercase tracking-wider mb-1";
+const labelText = "block text-xs font-lexendBold text-[#07004C] uppercase tracking-wider mb-1";
 
 const tealBtn = "inline-flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white text-sm font-lexendBold px-4 py-2 rounded-xl transition-colors";
 
-const navyBtn = "inline-flex items-center gap-2 bg-[#101935] hover:bg-[#1a2d55] active:bg-[#0d1428] text-white text-sm font-lexendBold px-8 py-2.5 rounded-full transition-colors";
+const navyBtn = "inline-flex items-center gap-2 bg-[#07004C] hover:bg-[#1a2d55] active:bg-[#0d1428] text-white text-sm font-lexendBold px-8 py-2.5 rounded-full transition-colors";
 
 const radioOption = (selected: boolean) =>
   `px-4 py-2 rounded-full text-sm font-lexend border cursor-pointer transition-all select-none ${
     selected
-      ? "bg-[#101935] text-white border-[#101935]"
-      : "bg-white text-gray-600 border-gray-200 hover:border-[#101935]/40 hover:text-[#101935]"
+      ? "bg-[#07004C] text-white border-[#07004C]"
+      : "bg-white text-gray-600 border-gray-200 hover:border-[#07004C]/40 hover:text-[#07004C]"
   }`;
 
 interface FieldProps {
@@ -610,7 +610,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
             </div>
             <div className="flex flex-wrap gap-4">
               {(["active", "inactive", "compact", "originalState"] as const).map((key) => (
-                <label key={key} className="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-medium select-none">
+                <label key={key} className="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-lexend select-none">
                   <input
                     type="checkbox"
                     checked={lic.statuses[key]}
@@ -635,7 +635,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
       {/* State Selection Grid */}
       <div className={sectionCard}>
         <h3 className={sectionHeading}>States of Interest</h3>
-        <p className="text-sm text-[#101935]/70 font-medium">
+        <p className="text-sm text-[#07004C] font-lexend">
           What states are you interested in working in? (Please select all states required)
         </p>
         {errors.selectedStates && (
@@ -649,7 +649,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
                 key={s.code}
                 type="button"
                 onClick={() => toggleState(s.code)}
-                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-all text-left ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-lexend transition-all text-left ${
                   selected
                     ? "text-white"
                     : "text-gray-700"
@@ -661,7 +661,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
                   }`}
                 />
                 <span>
-                  <span className="font-bold">{s.code}</span> – {s.name}
+                  <span className="font-lexendBold">{s.code}</span> – {s.name}
                 </span>
               </button>
             );
@@ -675,7 +675,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
         <div className="rounded-xl p-4">
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 items-end">
             <div className="flex items-center">
-              <span className="text-sm font-bold text-[#101935] bg-teal-100 px-3 py-2.5 rounded-xl w-full text-center">
+              <span className="text-sm font-lexendBold text-[#07004C] bg-teal-100 px-3 py-2.5 rounded-xl w-full text-center">
                 BLS / CPR
               </span>
             </div>
@@ -712,7 +712,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
                   <span className="text-gray-400 truncate text-xs">
                     {data.blsFile ? data.blsFile.name : "No file chosen"}
                   </span>
-                  <span className="ml-2 bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-lg flex-shrink-0">
+                  <span className="ml-2 bg-teal-500 text-white text-xs font-lexendBold px-3 py-1 rounded-lg flex-shrink-0">
                     + Upload
                   </span>
                 </label>
@@ -729,7 +729,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
         {data.certificates.map((cert, idx) => (
           <div key={cert.id} className="bg-white/50 rounded-xl p-4 border border-white/70 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-teal-600 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 tracking-widest">
+              <span className="text-xs font-lexendBold text-teal-600 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 tracking-widest">
                 CERTIFICATE {idx + 1}
               </span>
               {data.certificates.length > 1 && (
@@ -786,7 +786,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
                     <span className="text-gray-400 truncate text-xs">
                       {cert.file ? cert.file.name : "No file chosen"}
                     </span>
-                    <span className="ml-2 bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-lg flex-shrink-0">
+                    <span className="ml-2 bg-teal-500 text-white text-xs font-lexendBold px-3 py-1 rounded-lg flex-shrink-0">
                       + Upload
                     </span>
                   </label>
@@ -813,7 +813,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
         {data.additionalCerts.map((cert, idx) => (
           <div key={cert.id} className="bg-white/50 rounded-xl p-4 border border-white/70 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-teal-600 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 tracking-widest">
+              <span className="text-xs font-lexendBold text-teal-600 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 tracking-widest">
                 CERTIFICATE {idx + 1}
               </span>
               {data.additionalCerts.length > 1 && (
@@ -869,7 +869,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
                     <span className="text-gray-400 truncate text-xs">
                       {cert.file ? cert.file.name : "No file chosen"}
                     </span>
-                    <span className="ml-2 bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-lg flex-shrink-0">
+                    <span className="ml-2 bg-teal-500 text-white text-xs font-lexendBold px-3 py-1 rounded-lg flex-shrink-0">
                       + Upload
                     </span>
                   </label>
@@ -1073,7 +1073,7 @@ export default function WorkWithUsForm() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-2xl font-lexendBold text-[#101935] mb-2">Application Submitted!</h2>
+          <h2 className="text-2xl font-lexendBold text-[#07004C] mb-2">Application Submitted!</h2>
           <p className="text-white font-lexend text-sm mb-6">
             Thank you, {step1.firstName}. We'll review your application and be in touch shortly.
           </p>
@@ -1116,7 +1116,7 @@ export default function WorkWithUsForm() {
                 onClick={() => { if (s.n < step) setStep(s.n as 1 | 2); }}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-lexendBold transition-all ${
                   step === s.n
-                    ? "bg-[#101935] text-white"
+                    ? "bg-[#07004C] text-white"
                     : s.n < step
                     ? "bg-white/30 text-white hover:bg-white/40 cursor-pointer"
                     : "bg-white/15 text-white/50 cursor-default"
@@ -1171,7 +1171,7 @@ export default function WorkWithUsForm() {
               <button
                 type="button"
                 onClick={() => { setStep(1); setErrors({}); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                className="text-white/80 hover:text-white text-sm font-medium flex items-center gap-1.5 transition-colors"
+                className="text-white/80 hover:text-white text-sm font-lexend flex items-center gap-1.5 transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

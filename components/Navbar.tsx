@@ -57,16 +57,6 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
     return results;
   }, [searchQuery, links]);
 
-  // const handleLinkClick = (e: React.MouseEvent) => {
-  //   if (isEditing) {
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //   } else {
-  //     setMobileOpen(false);
-  //     setSearchOpen(false);
-  //     setSearchQuery(""); // Clear search on navigation
-  //   }
-  // };
 
   const handleLinkClick = (e: React.MouseEvent, href?: string) => {
     if (isEditing) {
