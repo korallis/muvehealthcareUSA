@@ -73,23 +73,23 @@ export default function Specialities({ title }: SpecialtiesProps) {
         
         {/* ─── Section 1: Comparison Cards ─── */}
         <div 
-          className={`flex flex-col sm:flex-row justify-center items-stretch gap-6 mx-2 sm:mx-10 mt-10 sm:mt-20 mb-8 transition-all duration-700 ease-out
+          className={`flex flex-col sm:flex-row justify-center items-stretch gap-8 mx-2 sm:mx-10 mt-10 sm:mt-20 mb-8 transition-all duration-700 ease-out
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
           
           {/* Say Goodbye Card */}
           <div className="group/card flex-1 border border-15 border-white rounded-[60px] p-2 relative bg-transparent hover:-translate-y-2 hover:bg-white/5 transition-all duration-500 ease-out">
-            <div className="absolute -top-8 right-4 sm:-right-5">
+            <div className="absolute -top-8 right-4 sm:-right-6">
               <IconX />
             </div>
-            <h3 className="text-[32px] sm:text-[48px] font-lexendBold text-[#07004C] mb-5 pt-5 pl-5 tracking-tight">
+            <h3 className="text-[32px] sm:text-[48px] font-lexendBold text-[#07004C] mb-5 pt-5 pl-10 tracking-tight">
               Say{" "}
               <span className="inline-block bg-[#4A79F7] text-[#07004C] font-lexendBold px-2 py-0.5 rounded-md mx-0.5">
                 Goodbye
               </span>{" "}
               To
             </h3>
-            <ul className="space-y-2.5 pb-5 pl-5">
+            <ul className="space-y-2.5 pb-5 pl-10">
               {GOODBYE_ITEMS.map((item) => (
                 <li key={item} className="flex items-center gap-2 text-[18px] sm:text-[20px] text-[#07004C] font-lexendBold transition-transform duration-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0B256B] flex-shrink-0" />
@@ -101,17 +101,17 @@ export default function Specialities({ title }: SpecialtiesProps) {
 
           {/* Say Hello Card */}
           <div className="group/card flex-1 bg-[#82AAFF] rounded-[60px] p-2 relative hover:-translate-y-2 transition-all duration-500 ease-out">
-            <div className="absolute -top-8 right-4 sm:-right-5">
+            <div className="absolute -top-6 right-4 sm:-right-1">
               <IconCheck />
             </div>
-            <h3 className="text-[32px] sm:text-[48px] font-lexendBold text-[#07004C] mb-5 pl-16 pt-5 tracking-tight">
+            <h3 className="text-[32px] sm:text-[48px] font-lexendBold text-[#07004C] mb-5 pl-10 pt-5 tracking-tight">
               Say{" "}
               <span className="inline-block bg-white text-[#0B256B] px-2 py-0.5 rounded-md mx-0.5">
                 Hello
               </span>{" "}
               To
             </h3>
-            <ul className="space-y-2.5 pl-16">
+            <ul className="space-y-2.5 pl-10">
               {HELLO_ITEMS.map((item) => (
                 <li key={item} className="flex items-center gap-2 text-[18px] sm:text-[20px] text-[#07004C] font-lexendBold">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0B256B] flex-shrink-0" />
