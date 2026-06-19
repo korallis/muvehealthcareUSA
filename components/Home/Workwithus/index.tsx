@@ -453,7 +453,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                   <select
                     value={jobType}
                     onChange={(e) => setJobType(e.target.value)}
-                    className="w-full bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
+                    className="w-full font-lexend bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
                   >
                     <option value="All" className="bg-[#0e1552] text-white font-lexend">All Types</option>
                     <option value="Allied Health" className="bg-[#0e1552] text-white font-lexend">Allied Health</option>
@@ -475,7 +475,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                   <select
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="w-full bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
+                    className="w-full font-lexend bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
                   >
                     <option value="All" className="bg-[#0e1552] text-white font-lexend">All States</option>
                     {uniqueAvailableStates.map((st) => (
@@ -498,11 +498,11 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                   <select
                     value={specialty}
                     onChange={(e) => setSpecialty(e.target.value)}
-                    className="w-full bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
+                    className="w-full font-lexend bg-white/10 text-white text-sm pl-9 pr-6 py-2.5 rounded-full border border-white/15 focus:outline-none focus:border-[#3DDDB3] focus:ring-1 focus:ring-[#3DDDB3] transition-all appearance-none cursor-pointer"
                   >
                     <option value="All" className="bg-[#0e1552] text-white font-lexend">All Specialties</option>
                     {uniqueAvailableSpecialties.map((spec) => (
-                      <option key={spec} value={spec} className="bg-[#0e1552] text-white">
+                      <option key={spec} value={spec} className="bg-[#0e1552] text-white font-lexend">
                         {spec}
                       </option>
                     ))}

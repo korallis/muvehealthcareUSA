@@ -93,7 +93,7 @@ export default async function NewsPage({ params }: PageProps) {
   );
 
   return (
-    <div className="bg-purple w-full py-8 md:py-16 overflow-hidden font-lexend">
+    <div className="bg-[#709EFF] w-full py-8 md:py-16 overflow-hidden font-lexend">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 bg-white rounded-2xl md:rounded-[2.5rem] shadow-2xl p-5 sm:p-8 md:p-14">
         <div className="mb-10">
           <Link
@@ -119,7 +119,7 @@ export default async function NewsPage({ params }: PageProps) {
               </div>
             )}
 
-            <h2 className="text-navyblue font-lexendBold leading-tight mb-6">
+            <h2 className="text-[#07004C] font-lexendBold leading-tight mb-6">
               {news.title}
             </h2>
 
@@ -144,12 +144,12 @@ export default async function NewsPage({ params }: PageProps) {
               className="prose prose-lg max-w-none font-lexend 
                           prose-headings:text-navyblue 
                           prose-p:text-navyblue/80 
-                          prose-a:text-lightblue 
-                          prose-strong:text-navyblue
+                          prose-a:text-[#07004C] 
+                          prose-strong:text-[#07004C]
                           prose-img:rounded-3xl"
             >
               {news.excerpt && (
-                <p className="text-xl italic text-navyblue/70 mb-8">
+                <p className="text-xl italic text-[#07004C] mb-8">
                   {news.excerpt}
                 </p>
               )}
@@ -165,8 +165,8 @@ export default async function NewsPage({ params }: PageProps) {
           </div>
 
           <div className="lg:col-span-4 space-y-6 lg:space-y-8 lg:sticky lg:top-28 h-fit">
-            <div className="bg-navyblue rounded-xl md:rounded-[2rem] p-5 sm:p-8 text-white shadow-2xl">
-              <h3 className="text-xl font-extrabold mb-8 border-b border-white/10 pb-4">
+            <div className="bg-[#4C86FF] rounded-xl md:rounded-[2rem] p-5 sm:p-8 text-white shadow-2xl">
+              <h3 className="text-xl font-extrabold mb-8 border-b border-[#07004C] pb-4">
                 Article Details
               </h3>
               <div className="space-y-6">
@@ -183,7 +183,7 @@ export default async function NewsPage({ params }: PageProps) {
                 <a
                   href="https://www.cognitoforms.com/ICare24Group1/EmailSubscriptionConsentForm"
                   target="_blank"
-                  className="block w-full bg-lightblue text-navyblue font-lexendBold py-4 rounded-full hover:bg-white transition-all text-center"
+                  className="block w-full bg-[#07004C] text-white font-lexendBold py-4 rounded-full hover:bg-white transition-all text-center"
                 >
                   Join Newsletter
                 </a>

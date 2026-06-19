@@ -251,7 +251,7 @@ function Step1({
             placeholder="DD / MM / YYYY"
             value={data.dob}
             onChange={(e) => onChange({ dob: e.target.value })}
-            className={`!rounded-4xl ${inputBase} ${errors.dob ? errorInput : ""}`}
+            className={`!rounded-4xl ${inputBase} ${errors.dob ? errorInput : ""} font-lexend`}
           />
         </Field>
 
@@ -263,7 +263,7 @@ function Step1({
               placeholder="First Name"
               value={data.firstName}
               onChange={(e) => onChange({ firstName: e.target.value })}
-              className={`${inputBase} ${errors.firstName ? errorInput : ""} !rounded-4xl`}
+              className={`${inputBase} ${errors.firstName ? errorInput : ""} !rounded-4xl font-lexend`}
             />
           </Field>
           <Field label="Middle Name">
@@ -272,7 +272,7 @@ function Step1({
               placeholder="Middle Name"
               value={data.middleName}
               onChange={(e) => onChange({ middleName: e.target.value })}
-              className={`!rounded-4xl ${inputBase}`}
+              className={`!rounded-4xl ${inputBase} font-lexend`}
             />
           </Field>
           <Field label="Last Name" required error={errors.lastName}>
@@ -281,7 +281,7 @@ function Step1({
               placeholder="Last Name"
               value={data.lastName}
               onChange={(e) => onChange({ lastName: e.target.value })}
-              className={`${inputBase} ${errors.lastName ? errorInput : ""} !rounded-4xl`}
+              className={`${inputBase} ${errors.lastName ? errorInput : ""} !rounded-4xl font-lexend`}
             />
           </Field>
         </div>
@@ -293,7 +293,7 @@ function Step1({
             placeholder="Address Line 1"
             value={data.address.line1}
             onChange={(e) => onAddressChange({ line1: e.target.value })}
-            className={`${inputBase} ${errors.addressLine1 ? errorInput : ""} !rounded-4xl`}
+            className={`${inputBase} ${errors.addressLine1 ? errorInput : ""} !rounded-4xl font-lexend`}
           />
         </Field>
         <Field label="Address Line 2">
@@ -302,7 +302,7 @@ function Step1({
             placeholder="Address Line 2"
             value={data.address.line2}
             onChange={(e) => onAddressChange({ line2: e.target.value })}
-            className={`!rounded-4xl ${inputBase}`}
+            className={`!rounded-4xl ${inputBase} font-lexend`}
           />
         </Field>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -312,7 +312,7 @@ function Step1({
               placeholder="City"
               value={data.address.city}
               onChange={(e) => onAddressChange({ city: e.target.value })}
-              className={`${inputBase} ${errors.city ? errorInput : ""} !rounded-4xl`}
+              className={`${inputBase} ${errors.city ? errorInput : ""} !rounded-4xl font-lexend`}
             />
           </Field>
           <Field label="State / Province / Region" required error={errors.stateRegion}>
@@ -321,7 +321,7 @@ function Step1({
               placeholder="State / Province"
               value={data.address.state}
               onChange={(e) => onAddressChange({ state: e.target.value })}
-              className={`${inputBase} ${errors.stateRegion ? errorInput : ""} !rounded-4xl`}
+              className={`${inputBase} ${errors.stateRegion ? errorInput : ""} !rounded-4xl font-lexend`}
             />
           </Field>
           <Field label="Postal / Zip Code" required error={errors.postal}>
@@ -330,7 +330,7 @@ function Step1({
               placeholder="Postal Code"
               value={data.address.postal}
               onChange={(e) => onAddressChange({ postal: e.target.value })}
-              className={`${inputBase} ${errors.postal ? errorInput : ""} !rounded-4xl`}
+              className={`${inputBase} ${errors.postal ? errorInput : ""} !rounded-4xl font-lexend`}
             />
           </Field>
           <Field label="Country" required error={errors.country}>
@@ -339,7 +339,7 @@ function Step1({
               placeholder="Country"
               value={data.address.country}
               onChange={(e) => onAddressChange({ country: e.target.value })}
-              className={`${inputBase} ${errors.country ? errorInput : ""} !rounded-4xl`}
+              className={`${inputBase} ${errors.country ? errorInput : ""} !rounded-4xl font-lexend`}
             />
           </Field>
         </div>
@@ -363,7 +363,7 @@ function Step1({
               placeholder="email@example.com"
               value={data.email}
               onChange={(e) => onChange({ email: e.target.value })}
-              className={`${inputBase} ${errors.email ? errorInput : ""} !rounded-4xl`}
+              className={`${inputBase} ${errors.email ? errorInput : ""} !rounded-4xl font-lexend`}
             />
           </Field>
           <Field label="Phone" required error={errors.phone}>
@@ -372,7 +372,7 @@ function Step1({
               placeholder="+1 (555) 000-0000"
               value={data.phone}
               onChange={(e) => onChange({ phone: e.target.value })}
-              className={`${inputBase} ${errors.phone ? errorInput : ""} !rounded-4xl`}
+              className={`${inputBase} ${errors.phone ? errorInput : ""} !rounded-4xl font-lexend`}
             />
           </Field>
         </div>
@@ -385,7 +385,7 @@ function Step1({
               placeholder="DD / MM / YYYY"
               value={data.dateAvailable}
               onChange={(e) => onChange({ dateAvailable: e.target.value })}
-              className={`!rounded-4xl ${inputBase}`}
+              className={`!rounded-4xl ${inputBase} font-lexend`}
             />
           </Field>
           <Field label="Position Applying For">
@@ -394,7 +394,7 @@ function Step1({
               placeholder="Position title"
               value={data.positionApplying}
               onChange={(e) => onChange({ positionApplying: e.target.value })}
-              className={`!rounded-4xl ${inputBase}`}
+              className={`!rounded-4xl ${inputBase} font-lexend`}
             />
           </Field>
         </div>
@@ -411,13 +411,13 @@ function Step1({
               <select
                 value={data.shiftsPreferred}
                 onChange={(e) => onChange({ shiftsPreferred: e.target.value })}
-                className={`${selectBase} ${errors.shiftsPreferred ? errorInput : ""} !rounded-4xl`}
+                className={`${selectBase} ${errors.shiftsPreferred ? errorInput : ""} !rounded-4xl font-lexend`}
               >
                 <option value="">Please Select*</option>
                 {SHIFTS.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </Field>
-            <button type="button" onClick={onAddShift} className="rounded-full bg-[#40e2b8]">
+            <button type="button" onClick={onAddShift} className="rounded-full bg-[#40e2b8] font-lexend">
               <span className="text-lg leading-none font-lexend rounded-full">+</span> Add Item
             </button>
             {shiftsExtra.map((val, idx) => (
@@ -425,7 +425,7 @@ function Step1({
                 <select
                   value={val}
                   onChange={(e) => onShiftChange(idx, e.target.value)}
-                  className={`${selectBase} flex-1 !rounded-4xl`}
+                  className={`${selectBase} flex-1 !rounded-4xl font-lexend`}
                 >
                   <option value="">Please Select*</option>
                   {SHIFTS.map((s) => <option key={s} value={s}>{s}</option>)}
@@ -445,7 +445,7 @@ function Step1({
             <select
               value={data.typeOfPosition}
               onChange={(e) => onChange({ typeOfPosition: e.target.value })}
-              className={`${selectBase} ${errors.typeOfPosition ? errorInput : ""} !rounded-4xl`}
+              className={`${selectBase} ${errors.typeOfPosition ? errorInput : ""} !rounded-4xl font-lexend`}
             >
               <option value="">Please Select*</option>
               {POSITION_TYPES.map((p) => <option key={p} value={p}>{p}</option>)}
@@ -455,7 +455,7 @@ function Step1({
             <select
               value={data.typeOfContract}
               onChange={(e) => onChange({ typeOfContract: e.target.value })}
-              className={`${selectBase} ${errors.typeOfContract ? errorInput : ""} !rounded-4xl`}
+              className={`${selectBase} ${errors.typeOfContract ? errorInput : ""} !rounded-4xl font-lexend`}
             >
               <option value="">Please Select*</option>
               {CONTRACT_TYPES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -484,7 +484,7 @@ function Step1({
             placeholder="If yes, state"
             value={data.yearsTravel}
             onChange={(e) => onChange({ yearsTravel: e.target.value })}
-            className={`!rounded-4xl ${inputBase}`}
+            className={`!rounded-4xl ${inputBase} font-lexend`}
           />
         </Field>
       </div>
@@ -553,7 +553,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
           <select
             value={data.category}
             onChange={(e) => onChange({ category: e.target.value })}
-            className={`!rounded-4xl ${selectBase} ${errors.category ? errorInput : ""}`}
+            className={`!rounded-4xl ${selectBase} ${errors.category ? errorInput : ""} font-lexend`}
           >
             <option value="">Please select</option>
             {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -798,7 +798,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
         <button
           type="button"
           onClick={() => onChange({ certificates: [...data.certificates, newCertificate()] })}
-          className="rounded-full bg-[#40e2b8]"
+          className="rounded-full bg-[#40e2b8] font-lexend"
         >
           <span className="text-lg leading-none font-lexend">+</span> Add Item
         </button>
@@ -881,7 +881,7 @@ function Step2({ data, onChange, errors }: Step2Props) {
         <button
           type="button"
           onClick={() => onChange({ additionalCerts: [...data.additionalCerts, newAdditionalCert()] })}
-          className="rounded-full bg-[#40e2b8]"
+          className="rounded-full bg-[#40e2b8] font-lexend"
         >
           <span className="text-lg leading-none font-lexend">+</span> Add Item
         </button>
