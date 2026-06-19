@@ -59,7 +59,7 @@ export const FOOTER_QUICK_LINKS: FooterColumn[] = [
     links: [
       { name: "Apply", customPath: "ApplicationForm" },
       { name: "Contact", customPath: "#Contact" },
-      { name: "Make a Referal", customPath: "ApplicationForm" }
+      { name: "Make a Referral", customPath: "ApplicationForm" }
     ],
   },
 ];
