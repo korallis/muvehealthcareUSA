@@ -324,12 +324,19 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
     }
   };
 
-  const prev = (): void => setCurrent((c) => (c === 0 ? categories.length - 1 : c - 1));
-  const next = (): void => setCurrent((c) => (c === categories.length - 1 ? 0 : c + 1));
+  // const prev = (): void => setCurrent((c) => (c === 0 ? categories.length - 1 : c - 1));
+  // const next = (): void => setCurrent((c) => (c === categories.length - 1 ? 0 : c + 1));
+
+  const visibleItems = isMobile ? 1 : 3; 
+  const maxIndex = Math.max(0, categories.length - visibleItems);
+  
+  const next = () => { setCurrent((prev) => Math.min(prev + 1, maxIndex)); };
+  const prev = () => { setCurrent((prev) => Math.max(prev - 1, 0)); };
 
   return (
     <div id="work-with-us" className="w-full relative overflow-hidden font-sans pb-16"
       style={{
+        display: "grid",
         background: "linear-gradient(180deg, #40E2B8 0%, #45E3BA 35%, #78EACD 58%, #A2F0DC 80%, #B3F3E3 91%, #B3F3E3 100%)",
       }}
     >
@@ -352,9 +359,9 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
         <div className="relative flex items-center gap-0 w-full">
           {/* Previous Button - Overlay absolute on mobile to maximize viewport track */}
           <button onClick={prev} aria-label="Previous"
-            className="flex-shrink-0 w-10 h-10 rounded-full bg-[#4C86FF] text-[#FFFFFF] font-lexendBold flex items-center justify-center
-                    hover:scale-110 active:scale-95 transition-transform duration-200 z-20 absolute -left-2 sm:static">
-            <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            className="flex-shrink-0 w-15 h-15 rounded-full bg-[#4C86FF] text-[#FFFFFF] font-lexendBold flex items-center justify-center
+                    hover:scale-110 active:scale-95 transition-transform duration-200 z-20 absolute left-20 sm:static">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>
@@ -362,12 +369,13 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
           {/* Mask container preserving layout boundary bounds */}
           <div className="flex-1 overflow-hidden mx-0">
             <div 
-              className="grid gap-4 transition-transform duration-500 ease-in-out"
+              className="grid gap-3 transition-transform duration-500 ease-in-out"
               style={{
-                transform: `translateX(-${(current * 100) / (isMobile ? 1 : 3)}%)`,
-                width: `${(categories.length * 100) / (isMobile ? 1 : 3)}%`,
-                display: 'grid',
-                gridTemplateColumns: `repeat(${categories.length}, 1fr)`
+                display: "grid",
+                gap: "1rem",
+                gridTemplateColumns: `repeat(${categories.length}, minmax(0, 1fr))`,
+                width: `${(categories.length / visibleItems) * 100}%`,
+                transform: `translateX(-${(current * 100) / categories.length}%)`,
               }}
             >
               {categories.map((cat, idx) => (
@@ -403,9 +411,9 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
 
           {/* Next Button - Overlay absolute on mobile to maximize viewport track */}
           <button onClick={next} aria-label="Next"
-            className="flex-shrink-0 w-10 h-10 rounded-full bg-[#4C86FF] text-[#FFFF] flex items-center justify-center
-                    hover:scale-110 active:scale-95 transition-transform duration-200 z-20 absolute -right-2 sm:static">
-            <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            className="flex-shrink-0 w-15 h-15 rounded-full bg-[#4C86FF] text-[#FFFF] flex items-center justify-center
+                    hover:scale-110 active:scale-95 transition-transform duration-200 z-20 absolute -right-5 sm:static">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6" />
             </svg>
           </button>
