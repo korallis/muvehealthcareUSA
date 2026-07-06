@@ -157,7 +157,7 @@ export default function Specialities({ title }: SpecialtiesProps) {
         </div>
 
         {/* ─── Specialties Grid ─── */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-10 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-10">
           {SPECIALITIES_DATA.map((spec: SpecialityItem, idx: number) => (
             <div
               key={spec.id}
@@ -180,10 +180,10 @@ export default function Specialities({ title }: SpecialtiesProps) {
 
               {/* Text Context */}
               <div className="p-6 sm:p-8 flex flex-col flex-grow bg-[#DBE7FF]">
-                <h3 className="text-[#07004C] text-left font-lexendBold text-[24px] mb-3">
+                <h3 className="text-[#07004C] text-left font-lexendBold text-[30px] sm:text-[30px] mb-2 group-hover:text-[#4C86FF] transition-colors duration-300">
                   {spec.title}
                 </h3>
-                <p className="text-[#07004C]/80 text-left font-lexend text-[16px] leading-relaxed">
+                <p className="text-[#07004C] font-lexend text-left text-[20px] sm:text-[20px] leading-relaxed">
                   {spec.description}
                 </p>
               </div>

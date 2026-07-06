@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { categories } from "@/constants/workData";
-import { Search, MapPin, Calendar, Briefcase, RotateCcw, SlidersHorizontal, Activity} from "lucide-react";
+import { Search, MapPin, Calendar, Briefcase, RotateCcw, SlidersHorizontal, Activity, ChevronLeft, ChevronRight} from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface WorkwithusProps {
   title?: string;
@@ -328,10 +329,28 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
   // const next = (): void => setCurrent((c) => (c === categories.length - 1 ? 0 : c + 1));
 
   const visibleItems = isMobile ? 1 : 3; 
-  const maxIndex = Math.max(0, categories.length - visibleItems);
+  // const maxIndex = Math.max(0, categories.length - visibleItems);
   
-  const next = () => { setCurrent((prev) => Math.min(prev + 1, maxIndex)); };
-  const prev = () => { setCurrent((prev) => Math.max(prev - 1, 0)); };
+  // const next = () => { setCurrent((prev) => Math.min(prev + 1, maxIndex)); };
+  // const prev = () => { setCurrent((prev) => Math.max(prev - 1, 0)); };
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => {
+      const isDesktop = typeof window !== "undefined" && window.innerWidth >= 768;
+      const maxIndex = isDesktop ? categories.length - 3 : categories.length - 1;
+      return prevIndex >= maxIndex ? 0 : prevIndex + 1;
+    });
+  };
+  
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => {
+      const isDesktop = typeof window !== "undefined" && window.innerWidth >= 768;
+      const maxIndex = isDesktop ? categories.length - 3 : categories.length - 1;
+      return prevIndex === 0 ? maxIndex : prevIndex - 1;
+    });
+  };
 
   return (
     <div id="work-with-us" className="w-full relative overflow-hidden font-sans pb-16"
@@ -349,7 +368,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
               title
             ) : (
               <>
-                <span className="bg-[#0E1552] text-white px-4 py-1 rounded-md">Work</span>
+                <span className="bg-[#07004C] text-white px-4 py-1 rounded-md">Work</span>
                 <span>With Us</span>
               </>
             )}
@@ -358,49 +377,48 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
 
         <div className="relative flex items-center gap-0 w-full">
           {/* Previous Button - Overlay absolute on mobile to maximize viewport track */}
-          <button onClick={prev} aria-label="Previous"
-            className="flex-shrink-0 w-15 h-15 rounded-full bg-[#4C86FF] text-[#FFFFFF] font-lexendBold flex items-center justify-center
-                    hover:scale-110 active:scale-95 transition-transform duration-200 z-20 absolute left-20 sm:static">
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
+          <button 
+            type="button" 
+            onClick={prevSlide} 
+            aria-label="Previous" 
+            className="absolute -left-5 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#4C86FF] top-1/2 -translate-y-1/2"
+          >
+            <ChevronLeft size={30} strokeWidth={3} className="text-[#fff]" />
           </button>
 
           {/* Mask container preserving layout boundary bounds */}
-          <div className="flex-1 overflow-hidden mx-0">
+          <div className="overflow-hidden w-full">
             <div 
-              className="grid gap-3 transition-transform duration-500 ease-in-out"
-              style={{
-                display: "grid",
-                gap: "1rem",
-                gridTemplateColumns: `repeat(${categories.length}, minmax(0, 1fr))`,
-                width: `${(categories.length / visibleItems) * 100}%`,
-                transform: `translateX(-${(current * 100) / categories.length}%)`,
+              className="flex gap-3 transition-transform duration-300 ease-in-out"
+              style={{ 
+                transform: typeof window !== "undefined" && window.innerWidth >= 768 
+                  ? `translateX(calc(-${currentIndex} * (33.333% + 8px)))` 
+                  : `translateX(calc(-${currentIndex} * (100% + 12px)))` 
               }}
             >
               {categories.map((cat, idx) => (
                 <div
                   key={`${cat.id}-${idx}`}
                   style={{ transitionDelay: mounted ? `${idx * 120}ms` : '0ms' }}
-                  className={`group rounded-b-4xl overflow-hidden bg-white shadow-xl shadow-teal-900/5
-                              hover:-translate-y-2 hover:scale-[1.01]
-                              transition-all duration-500 ease-out
-                              ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                  className={`group flex w-full md:w-[calc((100%-24px)/3)] shrink-0 flex-col items-center rounded-b-4xl overflow-hidden pt-3 text-center transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.01] ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
                 >
+                  {/* Image Container with Relative Positioning for fill layout */}
                   <div className="w-full h-48 sm:h-60 relative overflow-hidden">
                     <Image
                       src={cat.image}
                       alt={cat.title}
                       fill
                       sizes="(max-width: 640px) 100vw, 33vw"
-                      className="object-cover "
+                      className="object-cover"
                     />
                   </div>
-                  <div className="p-5 bg-white">
-                    <h3 className="text-[#0E1552] text-center font-lexendBold text-[24px] sm:text-[30px] mb-2 group-hover:text-teal-600 transition-colors duration-300">
+                  
+                  {/* Content Container */}
+                  <div className="p-5 bg-white w-full flex-1">
+                    <h3 className="text-[#07004C] text-center font-lexendBold text-[30px] sm:text-[30px] mb-2 group-hover:text-[#4C86FF] transition-colors duration-300">
                       {cat.title}
                     </h3>
-                    <p className="text-[#0E1552] font-lexend text-center text-[14px] sm:text-[16px] leading-relaxed">
+                    <p className="text-[#07004C] font-lexend text-center text-[20px] sm:text-[20px] leading-relaxed">
                       {cat.description}
                     </p>
                   </div>
@@ -410,14 +428,16 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
           </div>
 
           {/* Next Button - Overlay absolute on mobile to maximize viewport track */}
-          <button onClick={next} aria-label="Next"
-            className="flex-shrink-0 w-15 h-15 rounded-full bg-[#4C86FF] text-[#FFFF] flex items-center justify-center
-                    hover:scale-110 active:scale-95 transition-transform duration-200 z-20 absolute -right-5 sm:static">
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
+          <button 
+            type="button" 
+            onClick={nextSlide} 
+            aria-label="Next" 
+            className="absolute -right-5 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[#4C86FF] top-1/2 -translate-y-1/2"
+          >
+            <ChevronRight size={30} strokeWidth={3} className="text-[#fff]" />
           </button>
         </div>
+
       </div>
 
       {/* ── IT STARTS HERE - JOB DIRECTORY VIEW ── */}
@@ -648,6 +668,17 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
           </div>
         </div>
       </div>
+
+      <div className="flex justify-center w-full">
+          <Link href="/ApplicationForm" target="_blank" rel="noopener noreferrer">
+            <button 
+              type="button" 
+              className="mt-5 mb-6 rounded-full bg-[#fff] px-6 py-[10px] text-[25px] font-lexendBold leading-none text-[#07004C] "
+            > 
+              Find My Role 
+            </button>
+          </Link>
+        </div>
     </div>
   );
 }
