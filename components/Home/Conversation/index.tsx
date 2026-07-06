@@ -72,13 +72,13 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
               whileTap={{ scale: 0.95 }}
               className="text-buttons border-4 border-[#07004C] bg-[#07004C] text-[#fff] px-18 py-2 rounded-full transition-colors duration-100 inline-block cursor-pointer"
             >
-              Whatsapp
+              Email Us
             </motion.a>
             <motion.a
               href={CONVERSATION_DATA.callbackUrl}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ backgroundColor: "#0fbdbd" }}
+              whileHover={{ backgroundColor: "#40E2B8" }}
               className="border-4 border-[#07004C] text-[#07004C] text-buttons text-white px-16 py-2 rounded-full inline-block cursor-pointer"
             >
               Call Back
@@ -96,8 +96,8 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
               <motion.a 
                 href={CONVERSATION_DATA.subscribeUrl} 
                 target="_blank"
-                whileHover={{ backgroundColor: "#0fbdbd" }}
-                className="bg-[#14D8D8] px-8 text-[#16203B] text-buttons text-white px-10 py-3 rounded-full inline-block cursor-pointer"
+                whileHover={{ backgroundColor: "#40E2B8" }}
+                className="bg-[#40E2B8] px-8 text-[#07004C] text-buttons px-10 py-3 rounded-full inline-block cursor-pointer"
               >
                 Subscribe 
               </motion.a>
@@ -115,7 +115,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
               initial={{ x: -20, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="bg-[#14D8D8] text-[#fff] text-subheading px-3 py-1"
+              className="bg-[#40E2B8] text-[#fff] text-subheading px-3 py-1"
             >
               Quick
             </motion.span>
@@ -128,7 +128,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
                 <h4 className="text-quicklinksheader text-[#07004c]">
                   {column.title}
                 </h4>
-                <ul className="mt-3 space-y-1 text-white/90">
+                <ul className="mt-3 space-y-1 text-white">
                   {column.links.map((link: FooterLink, linkIdx: number) => {
                     const isObject = typeof link !== "string";
                     const linkName = isObject ? link.name : link;
@@ -146,7 +146,7 @@ export default function FooterSection({ copyright }: FooterSectionProps) {
                     return (
                       <li
                         key={linkIdx}
-                        className="hover:text-[#07004c] text-quicklinks text-sm md:text-base"
+                        className="hover:text-[#40E2B8] text-quicklinks text-sm md:text-[#fff]"
                       >
                         <Link href={finalHref}>{linkName}</Link>
                       </li>

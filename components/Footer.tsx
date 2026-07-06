@@ -85,7 +85,7 @@ export default function Footer({
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-links hover:text-lightblue transition-colors"
+                  className="text-links hover:text-[#40E2B8] transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -105,12 +105,12 @@ export default function Footer({
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 flex items-center justify-center rounded-full hover:text-lightblue transition-colors"
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:text-[#40E2B8] transition-colors"
                 aria-label={`Visit Muve Healthcare on ${social.name}`}
               >
                 <img
                   src={`/icons/footer/${social.name}.svg`}
-                  className="w-7"
+                  className="w-7 hover:text-[#40E2B8]"
                   alt={social.name}
                 />
               </a>

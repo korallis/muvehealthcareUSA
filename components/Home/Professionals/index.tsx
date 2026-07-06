@@ -62,7 +62,7 @@ export default function Professionals({ title }: ProfessionalsProps) {
                   <p className="font-lexendBold text-[18px] sm:text-[21px] text-[#07004C] leading-snug">
                     {benefit.title}
                   </p>
-                  <p className="font-lexendBold text-[16px] sm:text-[21px] text-[#07004C] opacity-90">
+                  <p className="font-lexendBold text-[16px] sm:text-[21px] text-[#07004C] opacity-90" style={{ whiteSpace: 'pre-line' }}>
                     {benefit.description}
                   </p>
                 </div>

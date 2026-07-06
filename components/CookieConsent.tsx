@@ -91,7 +91,7 @@ export function CookiePreferencesButton() {
   }
 
   return (
-    <button onClick={reopenBanner} className="text-footer hover:underline">
+    <button onClick={reopenBanner} className="text-footer hover:underline text-[#40E2B8]">
       Manage Cookie Preferences
     </button>
   );

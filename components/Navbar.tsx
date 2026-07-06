@@ -23,31 +23,34 @@ interface NavbarProps {
   logo?: string;
   links?: NavLink[];
   puck?: { isEditing: boolean; dragRef?: React.Ref<HTMLElement> };
-  [key: string]: unknown; // Allow additional Puck-injected props
+  [key: string]: unknown;
 }
 
 export default function Navbar({ logo, links, puck }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(""); // New state for search
+  const [searchQuery, setSearchQuery] = useState("");
   const [openSubIndex, setOpenSubIndex] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false); // Solves Server/Client Hydration Error
 
   const pathname = usePathname();
   const searchRef = useRef<HTMLDivElement>(null);
 
   const isEditing = pathname?.includes("/dashboard/edit");
 
-  // Logic to filter through the links provided in props
+  // Delay interactivity safely until hydration finishes on the client side
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) return [];
 
     const results: { title: string; href: string }[] = [];
     links?.forEach((link: NavLink) => {
-      // Check main links
       if (link.title.toLowerCase().includes(searchQuery.toLowerCase())) {
         results.push({ title: link.title, href: link.href });
       }
-      // Check sub links
       link.subLinks?.forEach((sub: NavSubLink) => {
         if (sub.title.toLowerCase().includes(searchQuery.toLowerCase())) {
           results.push({ title: sub.title, href: sub.href });
@@ -57,7 +60,6 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
     return results;
   }, [searchQuery, links]);
 
-
   const handleLinkClick = (e: React.MouseEvent, href?: string) => {
     if (isEditing) {
       e.preventDefault();
@@ -65,73 +67,72 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
       return;
     }
 
-    // Advanced Animated Scroll for internal section links
-    if (href && href.startsWith("#")) {
-      e.preventDefault();
-      const targetElement = document.getElementById(href.substring(1));
-      
-      if (targetElement) {
-        // Calculate where the element sits relative to the window, accounting for your sticky navbar height (approx 80px)
-        const navbarOffset = 80; 
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - navbarOffset;
+    if (href && href.includes("#")) {
+      const [urlPath, anchorId] = href.split("#");
 
-        // Custom mathematical animation loop for precise easing curves
-        const startPosition = window.pageYOffset;
-        const distance = offsetPosition - startPosition;
-        let startTime: number | null = null;
-        const duration = 1200; // Animation speed in milliseconds (increase for slower, smoother glides)
+      // Normalize layout path strings to match root scopes cleanly
+      const cleanUrlPath = urlPath === "" || urlPath === "/" ? "/" : urlPath;
+      const cleanCurrentPath = pathname === "" || pathname === "/" ? "/" : pathname;
 
-        // Cubic-bezier easing function (Ease-in-out-cubic for a premium, heavy cinematic glide)
-        const easeInOutCubic = (t: number) => {
-          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-        };
+      // Only handle smooth scroll if the target ID is on the active route
+      if (cleanCurrentPath === cleanUrlPath) {
+        const targetElement = document.getElementById(anchorId);
 
-        const animationLoop = (currentTime: number) => {
-          if (startTime === null) startTime = currentTime;
-          const timeElapsed = currentTime - startTime;
-          const run = easeInOutCubic(Math.min(timeElapsed / duration, 1));
-          
-          window.scrollTo(0, startPosition + distance * run);
+        if (targetElement) {
+          e.preventDefault();
 
-          if (timeElapsed < duration) {
-            requestAnimationFrame(animationLoop);
-          }
-        };
+          // scrollIntoView lets the browser own the entire scroll path
+          // (including sticky-header-aware layout) rather than us feeding it
+          // one manually computed pixel value via scrollTo — this tends to
+          // be noticeably smoother, especially with a sticky navbar.
+          // scroll-margin-top makes it stop clear of the sticky navbar.
+          const navbarOffset = 80;
+          targetElement.style.scrollMarginTop = `${navbarOffset}px`;
+          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
 
-        requestAnimationFrame(animationLoop);
+          // Update the hash without jumping (native smooth scroll keeps animating)
+          window.history.pushState(null, "", `#${anchorId}`);
+        }
       }
     }
 
-    setMobileOpen(false);
-    setSearchOpen(false);
-    setSearchQuery("");
+    // Deferred to the next tick so closing the mobile drawer / search
+    // dropdown (a layout change) doesn't land on the exact same frame the
+    // smooth-scroll animation starts, which can cause a stutter at kickoff.
+    requestAnimationFrame(() => {
+      setMobileOpen(false);
+      setSearchOpen(false);
+      setSearchQuery("");
+    });
   };
 
-
-
-  // Close search when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
         setSearchOpen(false);
-        setSearchQuery(""); // Clear search when closing
+        setSearchQuery("");
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Structural fix for truncated "z-" layout tracking configurations
   const navClasses = isEditing
-    ? "w-full bg-[#07004C] text-white relative z-[1]"
-    : "w-full bg-[#07004C] text-white sticky top-0 z-[50]";
+    ? "w-full bg-[#07004C] text-white relative z-10"
+    : "w-full bg-[#07004C] text-white sticky top-0 z-50";
+
+  // Match initial layout properties smoothly during the hydration transition
+  if (!mounted) {
+    return <nav className={navClasses} style={{ height: "76px" }} />;
+  }
 
   return (
     <nav ref={puck?.dragRef} className={navClasses}>
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/test" onClick={handleLinkClick}>
+          <Link href="/test" onClick={(e) => handleLinkClick(e, "/test")}>
             <Image
               src={logo || "/muve-logo.svg"}
               alt="Logo"
@@ -141,14 +142,14 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
             />
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop Nav Layout */}
           <ul className="hidden lg:flex items-center gap-10 font-semibold text-white text-sm">
             {links?.map((link: NavLink, index: number) => (
               <li key={index} className="relative group py-2">
                 <div className="flex items-center gap-1 cursor-pointer">
                   <Link
                     href={link.href || "#"}
-                    onClick={handleLinkClick}
+                    onClick={(e) => handleLinkClick(e, link.href)}
                     className={`hover:text-lightblue font-lexend transition-colors ${pathname === link.href ? "text-lightblue" : "text-white"}`}
                   >
                     {link.title}
@@ -169,7 +170,7 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
                       <li key={subIdx}>
                         <Link
                           href={sub.href || "#"}
-                          onClick={handleLinkClick}
+                          onClick={(e) => handleLinkClick(e, sub.href)}
                           className={`block px-5 py-2 hover:bg-black/10 transition-colors whitespace-nowrap ${link.textColor || "text-white"}`}
                         >
                           {sub.title}
@@ -191,7 +192,7 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
                 onClick={() => setSearchOpen(!searchOpen)}
                 className="flex items-center justify-center w-12 h-10"
               >
-                <HiOutlineMagnifyingGlass size={20} />
+                <HiOutlineMagnifyingGlass size={20} className="text-[#07004C]" />
               </button>
               <input
                 type="text"
@@ -205,13 +206,13 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
 
             {/* REAL-TIME RESULTS DROPDOWN */}
             {searchOpen && searchQuery && (
-              <div className="absolute top-full mt-2 right-0 w-64 bg-white rounded-xl shadow-2xl overflow-hidden z-[60] border border-gray-100">
+              <div className="absolute top-full mt-2 right-0 w-64 bg-white rounded-xl shadow-2xl overflow-hidden z-50 border border-gray-100">
                 {searchResults.length > 0 ? (
                   searchResults.map((result, i) => (
                     <Link
                       key={i}
                       href={result.href}
-                      onClick={handleLinkClick}
+                      onClick={(e) => handleLinkClick(e, result.href)}
                       className="block px-4 py-3 text-sm text-navyblue hover:bg-lightblue/10 border-b border-gray-50 last:border-none transition-colors"
                     >
                       {result.title}
@@ -236,27 +237,27 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
         </div>
       </div>
 
-      {/* Backdrop Blur */}
+      {/* Backdrop Blur Overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 z-[998] lg:hidden
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 z-40 lg:hidden
           ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
         `}
         onClick={() => setMobileOpen(false)}
       ></div>
 
-      {/* Side Drawer */}
+      {/* Side Drawer Component */}
       <div
-        className={`fixed top-0 right-0 h-full w-72 bg-navyblue p-6 transition-transform duration-300 z-[999] lg:hidden
-          ${mobileOpen ? "translate-x-0" : "translate-x-full"}
-        `}
+        className={`fixed top-0 right-0 h-full w-72 bg-[#07004C] p-6 transition-transform duration-300 z-50 lg:hidden ${
+          mobileOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
-        <div className="flex justify-between items-center mb-8">
-          <Link href="/" onClick={handleLinkClick}>
+        <div className="flex items-center justify-between mb-8">
+          <Link href="/" onClick={(e) => handleLinkClick(e, "/")}>
             <Image
-              src={logo || "/muve-logo.png"}
+              src={logo || "/muve-logo.svg"}
               alt="Logo"
-              width={110}
-              height={55}
+              width={120}
+              height={50}
               className="object-contain"
             />
           </Link>
@@ -268,18 +269,18 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
           </button>
         </div>
 
-        <ul className="flex flex-col gap-6 text-lg font-medium">
+        <ul className="flex flex-col gap-6 font-semibold text-white text-sm">
           {links?.map((link: NavLink, index: number) => {
             const hasSubLinks = (link.subLinks?.length ?? 0) > 0;
             const isOpen = openSubIndex === index;
 
             return (
-              <li key={index} className="flex flex-col">
-                <div className="flex items-center justify-between w-full">
+              <li key={index}>
+                <div className="flex items-center justify-between">
                   <Link
                     href={link.href || "#"}
-                    onClick={handleLinkClick}
-                    className={`hover:text-lightblue font-lexend ${pathname === link.href ? "text-lightblue" : "text-white"}`}
+                    onClick={(e) => handleLinkClick(e, link.href)}
+                    className={`font-lexend transition-colors ${pathname === link.href ? "text-lightblue" : "text-white"}`}
                   >
                     {link.title}
                   </Link>
@@ -297,14 +298,16 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
 
                 {hasSubLinks && (
                   <ul
-                    className={`flex flex-col gap-4 pl-4 mt-4 border-l border-white/10 overflow-hidden transition-all duration-300 ${isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"}`}
+                    className={`flex flex-col gap-4 pl-4 mt-4 border-l border-white/10 overflow-hidden transition-all duration-300 ${
+                      isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+                    }`}
                   >
                     {link.subLinks?.map((sub: NavSubLink, subIdx: number) => (
                       <li key={subIdx}>
                         <Link
                           href={sub.href || "#"}
-                          onClick={handleLinkClick}
-                          className="text-white/70 hover:text-white text-base"
+                          onClick={(e) => handleLinkClick(e, sub.href)}
+                          className="block text-white/80 hover:text-white transition-colors"
                         >
                           {sub.title}
                         </Link>
@@ -316,42 +319,6 @@ export default function Navbar({ logo, links, puck }: NavbarProps) {
             );
           })}
         </ul>
-
-        {/* Mobile Search Bar with Results */}
-        <div className="mt-10 relative">
-          <div className="flex items-center bg-white text-navyblue rounded-full px-4 py-2">
-            <HiOutlineMagnifyingGlass size={20} />
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              disabled={isEditing}
-              className="ml-3 outline-none flex-1 bg-transparent text-navyblue"
-            />
-          </div>
-          {/* Mobile Search Results */}
-          {searchQuery && (
-            <div className="mt-2 bg-white rounded-xl overflow-hidden shadow-lg">
-              {searchResults.length > 0 ? (
-                searchResults.map((result, i) => (
-                  <Link
-                    key={i}
-                    href={result.href}
-                    onClick={handleLinkClick}
-                    className="block px-4 py-2 text-sm text-navyblue border-b border-gray-100 last:border-none"
-                  >
-                    {result.title}
-                  </Link>
-                ))
-              ) : (
-                <div className="px-4 py-2 text-xs text-gray-400">
-                  No results found
-                </div>
-              )}
-            </div>
-          )}
-        </div>
       </div>
     </nav>
   );
