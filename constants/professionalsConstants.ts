@@ -21,7 +21,8 @@ export const PROFESSIONALS_CARD_DATA: CardContentConfig = {
   benefits: [
     {
       title: "24/7 Support",
-      description: "Call, email or message anytime. We’re always here to help."
+      description:  `Call, email or message anytime.
+We’re always here to help.`
     },
     {
       title: "Fast, Simple Applications",

@@ -128,7 +128,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
 
     // 2. Safe mobile width viewport listener
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 640);
+      setIsMobile(window.innerWidth < 768);
     };
     handleResize(); // Evaluate instantly on load
     window.addEventListener("resize", handleResize);
@@ -157,9 +157,9 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
     };
   }, []);
 
-  
+
   // ── FILTER LOGIC UTILITIES ──
-  
+
   // Custom date range detector to support both absolute UTC/ISO strings and relative text phrases (e.g. '12 hours ago')
   const isDateWithinRange = (listedDateStr?: string, filterValue?: string): boolean => {
     if (!listedDateStr || !filterValue || filterValue === "Any time") return true;
@@ -179,7 +179,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
     } else {
       // Relative plain English string parsing fallback (e.g., "7 hours ago", "Last week")
       const lowercaseText = listedDateStr.toLowerCase();
-      
+
       // Standard immediate keywords
       if (
         lowercaseText.includes("second") ||
@@ -252,7 +252,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
       const titleMatch = (job.title || "").toLowerCase().includes(q);
       const categoryMatch = (job.jobType || job.type || "").toLowerCase().includes(q);
       const locMatch = getJobLocationString(job).toLowerCase().includes(q);
-      
+
       if (!titleMatch && !categoryMatch && !locMatch) return false;
     }
 
@@ -311,13 +311,13 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
       const activeId = job.jobId || job.id;
       if (activeId) {
         destinationUrl = `https://nexus-leap.laboredge.com/MUVE/job-details-view/${activeId}`;
-        
+
         if (isApplyAction) {
           destinationUrl += "?action=apply";
         }
       }
     }
-    
+
     if (destinationUrl) {
       window.open(destinationUrl, "_blank", "noopener,noreferrer");
     } else {
@@ -325,37 +325,30 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
     }
   };
 
-  // const prev = (): void => setCurrent((c) => (c === 0 ? categories.length - 1 : c - 1));
-  // const next = (): void => setCurrent((c) => (c === categories.length - 1 ? 0 : c + 1));
-
-  const visibleItems = isMobile ? 1 : 3; 
-  // const maxIndex = Math.max(0, categories.length - visibleItems);
-  
-  // const next = () => { setCurrent((prev) => Math.min(prev + 1, maxIndex)); };
-  // const prev = () => { setCurrent((prev) => Math.max(prev - 1, 0)); };
+  const visibleItems = isMobile ? 1 : 3;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Number of cards visible at once per breakpoint (mobile: 1, desktop: 3),
+  // driven by the `isMobile` state (kept in sync via the resize listener
+  // above) instead of reading `window.innerWidth` directly during render.
+  // Reading `window` inline like that returns `undefined` during server
+  // rendering, so the server and client can compute different max indexes
+  // and transform values — that mismatch was the cause of the hydration
+  // warning, and it also meant the carousel never adjusted on resize.
+  const maxIndex = isMobile ? categories.length - 1 : categories.length - 3;
+
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => {
-      const isDesktop = typeof window !== "undefined" && window.innerWidth >= 768;
-      const maxIndex = isDesktop ? categories.length - 3 : categories.length - 1;
-      return prevIndex >= maxIndex ? 0 : prevIndex + 1;
-    });
+    setCurrentIndex((prevIndex) => (prevIndex >= maxIndex ? 0 : prevIndex + 1));
   };
-  
+
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => {
-      const isDesktop = typeof window !== "undefined" && window.innerWidth >= 768;
-      const maxIndex = isDesktop ? categories.length - 3 : categories.length - 1;
-      return prevIndex === 0 ? maxIndex : prevIndex - 1;
-    });
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? maxIndex : prevIndex - 1));
   };
 
   return (
     <div id="work-with-us" className="w-full relative overflow-hidden font-sans pb-16"
       style={{
-        display: "grid",
         background: "linear-gradient(180deg, #40E2B8 0%, #45E3BA 35%, #78EACD 58%, #A2F0DC 80%, #B3F3E3 91%, #B3F3E3 100%)",
       }}
     >
@@ -376,24 +369,25 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
         </div>
 
         <div className="relative flex items-center gap-0 w-full">
-          {/* Previous Button - Overlay absolute on mobile to maximize viewport track */}
-          <button 
-            type="button" 
-            onClick={prevSlide} 
-            aria-label="Previous" 
-            className="absolute -left-5 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#4C86FF] top-1/2 -translate-y-1/2"
+          {/* Previous Button - tucked closer to the edge on mobile so it doesn't spill off-screen */}
+          <button
+            type="button"
+            onClick={prevSlide}
+            aria-label="Previous"
+            className="absolute left-1 sm:-left-5 z-10 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#4C86FF] top-1/2 -translate-y-1/2 shadow-md"
           >
-            <ChevronLeft size={30} strokeWidth={3} className="text-[#fff]" />
+            <ChevronLeft size={26} strokeWidth={3} className="text-[#fff] sm:hidden" />
+            <ChevronLeft size={30} strokeWidth={3} className="text-[#fff] hidden sm:block" />
           </button>
 
           {/* Mask container preserving layout boundary bounds */}
           <div className="overflow-hidden w-full">
-            <div 
+            <div
               className="flex gap-3 transition-transform duration-300 ease-in-out"
-              style={{ 
-                transform: typeof window !== "undefined" && window.innerWidth >= 768 
-                  ? `translateX(calc(-${currentIndex} * (33.333% + 8px)))` 
-                  : `translateX(calc(-${currentIndex} * (100% + 12px)))` 
+              style={{
+                transform: isMobile
+                  ? `translateX(calc(-${currentIndex} * (100% + 12px)))`
+                  : `translateX(calc(-${currentIndex} * (33.333% + 8px)))`,
               }}
             >
               {categories.map((cat, idx) => (
@@ -412,13 +406,13 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                       className="object-cover"
                     />
                   </div>
-                  
+
                   {/* Content Container */}
                   <div className="p-5 bg-white w-full flex-1">
-                    <h3 className="text-[#07004C] text-center font-lexendBold text-[30px] sm:text-[30px] mb-2 group-hover:text-[#4C86FF] transition-colors duration-300">
+                    <h3 className="text-[#07004C] text-center font-lexendBold text-[22px] sm:text-[30px] mb-2 group-hover:text-[#4C86FF] transition-colors duration-300">
                       {cat.title}
                     </h3>
-                    <p className="text-[#07004C] font-lexend text-center text-[20px] sm:text-[20px] leading-relaxed">
+                    <p className="text-[#07004C] font-lexend text-center text-[16px] sm:text-[20px] leading-relaxed">
                       {cat.description}
                     </p>
                   </div>
@@ -427,14 +421,15 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
             </div>
           </div>
 
-          {/* Next Button - Overlay absolute on mobile to maximize viewport track */}
-          <button 
-            type="button" 
-            onClick={nextSlide} 
-            aria-label="Next" 
-            className="absolute -right-5 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[#4C86FF] top-1/2 -translate-y-1/2"
+          {/* Next Button - tucked closer to the edge on mobile so it doesn't spill off-screen */}
+          <button
+            type="button"
+            onClick={nextSlide}
+            aria-label="Next"
+            className="absolute right-1 sm:-right-5 z-10 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#4C86FF] top-1/2 -translate-y-1/2 shadow-md"
           >
-            <ChevronRight size={30} strokeWidth={3} className="text-[#fff]" />
+            <ChevronRight size={26} strokeWidth={3} className="text-[#fff] sm:hidden" />
+            <ChevronRight size={30} strokeWidth={3} className="text-[#fff] hidden sm:block" />
           </button>
         </div>
 
@@ -470,8 +465,8 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
 
             {/* Responsive grid mapping filter sections */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
-              
-              
+
+
 
               {/* Filter 1: Job Type */}
               <div className="col-span-1 lg:col-span-3 relative">
@@ -608,7 +603,7 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
                   Try broadening or updating your criteria, or click "Reset" above to start fresh.
                 </p>
                 {isAnyFilterActive && (
-                  <button 
+                  <button
                     onClick={handleClearFilters}
                     className="mt-4 px-4 py-2 bg-[#3DDDB3] text-[#0E1552] text-xs font-lexendBold rounded-full hover:brightness-110 active:scale-95 transition-all"
                   >
@@ -636,12 +631,12 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
 
                   {/* Show on mobile under the header, or seamlessly in grid on desktop */}
                   <p className="text-[#07004C] text-[15px] sm:text-[16px] font-lexend block text-center">
-                    {job.weeklyPay 
-                      ? `Weekly Pay: $${Number(job.weeklyPay).toLocaleString()}` 
-                      : (job.week1Gross 
-                         ? `Weekly Pay: ${job.week1Gross}` 
-                         : (job.weeklyGrossPay 
-                            ? `Weekly Pay: $${Number(job.weeklyGrossPay).toLocaleString()}` 
+                    {job.weeklyPay
+                      ? `Weekly Pay: $${Number(job.weeklyPay).toLocaleString()}`
+                      : (job.week1Gross
+                         ? `Weekly Pay: ${job.week1Gross}`
+                         : (job.weeklyGrossPay
+                            ? `Weekly Pay: $${Number(job.weeklyGrossPay).toLocaleString()}`
                             : `Listed ${getFormattedDate(job.postedDate || job.listed)}`
                            )
                         )
@@ -671,11 +666,11 @@ export default function WorkWithUsToo({ title }: WorkwithusProps) {
 
       <div className="flex justify-center w-full">
           <Link href="/ApplicationForm" target="_blank" rel="noopener noreferrer">
-            <button 
-              type="button" 
-              className="mt-5 mb-6 rounded-full bg-[#fff] px-6 py-[10px] text-[25px] font-lexendBold leading-none text-[#07004C] "
-            > 
-              Find My Role 
+            <button
+              type="button"
+              className="mt-5 mb-6 rounded-full bg-[#fff] px-6 py-[10px] text-[18px] sm:text-[25px] font-lexendBold leading-none text-[#07004C] "
+            >
+              Find My Role
             </button>
           </Link>
         </div>
